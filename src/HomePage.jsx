@@ -1,84 +1,36 @@
-import React, { useState } from 'react';
-import './HomePage.css'; 
+// HomePage.jsx
+import React from 'react';
+import './HomePage.css';
+// import houseImage1 from './images/house1.jpg'; 
+// import houseImage2 from './images/house2.jpg';
+// import houseImage3 from './images/house3.jpg';
 
-function RegistrationForm() {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    userType: 'user',
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
-    // You can add your API call here to register the user
-  };
-
-  return (
-    <div className="registration-form">
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
+const HomePage = () => {
+    return (
+        <div className="home-page">
+            <header className="navbar">
+                <div className="navbar-brand">Real Estate Dashboard</div>
+                <nav className="navbar-links">
+                    <a href="/">Home</a>
+                    <a href="/properties">Properties</a>
+                    <a href="/reviews">Reviews</a>
+                </nav>
+                <div className="user-icon">
+                    <span className="icon">👤</span>
+                    <span className="role">Role</span>
+                </div>
+            </header>
+            <main className="insights">
+                <h2>Welcome to Our Real Estate Site</h2>
+                <p>Explore the best properties available in your area!</p>
+                {/* <div className="property-gallery">
+                    <img src={houseImage1} alt="House 1" />
+                    <img src={houseImage2} alt="House 2" />
+                    <img src={houseImage3} alt="House 3" />
+                </div> */}
+            </main>
         </div>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="userType">Register as:</label>
-          <select
-            id="userType"
-            name="userType"
-            value={formData.userType}
-            onChange={handleChange}
-            required
-          >
-            <option value="user">User</option>
-            <option value="agent">Agent</option>
-            <option value="admin">Admin</option>
-          </select>
-        </div>
-        <button type="submit">Register</button>
-      </form>
-    </div>
-  );
-}
+    );
+};
 
-export default RegistrationForm;
+export default HomePage;
