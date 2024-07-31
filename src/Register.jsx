@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function RegistrationForm() {
+  const navigate = useNavigate ()
   const [formData, setFormData] = useState({
-    username: '',
+    fullName: '',
     email: '',
     password: '',
-    userType: 'user',
+    password2: '',
   });
 
   const handleChange = (e) => {
@@ -16,27 +18,56 @@ function RegistrationForm() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmitSignup = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // You can add your API call here to register the user
+
+    const { fullName, email, password, password2 } = formData; 
+
+    if (password !== password2) {
+      alert('Passwords do not match');
+      return;
+    }
+
+    fetch('http://127.0.0.1:5000/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ full_name: fullName, email: email, password: password, password2: password2 }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return res.json().then((error) => {
+            throw new Error(error.message);
+          });
+        }
+      })
+      .then((data) => {
+        console.log('User registered successfully', data);
+        alert('User registered successfully');
+        navigate('/')
+      })
+      .catch((error) => {
+        console.error('Error:', error.message);
+        alert('Error: ' + error.message);
+      });
   };
 
   return (
     <div className="registration-form-container">
       <h2>Join Our Real Estate Community</h2>
       <p>Create an account to explore properties and connect with agents.</p>
-      <form onSubmit={handleSubmit} className="registration-form">
+      <form onSubmit={handleSubmitSignup} className="registration-form">
         <div className="form-group">
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="fullName">Full name:</label>
           <input
             type="text"
-            id="username"
-            name="username"
-            value={formData.username}
+            id="fullName"
+            name="fullName"
+            value={formData.fullName}
             onChange={handleChange}
             required
-            placeholder="Enter your username"
+            placeholder="Enter your full name"
           />
         </div>
         <div className="form-group">
@@ -64,18 +95,16 @@ function RegistrationForm() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="userType">Register as:</label>
-          <select
-            id="userType"
-            name="userType"
-            value={formData.userType}
+          <label htmlFor="password2">Confirm Password:</label>
+          <input
+            type="password"
+            id="password2"
+            name="password2"
+            value={formData.password2}
             onChange={handleChange}
             required
-          >
-            <option value="user">User</option>
-            <option value="agent">Agent</option>
-            <option value="admin">Admin</option>
-          </select>
+            placeholder="Confirm password"
+          />
         </div>
         <button type="submit" className="register-button">Register</button>
       </form>

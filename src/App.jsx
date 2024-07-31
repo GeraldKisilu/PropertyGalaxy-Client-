@@ -6,15 +6,22 @@ import Agent from './Agent';
 import './App.css'
 import Register from './Register';
 import Review from './Review';
+import Login from './login';
+import ForgotPassword from './ForgotPassword';
+import ResetPassword from './ResetPassword';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/homepage" element={<HomePage />} />
         <Route path="/agent" element={<Agent />} />
         <Route path="/register" element={<Register />} />
         <Route path="/reviews" element={<Review />} />
+        <Route path='/' element = {<Login/>} />
+        <Route path='/forgot-password' element = {<ForgotPassword/>} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+
       </Routes>
     </Router>
   );
