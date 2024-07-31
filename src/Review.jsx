@@ -11,6 +11,7 @@ const ReviewPage = () => {
     
     const [newReview, setNewReview] = useState('');
     const [username, setUsername] = useState('');
+    const [rating, setRating] = useState(0);
 
     const handleReviewChange = (e) => {
         setNewReview(e.target.value);
@@ -20,17 +21,23 @@ const ReviewPage = () => {
         setUsername(e.target.value);
     };
 
+    const handleRatingChange = (newRating) => {
+        setRating(newRating);
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (newReview && username) {
+        if (newReview && username && rating) {
             const newReviewEntry = {
                 id: reviews.length + 1,
                 username,
                 comment: newReview,
+                rating,
             };
             setReviews([...reviews, newReviewEntry]);
             setNewReview('');
             setUsername('');
+            setRating(0);
         }
     };
 
@@ -41,6 +48,11 @@ const ReviewPage = () => {
                 {reviews.map((review) => (
                     <div key={review.id} className="review-item">
                         <strong>{review.username}</strong>
+                        <div className="rating">
+                            {[...Array(review.rating)].map((_, i) => (
+                                <span key={i} className="star">⭐</span>
+                            ))}
+                        </div>
                         <p>{review.comment}</p>
                     </div>
                 ))}
@@ -63,6 +75,18 @@ const ReviewPage = () => {
                         onChange={handleReviewChange}
                         required
                     />
+                </div>
+                <div className="form-group rating">
+                    <label>Rating:</label>
+                    {[1, 2, 3, 4, 5].map((star) => (
+                        <span
+                            key={star}
+                            className={`star ${rating >= star ? 'selected' : ''}`}
+                            onClick={() => handleRatingChange(star)}
+                        >
+                            ⭐
+                        </span>
+                    ))}
                 </div>
                 <button type="submit">Submit Review</button>
             </form>

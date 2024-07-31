@@ -1,3 +1,4 @@
+/* ReviewPage.css */
 
 .review-page {
     padding: 20px;
@@ -27,6 +28,22 @@ h2 {
 .review-item strong {
     display: block;
     color: #007bff;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.star {
+    font-size: 20px;
+    cursor: pointer;
+    color: #FFD700; /* Gold color for stars */
+}
+
+.selected {
+    color: #FFD700; /* Gold color for selected stars */
 }
 
 .review-form {

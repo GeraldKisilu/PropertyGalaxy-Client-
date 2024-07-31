@@ -1,83 +1,86 @@
-// Register.jsx
 import React, { useState } from 'react';
 
-const Register = () => {
-    // State to manage form inputs
-    const [fullName, setFullName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [roleId, setRoleId] = useState(1); // Default role ID, adjust as necessary
+function RegistrationForm() {
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    userType: 'user',
+  });
 
-    // Handle form submission
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
-        const userData = {
-            full_name: fullName,
-            email: email,
-            password: password,
-            role_id: roleId,
-        };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form submitted:', formData);
+    // You can add your API call here to register the user
+  };
 
-        try {
-            const response = await fetch('http://127.0.0.1:5050/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(userData),
-            });
-
-            if (response.ok) {
-                const result = await response.json();
-                console.log('User registered successfully:', result);
-                // Reset form or handle success message
-            } else {
-                console.error('Error registering user:', response.statusText);
-                // Handle error
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            // Handle network error
-        }
-    };
-
-    return (
-        <div>
-            <h2>Create an Account</h2>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    placeholder="Enter your full name"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    required
-                />
-                <input
-                    type="email"
-                    placeholder="Enter your email address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-                <input
-                    type="password"
-                    placeholder="Create a password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <input
-                    type="number"
-                    placeholder="Enter your role ID (e.g., 1 for user)"
-                    value={roleId}
-                    onChange={(e) => setRoleId(e.target.value)}
-                    required
-                />
-                <button type="submit">Create Account</button>
-            </form>
+  return (
+    <div className="registration-form-container">
+      <h2>Join Our Real Estate Community</h2>
+      <p>Create an account to explore properties and connect with agents.</p>
+      <form onSubmit={handleSubmit} className="registration-form">
+        <div className="form-group">
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+            placeholder="Enter your username"
+          />
         </div>
-    );
-};
+        <div className="form-group">
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            placeholder="Enter your email address"
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+            placeholder="Create a password"
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="userType">Register as:</label>
+          <select
+            id="userType"
+            name="userType"
+            value={formData.userType}
+            onChange={handleChange}
+            required
+          >
+            <option value="user">User</option>
+            <option value="agent">Agent</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <button type="submit" className="register-button">Register</button>
+      </form>
+    </div>
+  );
+}
 
-export default Register;
+export default RegistrationForm;

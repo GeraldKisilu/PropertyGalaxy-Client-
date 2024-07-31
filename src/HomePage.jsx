@@ -1,33 +1,24 @@
 // HomePage.jsx
 import React from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import './HomePage.css';
-// import houseImage1 from './images/house1.jpg'; 
-// import houseImage2 from './images/house2.jpg';
-// import houseImage3 from './images/house3.jpg';
 
 const HomePage = () => {
     return (
         <div className="home-page">
             <header className="navbar">
-                <div className="navbar-brand">Real Estate Dashboard</div>
+                <div className="navbar-brand">Property Galaxy</div>
                 <nav className="navbar-links">
-                    <a href="/">Home</a>
-                    <a href="/properties">Properties</a>
-                    <a href="/reviews">Reviews</a>
+                    <Link to="/">Home</Link>
+                    <Link to="/properties">Properties</Link>
+                    <Link to="/reviews">Reviews</Link>
+                    <Link to="/register">👤 Register</Link> {/* New Link for Register */}
                 </nav>
-                <div className="user-icon">
-                    <span className="icon">👤</span>
-                    <span className="role">Role</span>
-                </div>
+                
             </header>
             <main className="insights">
                 <h2>Welcome to Our Real Estate Site</h2>
                 <p>Explore the best properties available in your area!</p>
-                {/* <div className="property-gallery">
-                    <img src={houseImage1} alt="House 1" />
-                    <img src={houseImage2} alt="House 2" />
-                    <img src={houseImage3} alt="House 3" />
-                </div> */}
             </main>
         </div>
     );
