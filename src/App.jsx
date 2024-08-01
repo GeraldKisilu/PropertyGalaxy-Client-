@@ -9,6 +9,7 @@ import Review from './Review';
 import Login from './login';
 import ForgotPassword from './ForgotPassword';
 import ResetPassword from './ResetPassword';
+import ConfirmEmail from './ConfirmEmail';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path='/' element = {<Login/>} />
         <Route path='/forgot-password' element = {<ForgotPassword/>} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/confirm-email" element={<ConfirmEmail/>} />
 
       </Routes>
     </Router>
