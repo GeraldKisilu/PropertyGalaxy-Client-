@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 
 function RegistrationForm() {
-  const navigate = useNavigate ()
-  const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     password: '',
     password2: '',
   });
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,13 +22,14 @@ function RegistrationForm() {
   const handleSubmitSignup = (e) => {
     e.preventDefault();
 
-    const { fullName, email, password, password2 } = formData; 
+    const { fullName, email, password, password2 } = formData;
 
     if (password !== password2) {
       alert('Passwords do not match');
       return;
     }
 
+    setLoading(true);
     fetch('http://127.0.0.1:5000/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -44,12 +46,14 @@ function RegistrationForm() {
       })
       .then((data) => {
         console.log('User registered successfully', data);
-        alert('User registered successfully');
-        navigate('/')
+        alert('User registered successfully. A confirmation email has been sent to your account.');
       })
       .catch((error) => {
         console.error('Error:', error.message);
-        alert('Error: ' + error.message);
+        setErrorMessage('Error: ' + error.message);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -106,7 +110,10 @@ function RegistrationForm() {
             placeholder="Confirm password"
           />
         </div>
-        <button type="submit" className="register-button">Register</button>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <button type="submit" className="register-button" disabled={loading}>
+          {loading ? 'Registering...' : 'Register'}
+        </button>
       </form>
     </div>
   );
