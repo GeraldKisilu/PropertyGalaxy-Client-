@@ -20,7 +20,7 @@ const PropertyDetails = () => {
         setProperty(propertyData);
 
         // Fetch photos of the property
-        const photosResponse = await fetch(`http://localhost:5050/photo/${id}`);
+        const photosResponse = await fetch(`http://localhost:5050/property/photos`);
         if (!photosResponse.ok) {
           throw new Error('Failed to fetch photos');
         }
@@ -62,7 +62,7 @@ const PropertyDetails = () => {
             </div>
           ))
         ) : (
-        <p>No photos available for this property</p>
+          <p>No photos available</p>
         )}
       </div>
     </div>

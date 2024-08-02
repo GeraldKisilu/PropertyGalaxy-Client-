@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import './Property.css'
 
 
 const PropertyList = () => {
@@ -40,6 +41,7 @@ const PropertyList = () => {
               <h2>{property.address}</h2>
               <p>{property.city}</p>
               <p>${property.price}</p>
+              <p>{property.photos}</p>
               <Link to={`/property/${property.id}`}>View Details</Link>
             </div>
           </div>
