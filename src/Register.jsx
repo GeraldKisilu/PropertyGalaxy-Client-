@@ -71,7 +71,6 @@ function RegistrationForm() {
             value={formData.fullName}
             onChange={handleChange}
             required
-            placeholder="Username"
             placeholder="Enter your full name"
           />
         </div>
