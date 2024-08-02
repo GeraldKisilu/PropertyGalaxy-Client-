@@ -13,6 +13,8 @@ const HomePage = () => {
                     <Link to="/properties">Properties</Link>
                     <Link to="/property/id">property</Link>
                     <Link to="/reviews">Reviews</Link>
+                    <Link to="/agents">Agents</Link>
+                    
                     {/* <Link to="/register">👤 Register</Link>
                     <Link to="/login">👤 Login</Link>  */}
                    
