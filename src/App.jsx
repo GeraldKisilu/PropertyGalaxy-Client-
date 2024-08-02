@@ -10,6 +10,8 @@ import Login from './login';
 import ForgotPassword from './ForgotPassword';
 import ResetPassword from './ResetPassword';
 import ConfirmEmail from './ConfirmEmail';
+import PropertyList from './PropertyList';
+import PropertyDetails from './PropertyDetails';
 
 function App() {
   return (
@@ -23,7 +25,9 @@ function App() {
         <Route path='/forgot-password' element = {<ForgotPassword/>} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/confirm-email" element={<ConfirmEmail/>} />
-
+        <Route path="/properties" element={<PropertyList />} />
+        <Route path="/property/:id" element={<PropertyDetails />} />
+        
       </Routes>
     </Router>
   );

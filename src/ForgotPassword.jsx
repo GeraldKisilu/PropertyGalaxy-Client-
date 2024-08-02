@@ -9,7 +9,7 @@ const ForgotPassword = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post(`http://127.0.0.1:5000/auth/reset-password-request`, { email });
+      await axios.post(`http://127.0.0.1:5050/auth/reset-password-request`, { email });
       alert('If the email is registered, a reset link will be sent.');
     } catch (error) {
       if (error.response && error.response.status === 400) {

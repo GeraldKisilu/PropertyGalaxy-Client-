@@ -21,7 +21,7 @@ const ResetPassword = () => {
     }
 
     try {
-      await axios.post('http://127.0.0.1:5000/auth/reset-password', { token, password });
+      await axios.post('http://127.0.0.1:5050/auth/reset-password', { token, password });
       alert('Password has been reset successfully.');
       navigate('/');
     } catch (error) {
