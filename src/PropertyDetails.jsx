@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 const PropertyDetails = () => {
@@ -12,14 +11,22 @@ const PropertyDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        //  property details
-        const propertyResponse = await axios.get(`http://localhost:5050/property/${id}`);
-        setProperty(propertyResponse.data);
+        // Fetch property details
+        const propertyResponse = await fetch(`http://localhost:5050/property/${id}`);
+        if (!propertyResponse.ok) {
+          throw new Error('Failed to fetch property details');
+        }
+        const propertyData = await propertyResponse.json();
+        setProperty(propertyData);
 
-        //  photos of the property
-        const photosResponse = await axios.get(`http://localhost:5050/photo/${id}`);
-        setPhotos(photosResponse.data);
-        
+        // Fetch photos of the property
+        const photosResponse = await fetch(`http://localhost:5050/photo/${id}`);
+        if (!photosResponse.ok) {
+          throw new Error('Failed to fetch photos');
+        }
+        const photosData = await photosResponse.json();
+        setPhotos(photosData);
+
         setLoading(false);
       } catch (error) {
         console.error('Error fetching property and photos:', error);
@@ -55,7 +62,7 @@ const PropertyDetails = () => {
             </div>
           ))
         ) : (
-          <p>No photos available</p>
+        <p>No photos available for this property</p>
         )}
       </div>
     </div>
