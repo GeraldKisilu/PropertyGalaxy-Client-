@@ -30,7 +30,7 @@ function RegistrationForm() {
     }
 
     setLoading(true);
-    fetch('http://127.0.0.1:5000/auth/register', {
+    fetch('http://127.0.0.1:5050/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ full_name: fullName, email: email, password: password, password2: password2 }),
@@ -72,7 +72,6 @@ function RegistrationForm() {
             onChange={handleChange}
             required
             placeholder="Username"
-            placeholder="Enter your full name"
           />
         </div>
         <div className="form-group">
