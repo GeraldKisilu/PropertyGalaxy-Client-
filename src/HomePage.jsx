@@ -11,7 +11,10 @@ const HomePage = () => {
                 <nav className="navbar-links">
                     <Link to="/">Home</Link>
                     <Link to="/properties">Properties</Link>
+                    <Link to="/property/:id">PropertyDetails</Link>
                     <Link to="/reviews">Reviews</Link>
+                    <Link to="/agents">Agents</Link>
+                    
                     {/* <Link to="/register">👤 Register</Link>
                     <Link to="/login">👤 Login</Link>  */}
                    

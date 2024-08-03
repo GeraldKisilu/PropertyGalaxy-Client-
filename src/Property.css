@@ -1,0 +1,68 @@
+
+.property-list {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .property-list h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .property-list__cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .property-list__card {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .property-list__card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .property-list__card-content {
+    padding: 15px;
+  }
+  
+  .property-list__card-content h2 {
+    font-size: 1.25rem;
+    margin: 0 0 10px;
+  }
+  
+  .property-list__card-content p {
+    margin: 5px 0;
+    color: #555;
+  }
+  
+  .property-list__card-content p:first-of-type {
+    font-weight: bold;
+  }
+  
+  .property-list__card-content p:last-of-type {
+    font-size: 0.875rem;
+    color: #007bff;
+  }
+  
+  .property-list__card-content a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .property-list__card-content a:hover {
+    text-decoration: underline;
+  }
+  
