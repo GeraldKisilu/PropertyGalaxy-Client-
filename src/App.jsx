@@ -12,7 +12,6 @@ import ResetPassword from './ResetPassword';
 import ConfirmEmail from './ConfirmEmail';
 import PropertyList from './PropertyList';
 import PropertyDetails from './PropertyDetails';
-
 import AdminDashboard from './AdminDashboard'
 import UserDashboard from './UserDashboard'
 import NotAuthorized from './NotAuthorized'
@@ -32,7 +31,6 @@ function App() {
         <Route path='/forgot-password' element = {<ForgotPassword/>} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/confirm-email" element={<ConfirmEmail/>} />
-
         <Route path="/properties" element={<PropertyList />} />
         <Route path="/property/:id" element={<PropertyDetails />} />
         
