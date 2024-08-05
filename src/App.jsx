@@ -17,6 +17,7 @@ import UserDashboard from './UserDashboard'
 import NotAuthorized from './NotAuthorized'
 import AgentApplication from './AgentApplication';
 import AgentApplicationForm from './AgentApplicationForm';
+import AgentDashboard from './AgentDashboard';
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
       <Routes>
        <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/user-dashboard" element={<UserDashboard />} />
+
+        <Route path="/agent-dashboard" element={<AgentDashboard />} />
+
          <Route path="/not-authorized" element={<NotAuthorized />} />
          {/* <Route path="/homepage" element={<HomePage />} /> */}
         <Route path="/agents" element={<Agent />} />
