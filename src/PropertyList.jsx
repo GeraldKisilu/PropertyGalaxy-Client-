@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './Property.css'
-
+import './Property.css';
 
 const PropertyList = () => {
   const [properties, setProperties] = useState([]);
