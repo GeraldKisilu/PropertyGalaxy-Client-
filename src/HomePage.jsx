@@ -12,6 +12,7 @@ const HomePage = () => {
                     <Link to="/properties">Properties</Link>
                     <Link to="/reviews">Reviews</Link>
                     <Link to="/agents">Agents</Link>
+                    <Link to = '/apply-agents'>Do you wanna be an agent? </Link>
                 </nav>
             </header>
             <main className="body-content">

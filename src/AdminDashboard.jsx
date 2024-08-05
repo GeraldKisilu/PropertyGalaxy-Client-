@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import SingleUser from './SingleUser'; // Import the SingleUser component
+import SingleUser from './SingleUser'; 
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
-  const [isAuthorized, setIsAuthorized] = useState(true); // Remove this if not needed
+  const [isAuthorized, setIsAuthorized] = useState(true); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,9 +54,12 @@ const AdminDashboard = () => {
       console.error('Error reactivating user:', error);
     }
   };
-
+ function handleApplications(){
+    navigate('/agent-application')
+ }
   return (
     <div>
+        <button onClick={handleApplications}>Agent Applications</button>
       <h1>Admin Dashboard</h1>
       <div>
         <h2>User Management</h2>
