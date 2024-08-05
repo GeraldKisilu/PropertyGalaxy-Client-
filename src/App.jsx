@@ -6,7 +6,7 @@ import Agent from './Agent';
 import './App.css'
 import Register from './Register';
 import Review from './Review';
-import Login from './Login';
+import Login from './login';
 import ForgotPassword from './ForgotPassword';
 import ResetPassword from './ResetPassword';
 import ConfirmEmail from './ConfirmEmail';
@@ -15,6 +15,8 @@ import PropertyDetails from './PropertyDetails';
 import AdminDashboard from './AdminDashboard'
 import UserDashboard from './UserDashboard'
 import NotAuthorized from './NotAuthorized'
+import AgentApplication from './AgentApplication';
+import AgentApplicationForm from './AgentApplicationForm';
 
 function App() {
   return (
@@ -33,6 +35,8 @@ function App() {
         <Route path="/confirm-email" element={<ConfirmEmail/>} />
         <Route path="/properties" element={<PropertyList />} />
         <Route path="/property/:id" element={<PropertyDetails />} />
+        <Route path="/agent-application" element={<AgentApplication/>} />
+        <Route path="/apply-agents" element={<AgentApplicationForm/>}/>
         
 =======
         {/* <Route path='/user-list' element = {<UserList/>}/> */}
