@@ -45,9 +45,7 @@ function Login() {
           // Check user's role and navigate accordingly
           if (data.role_id === 1) {
             navigate('/admin-dashboard'); // Admin route
-          } else if (data.role_id === 2) {
-            navigate('/agent-dashboard')
-          }else {
+          } else {
             navigate('/user-dashboard'); // Regular user route
           }
         } else {
