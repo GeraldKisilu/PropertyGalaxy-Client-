@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 import './HomePage.css';
 
 const HomePage = () => {
@@ -12,7 +12,7 @@ const HomePage = () => {
                     <Link to="/properties">Properties</Link>
                     <Link to="/reviews">Reviews</Link>
                     <Link to="/agents">Agents</Link>
-                    <Link to = '/apply-agents'>Do you wanna be an agent? </Link>
+                    <Link to='/apply-agents'>Do you wanna be an agent? </Link>
                 </nav>
             </header>
             <main className="body-content">
@@ -24,7 +24,9 @@ const HomePage = () => {
                             <p>Price: ${Math.floor(Math.random() * 1000000)}</p>
                             <p>Description: This is a beautiful house located in a serene environment. It features modern amenities and spacious rooms.</p>
                             <div className="property-actions">
-                                <button className="like-button">❤️ Like</button>
+                                <Link to="/favorites">
+                                    <button className="like-button">❤️ Like</button>
+                                </Link>
                                 <button className="agent-button">📞 Contact Agent</button>
                             </div>
                         </div>

@@ -12,7 +12,6 @@ const PropertyDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch property details
         const propertyResponse = await fetch(`http://localhost:5050/property/${id}`);
         if (!propertyResponse.ok) {
           throw new Error('Failed to fetch property details');
@@ -20,7 +19,6 @@ const PropertyDetails = () => {
         const propertyData = await propertyResponse.json();
         setProperty(propertyData);
 
-        // Fetch photos of the property
         const photosResponse = await fetch(`http://localhost:5050/property/${id}/photos`);
         if (!photosResponse.ok) {
           throw new Error('Failed to fetch photos');
