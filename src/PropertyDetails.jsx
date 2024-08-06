@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams,Link } from 'react-router-dom';
+
 
 const PropertyDetails = () => {
   const { id } = useParams();
@@ -50,6 +51,7 @@ const PropertyDetails = () => {
       <p>Status: {property.listing_status}</p>
       <p>Rooms: {property.rooms}</p>
       
+      
       <h2>Photos</h2>
       <div>
         {photos.length > 0 ? (
@@ -62,6 +64,7 @@ const PropertyDetails = () => {
           <p>No photos available</p>
         )}
       </div>
+      <Link to = {`/contact/?property_id=${property.id}&agent_id=${property.agent_id}`}>Contact Agent</Link>
     </div>
   );
 };

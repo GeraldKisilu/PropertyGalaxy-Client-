@@ -18,6 +18,12 @@ import AgentApplicationForm from './AgentApplicationForm';
 import AgentDashboard from './AgentDashboard';
 import FavoritesPage from './FavoritesPage';
 
+import AddPropertyForm from './AddPropertyForm';
+import PropertyPhotos from './PropertyPhotos';
+
+import ContactForm from './ContactForm';
+
+
 function App() {
   return (
     <Router>
@@ -38,6 +44,19 @@ function App() {
         <Route path="/agent-application" element={<AgentApplication />} />
         <Route path="/apply-agents" element={<AgentApplicationForm />} />
         <Route path="/favorites" element={<FavoritesPage />} />
+        <Route path="/agent-application" element={<AgentApplication/>} />
+        <Route path="/apply-agents" element={<AgentApplicationForm/>}/>
+
+        <Route path = '/add-property' element = {<AddPropertyForm/>}/>
+        <Route path = '/property/:id/photos' element = {<PropertyPhotos/>}/>
+
+        <Route path="/contact" element={<ContactForm />} />
+
+        
+
+        {/* <Route path='/user-list' element = {<UserList/>}/> */}
+
+
       </Routes>
     </Router>
   );
