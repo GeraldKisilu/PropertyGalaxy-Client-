@@ -41,7 +41,8 @@ const AgentApplicationForm = () => {
                 experience: '',
                 phone_number: '',
                 languages: '',
-                agency_name: ''
+                agency_name: '',
+                photo_url: ''
             });
         } catch (err) {
             setError(err.response?.data?.message || 'Failed to submit application.');
@@ -128,6 +129,17 @@ const AgentApplicationForm = () => {
                         id="agency_name"
                         name="agency_name"
                         value={formData.agency_name}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="photo_url">Photo Url</label>
+                    <input
+                        type="text"
+                        id="photo_url"
+                        name="photo_url"
+                        value={formData.photo_url}
                         onChange={handleChange}
                         required
                     />
