@@ -18,6 +18,8 @@ import NotAuthorized from './NotAuthorized'
 import AgentApplication from './AgentApplication';
 import AgentApplicationForm from './AgentApplicationForm';
 import AgentDashboard from './AgentDashboard';
+import AddPropertyForm from './AddPropertyForm';
+import PropertyPhotos from './PropertyPhotos';
 
 function App() {
   return (
@@ -41,6 +43,8 @@ function App() {
         <Route path="/property/:id" element={<PropertyDetails />} />
         <Route path="/agent-application" element={<AgentApplication/>} />
         <Route path="/apply-agents" element={<AgentApplicationForm/>}/>
+        <Route path = '/add-property' element = {<AddPropertyForm/>}/>
+        <Route path = '/property/:id/photos' element = {<PropertyPhotos/>}/>
         
 =======
         {/* <Route path='/user-list' element = {<UserList/>}/> */}
