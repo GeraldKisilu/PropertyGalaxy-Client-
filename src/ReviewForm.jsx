@@ -31,8 +31,8 @@ const ReviewForm = ({ propertyId, authToken }) => {
 
             const data = await response.json();
             setSuccessMessage(data.message);
-            setRating(1); // Reset rating
-            setComment(''); // Reset comment
+            setRating(1); 
+            setComment(''); 
         } catch (err) {
             console.error(err);
             setError('Error submitting review');
