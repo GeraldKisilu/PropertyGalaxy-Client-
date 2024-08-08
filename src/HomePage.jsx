@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import './HomePage.css';
 import logo from './assets/Images/proppertygalaxy.jfif';
 import image1 from './assets/Images/homepage.jpg';
+import livingroom from './assets/Images/livingroom.jpg';
+import interior from './assets/Images/interior.jpg';
 
 
 const HomePage = () => {
@@ -59,6 +61,7 @@ const HomePage = () => {
                 </div>
                 <nav className="navbar-links">
                     <Link to="/">Home</Link>
+                    {/* <Link to="/about">About</Link> */}
                     <Link to="/properties">Properties</Link>
                     <Link to="/reviews">Reviews</Link>
                  
@@ -111,6 +114,55 @@ const HomePage = () => {
                 </div>
 
                 <Link to="/properties" className="view-all-button">View All Properties</Link>
+
+                <section className="about" id="about">
+                    <div className="container">
+                        <figure className="about-banner">
+                            <img src={livingroom} alt="House interior" />
+                            <img src={interior} alt="House interior" className="abs-img" />
+                        </figure>
+                        <div className="about-content">
+                            <p className="section-subtitle">About Us</p>
+                            <h2 className="h2 section-title">The Leading Real Estate Rental Marketplace.</h2>
+                            <p className="about-text">
+                                Over 30,000 people work for us in more than 70 countries all over the world. This breadth of global
+                                coverage, combined with specialist services.
+                            </p>
+                            <ul className="about-list">
+                                <li className="about-item">
+                                    <div className="about-item-icon">
+                                        <ion-icon name="home-outline"></ion-icon>
+                                    </div>
+                                    <p className="about-item-text">Smart Home Design</p>
+                                </li>
+                                <li className="about-item">
+                                    <div className="about-item-icon">
+                                        <ion-icon name="leaf-outline"></ion-icon>
+                                    </div>
+                                    <p className="about-item-text">Beautiful Scene Around</p>
+                                </li>
+                                <li className="about-item">
+                                    <div className="about-item-icon">
+                                        <ion-icon name="wine-outline"></ion-icon>
+                                    </div>
+                                    <p className="about-item-text">Exceptional Lifestyle</p>
+                                </li>
+                                <li className="about-item">
+                                    <div className="about-item-icon">
+                                        <ion-icon name="shield-checkmark-outline"></ion-icon>
+                                    </div>
+                                    <p className="about-item-text">Complete 24/7 Security</p>
+                                </li>
+                            </ul>
+                            <p className="callout">
+                                "The only place that can make you comfortable enough to stay by yourself,
+                                with your companion and your whole extended family."
+                            </p>
+                            <a href="#service" className="btn">Our Services</a>
+                        </div>
+                    </div>
+                </section>
+
             </main>
 
             {/* Footer Section */}
