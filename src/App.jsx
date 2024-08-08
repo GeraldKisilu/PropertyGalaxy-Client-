@@ -5,7 +5,7 @@ import HomePage from './HomePage'
 import Agent from './Agent';
 import './App.css'
 import Register from './Register';
-import Review from './Review';
+import Review from './ReviewForm';
 import Login from './Login';
 import ForgotPassword from './ForgotPassword';
 import ResetPassword from './ResetPassword';

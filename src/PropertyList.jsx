@@ -88,9 +88,12 @@ const PropertyList = ({ userId }) => {
               <p>${property.price}</p>
               <p>{property.photos && property.photos.map(photo => photo.photo_url).join(', ')}</p>
               <div className='property-actions'>
-                <button className='like-button' onClick={() => handleLike(property.id)}>
-                  ❤️ Like
-                </button>
+                <Link to={"/favorites"}>
+                  <button className='like-button' onClick={() => handleLike(property.id)}>
+                    ❤️ Like
+                  </button>
+                </Link>
+
                 <button
                   className='agent-button'
                   onClick={() => handleContactAgent(property)}
