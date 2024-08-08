@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useNavigate } from 'react';
 import { Link } from 'react-router-dom';
 import './Property.css';
+import PhotosComponent from './PhotosComponent';
 
 const PropertyList = ({ userId }) => {
   const [properties, setProperties] = useState([]);
@@ -8,6 +9,7 @@ const PropertyList = ({ userId }) => {
   const [error, setError] = useState(null);
   const [authToken, setAuthToken] = useState(localStorage.getItem('token'));
 
+  const navigate = useNavigate
   useEffect(() => {
     const fetchProperties = async () => {
       try {
@@ -39,7 +41,7 @@ const PropertyList = ({ userId }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${authToken}`
+            Authorization: `Bearer ${localStorage.getItem('token')}`
         },
         body: JSON.stringify({
           user_id: userId,
@@ -59,20 +61,27 @@ const PropertyList = ({ userId }) => {
       alert('Error saving property');
     }
   };
-
+  
   const handleContactAgent = (property) => {
-    alert(`Contacting agent for property: ${property.address}`);
-  };
-
-  if (loading) return <p>Loading... Thank you for your patience!</p>;
+    
+      navigate(`/contact/?property_id=${property.id}&agent_id=${property.agent_id}`);
+    
+  
+    
+    };
+    
+    if (loading) return <p>Loading... Thank you for your patience!</p>;
   if (error) return <p>{error}</p>;
 
   return (
     <div className="property-list">
+      <Link to='/favourites-page'>Saved </Link>
       <h1>Properties</h1>
       <div className="property-list__cards">
-        {properties.map(property => (
-          <div key={property.id} className="property-list__card">
+         {properties.map(property => (
+          
+           <div key={property.id} className="property-list__card">
+            <PhotosComponent id = {property.id}/>
             <div className="property-list__card-content">
               <h2>{property.address}</h2>
               <p>{property.city}</p>

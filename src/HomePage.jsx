@@ -64,6 +64,8 @@ const HomePage = () => {
                     <Link to="/">Home</Link>
                     <Link to="/properties">Properties</Link>
                     <Link to="/reviews">Reviews</Link>
+                 
+
                     <Link to="/apply-agents">Do you wanna be an agent?</Link>
                     <Link to="/favorites">❤️ Saved Properties</Link>
                 </nav>

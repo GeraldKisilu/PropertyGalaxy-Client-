@@ -108,7 +108,7 @@ function AgentProperty({ property}) {
           <p className="card-text">Price: {property.price}</p>
           <p className="card-text">Property Type: {property.property_type}</p>
           <p className="card-text">Listing Status: {property.listing_status}</p>
-          <p className="card-text">Rooms: {property.rooms}</p>
+          
           <Link to = {`/property/${property.id}/photos`}>View Property Photos</Link>
 
           {isEditing ? (
