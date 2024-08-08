@@ -5,7 +5,9 @@ import logo from './assets/Images/proppertygalaxy.jfif';
 import image1 from './assets/Images/homepage.jpg';
 import livingroom from './assets/Images/livingroom.jpg';
 import interior from './assets/Images/interior.jpg';
-
+import icon1 from './assets/Images/agent.jpg';
+import icon2 from './assets/Images/agent.jpg';
+import icon3 from './assets/Images/agent.jpg';
 
 const HomePage = () => {
     const [showContactCard, setShowContactCard] = useState(false);
@@ -61,7 +63,6 @@ const HomePage = () => {
                 </div>
                 <nav className="navbar-links">
                     <Link to="/">Home</Link>
-                    {/* <Link to="/about">About</Link> */}
                     <Link to="/properties">Properties</Link>
                     <Link to="/reviews">Reviews</Link>
                  
@@ -163,6 +164,37 @@ const HomePage = () => {
                     </div>
                 </section>
 
+                {/* Service Section */}
+                <section className="service" id="service">
+                    <div className="container">
+                        <div className="service-list">
+                            <div className="service-card">
+                                <div className="card-icon">
+                                    <img src={icon1} alt="Service Icon" />
+                                </div>
+                                <h3 className="card-title"><a href="#">Consulting Services</a></h3>
+                                <p className="card-text">We offer professional consulting services to help you make informed real estate decisions.</p>
+                                <a href="#" className="card-link">Learn More <i className="fas fa-arrow-right"></i></a>
+                            </div>
+                            <div className="service-card">
+                                <div className="card-icon">
+                                    <img src={icon2} alt="Service Icon" />
+                                </div>
+                                <h3 className="card-title"><a href="#">Property Management</a></h3>
+                                <p className="card-text">Our team manages properties with the utmost care and attention to detail.</p>
+                                <a href="#" className="card-link">Learn More <i className="fas fa-arrow-right"></i></a>
+                            </div>
+                            <div className="service-card">
+                                <div className="card-icon">
+                                    <img src={icon3} alt="Service Icon" />
+                                </div>
+                                <h3 className="card-title"><a href="#">Market Analysis</a></h3>
+                                <p className="card-text">We provide in-depth market analysis to help you understand the real estate trends.</p>
+                                <a href="#" className="card-link">Learn More <i className="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </main>
 
             {/* Footer Section */}
