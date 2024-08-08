@@ -33,6 +33,7 @@ function AgentDashboard() {
   return (
     <div>AgentDashboard
         <Link to = '/add-property'>Add Property</Link>
+        <Link to = '/agent-messages'>Agent Messages</Link>
        
         {properties.map(property => (
             

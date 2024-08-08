@@ -9,7 +9,7 @@ function FavoritesPage({ userId, authToken }) {
   useEffect(() => {
     const fetchSavedProperties = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:5050/savedproperties/${userId}`, {
+        const response = await fetch(`http://127.0.0.1:5050/savedproperties/user`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ function FavoritesPage({ userId, authToken }) {
     };
 
     fetchSavedProperties();
-  }, [userId, authToken]);
+  }, []);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;

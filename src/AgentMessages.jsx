@@ -9,9 +9,9 @@ const AgentMessages = () => {
     useEffect(() => {
         const fetchMessages = async () => {
             try {
-                const response = await fetch('/contact/agent', {
+                const response = await fetch('http://127.0.0.1:5050/contact/agent', {
                     headers: {
-                        'Authorization': `Bearer ${token}`, 
+                        Authorization: `Bearer ${localStorage.getItem('token')}`, 
                     },
                 });
 
@@ -29,7 +29,7 @@ const AgentMessages = () => {
         };
 
         fetchMessages();
-    }, [token]);
+    }, []);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p style={{ color: 'red' }}>{error}</p>;
@@ -44,8 +44,9 @@ const AgentMessages = () => {
                     {messages.map((message) => (
                         <li key={message.id}>
                             <h2>{message.subject}</h2>
-                            <p><strong>From:</strong> {message.name} ({message.email})</p>
+                            <p><strong>From:</strong> {message.name} ({message.email})({message.user_id}) ({message.user_name})</p>
                             <p><strong>Property ID:</strong> {message.property_id}</p>
+                            <p><strong>Subject:</strong> {message.subject}</p>
                             <p><strong>Message:</strong> {message.message}</p>
                         </li>
                     ))}

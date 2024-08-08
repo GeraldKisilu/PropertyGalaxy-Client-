@@ -49,7 +49,7 @@ const PropertyDetails = () => {
       <p>Price: ${property.price}</p>
       <p>Type: {property.property_type}</p>
       <p>Status: {property.listing_status}</p>
-      <p>Rooms: {property.rooms}</p>
+     
       
       
       <h2>Photos</h2>
