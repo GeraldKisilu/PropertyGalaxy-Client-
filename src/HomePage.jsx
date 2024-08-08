@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom';
 import './HomePage.css';
 import logo from './assets/Images/proppertygalaxy.jfif';
 import image1 from './assets/Images/homepage.jpg';
-import slide1 from './assets/Images/kitchen.jpg';
-import slide2 from './assets/Images/interior.jpg';
-import slide3 from './assets/Images/homepage.jpg';
 
 
 const HomePage = () => {
@@ -65,7 +62,7 @@ const HomePage = () => {
                     <Link to="/properties">Properties</Link>
                     <Link to="/reviews">Reviews</Link>
                     <Link to="/apply-agents">Do you wanna be an agent?</Link>
-                    <Link to="/favorites">❤️ Saved Properties</Link>
+                    <Link to="/favorites">❤️ Favorites</Link>
                 </nav>
             </header>
 
@@ -75,49 +72,46 @@ const HomePage = () => {
                     <input type="text" placeholder="Search by location" />
                     <button>Search</button>
                 </div>
-                
 
-                <div className="featured-property">
-                    <div className="property-details">
-                        <h2>Featured Property</h2>
-                        <img src={image1} alt="Property Galaxy" className="Featured Property" />
-                        <div className="property-gallery">
-                    <div className="slide">
-                        {Array.from({ length: 1 }).map((_, index) => (
-                            <div className="property-gallery">
-                            <div className="slide">
-                                <div className="slide-image">
-                                    <img src={slide1} alt="Slide 1" />
-                                </div>
-                                <div className="slide-image">
-                                    <img src={slide2} alt="Slide 2" />
-                                </div>
-                                <div className="slide-image">
-                                    <img src={slide3} alt="Slide 3" />
-                                </div>
+                <div className="hero-featured-property">
+                    <section className="hero" id="home">
+                        <div className="container">
+                            <div className="hero-content">
+                                <h2 className="h1 hero-title">Find Your Dream House By Us</h2>
+                                <p className="hero-text">
+                                    Find your dream house with ease at [PropertyGalaxy], where diverse listings and
+                                    expert guidance meet your real estate needs. Explore, discover, and make informed decisions
+                                    with us today!
+                                </p>
+                                <button className="contact-agent-button" onClick={toggleContactCard}>📞 Contact Agent</button>
                             </div>
                         </div>
-                        
-                        ))}
-                    </div>
-                </div>
-                        <p>Price: $500,000</p>
-                        <p>Description: This is a beautiful house located in a serene environment. It features modern amenities and spacious rooms.</p>
-                        <button className="contact-agent-button" onClick={toggleContactCard}>📞 Contact Agent</button>
-                    </div>
-                    {showContactCard && (
-                        <div className="contact-card">
-                            <h3>Contact Agent</h3>
-                            <p>Email: agent@example.com</p>
-                            <p>Phone: (123) 456-7890</p>
-                            <button onClick={toggleContactCard}>Close</button>
+                    </section>
+
+                    <div className="featured-property">
+                        <div className="property-details">
+                            <h2>Featured Property</h2>
+                            <img src={image1} alt="Property Galaxy" className="Featured Property" />
+                            <div className="property-gallery">
+                            </div>
+                            <p>Price: $500,000</p>
+                            <p>Description: This is a beautiful house located in a serene environment. It features modern amenities and spacious rooms.</p>
                         </div>
-                    )}
+                        {showContactCard && (
+                            <div className="contact-card">
+                                <h3>Contact Agent</h3>
+                                <p>Email: agent@example.com</p>
+                                <p>Phone: (123) 456-7890</p>
+                                <button onClick={toggleContactCard}>Close</button>
+                            </div>
+                        )}
+                    </div>
                 </div>
-                
+
                 <Link to="/properties" className="view-all-button">View All Properties</Link>
             </main>
 
+            {/* Footer Section */}
             <footer className="footer">
                 <div className="footer-links">
                     <span>Download our app:</span>
