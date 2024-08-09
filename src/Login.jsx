@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import './Login.css';
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -41,6 +42,7 @@ function Login() {
           alert("User Successfully logged in!");
           localStorage.setItem("token", data.token);
           localStorage.setItem("refresh_token", data.refresh_token);
+          localStorage.setItem("userId", data.userId);
 
           // Check user's role and navigate accordingly
           if (data.role_id === 1) {
