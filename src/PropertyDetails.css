@@ -1,0 +1,88 @@
+/* PropertyDetails.css */
+
+/* General property details page styling */
+.property-details {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Header styling */
+  .property-address {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  /* Property information styling */
+  .property-info {
+    font-size: 1.1rem;
+    margin: 5px 0;
+    color: #555;
+  }
+  
+  /* Photos section */
+  .property-photos-header {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    color: #333;
+  }
+  
+  .property-photos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .property-photo-item {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .property-photo {
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Contact link styling */
+  .property-contact-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .property-contact-link:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Loading and error messages */
+  .property-loading, .property-error, .property-not-found {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #888;
+    margin-top: 20px;
+  }
+  
+  /* No photos available message */
+  .property-no-photos {
+    font-size: 1.1rem;
+    color: #777;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .contact-agent {
+    color: black;
+  }
+  

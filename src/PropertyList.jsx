@@ -61,9 +61,7 @@ const PropertyList = ({ userId }) => {
     }
   };
 
-  const handleContactAgent = (property) => {
-    navigate(`/contact/?property_id=${property.id}&agent_id=${property.agent_id}`);
-  };
+  
 
   if (loading) return <p>Loading... Thank you for your patience!</p>;
   if (error) return <p>{error}</p>;
@@ -88,12 +86,7 @@ const PropertyList = ({ userId }) => {
                 <button className='like-button' onClick={() => handleLike(property.id)}>
                   ❤️ Like
                 </button>
-                <button
-                  className='agent-button'
-                  onClick={() => handleContactAgent(property)}
-                >
-                  📞 Contact Agent
-                </button>
+                
               </div>
               <Link to={`/property/${property.id}`}>View Details</Link>
             </div>
