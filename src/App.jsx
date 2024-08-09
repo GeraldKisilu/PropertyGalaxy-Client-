@@ -23,6 +23,8 @@ import PropertyPhotos from './PropertyPhotos';
 import AgentMessages from './AgentMessages';
 import FavoritesPage from './FavoritesPage';
 import ContactForm from './ContactForm';
+import PaymentForm from './PaymentForm'
+import UserPurchaseRequest from './UserPurchaseRequests';
 
 function App() {
   return (
@@ -51,6 +53,8 @@ function App() {
         <Route path = '/agent-messages' element = {<AgentMessages/>}/>
         <Route path = '/favourites-page' element = {<FavoritesPage/>}/>
         <Route path='/contact' element = {<ContactForm/>}/>
+        <Route path="/payment" element={<PaymentForm />} />
+        <Route path = "/purchase-requests/:propertyId" element = {<UserPurchaseRequest/>}/>
 
         
 =======
