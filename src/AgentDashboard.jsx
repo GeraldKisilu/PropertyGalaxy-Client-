@@ -41,7 +41,9 @@ function AgentDashboard() {
           <AgentProperty key = {property.id} property={property}/>
         )
         )}
+         
 
+        
 
     </div>
   )
