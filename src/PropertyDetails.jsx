@@ -74,7 +74,7 @@ const PropertyDetails = () => {
         Contact Agent
       </Link>
       
-      <AddPaymentForm propertyId={property.id} />
+    
       <PurchaseRequestForm propertyId={property.id} />
     </div>
   );
