@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Property.css';
+import BoostButton from './BoostButton'; // Import the BoostButton component
 
 const PropertyList = ({ userId }) => {
   const [properties, setProperties] = useState([]);
@@ -70,6 +71,7 @@ const PropertyList = ({ userId }) => {
   return (
     <div className="property-list">
       <h1>Properties</h1>
+      <BoostButton /> 
       <div className="property-list__cards">
         {properties.map(property => (
           <div key={property.id} className="property-list__card">
