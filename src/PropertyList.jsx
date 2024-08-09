@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Property.css';
+import BoostButton from './BoostButton'; // Import the BoostButton component
 import PhotosComponent from './PhotosComponent';
 
 const PropertyList = ({ userId }) => {
@@ -70,6 +71,7 @@ const PropertyList = ({ userId }) => {
     <div className="property-list">
       <Link to='/favourites-page'>Saved </Link>
       <h1>Properties</h1>
+      <BoostButton /> 
       <div className="property-list__cards">
         {properties.map(property => (
           <div key={property.id} className="property-list__card">
