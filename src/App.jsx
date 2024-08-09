@@ -25,6 +25,8 @@ import FavoritesPage from './FavoritesPage';
 import ContactForm from './ContactForm';
 import PaymentForm from './PaymentForm'
 import UserPurchaseRequest from './UserPurchaseRequests';
+import Payment from './Payment';
+import ListingFee from './ListingFee';
 
 function App() {
   return (
@@ -55,6 +57,11 @@ function App() {
         <Route path='/contact' element = {<ContactForm/>}/>
         <Route path="/payment" element={<PaymentForm />} />
         <Route path = "/purchase-requests/:propertyId" element = {<UserPurchaseRequest/>}/>
+        <Route path = "/payment/:feeId" element = {<Payment feeId={1} />} />
+
+
+        <Route path="/listingfee/:feeId" element={<ListingFee feeId={1} />} />
+        
 
         
 =======
