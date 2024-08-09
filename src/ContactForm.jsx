@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import './ContactForm.css'; // Import the CSS file
 
 const ContactForm = () => {
   const [name, setName] = useState('');
@@ -40,7 +41,7 @@ const ContactForm = () => {
       const response = await fetch('http://localhost:5050/contact/messages', {
         method: 'POST',
         headers: {
-           'Content-Type': 'application/json',
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${localStorage.getItem('token')}`
         },
         body: JSON.stringify(contactData),
@@ -68,31 +69,54 @@ const ContactForm = () => {
   };
 
   return (
-    <div>
+    <div className="contact-form-container">
       <h2>Contact Agent</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form onSubmit={handleSubmit} className="contact-form">
+        <div className="form-group">
           <label>Name:</label>
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+          <input 
+            type="text" 
+            value={name} 
+            onChange={(e) => setName(e.target.value)} 
+            required 
+            className="form-input"
+          />
         </div>
-        <div>
+        <div className="form-group">
           <label>Email:</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input 
+            type="email" 
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)} 
+            required 
+            className="form-input"
+          />
         </div>
-        <div>
+        <div className="form-group">
           <label>Subject:</label>
-          <input type="text" value={subject} onChange={(e) => setSubject(e.target.value)} required />
+          <input 
+            type="text" 
+            value={subject} 
+            onChange={(e) => setSubject(e.target.value)} 
+            required 
+            className="form-input"
+          />
         </div>
-        <div>
+        <div className="form-group">
           <label>Message:</label>
-          <textarea value={message} onChange={(e) => setMessage(e.target.value)} required />
+          <textarea 
+            value={message} 
+            onChange={(e) => setMessage(e.target.value)} 
+            required 
+            className="form-textarea"
+          />
         </div>
-        <button type="submit" disabled={isSubmitting}>
+        <button type="submit" disabled={isSubmitting} className="submit-button">
           {isSubmitting ? 'Sending...' : 'Send Message'}
         </button>
       </form>
-      {responseMessage && <p style={{ color: 'green' }}>{responseMessage}</p>}
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      {responseMessage && <p className="response-message success">{responseMessage}</p>}
+      {errorMessage && <p className="response-message error">{errorMessage}</p>}
     </div>
   );
 };
