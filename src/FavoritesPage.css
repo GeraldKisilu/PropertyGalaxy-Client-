@@ -1,0 +1,88 @@
+/* FavoritesPage.css */
+
+/* Overall page styling */
+.favorites-page {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Header styling */
+  .favorites-header {
+    font-size: 2.5rem;
+    color: #222;
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 700;
+  }
+  
+  /* List container styling */
+  .favorites-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 800px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  /* Individual list item styling */
+  .favorites-item {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    text-align: center;
+  }
+  
+  .favorites-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Link styling */
+  .favorites-link {
+    text-decoration: none;
+    color: #0077cc;
+    font-weight: 600;
+    display: block;
+    margin: 10px 0;
+    transition: color 0.2s ease;
+  }
+  
+  .favorites-link:hover {
+    color: #005bb5;
+  }
+  
+  /* Loading and error message styling */
+  .favorites-loading, .favorites-error {
+    font-size: 1.5rem;
+    color: #666;
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    .favorites-header {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+  
+    .favorites-list {
+      grid-template-columns: 1fr;
+    }
+  
+    .favorites-item {
+      padding: 10px;
+    }
+  }
+  

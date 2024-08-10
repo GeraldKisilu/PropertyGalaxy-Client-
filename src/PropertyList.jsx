@@ -1,6 +1,7 @@
-import React, { useState, useEffect,useNavigate } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './Property.css';
+import BoostButton from './BoostButton'; // Import the BoostButton component
 import PhotosComponent from './PhotosComponent';
 
 const PropertyList = ({ userId }) => {
@@ -9,7 +10,8 @@ const PropertyList = ({ userId }) => {
   const [error, setError] = useState(null);
   const [authToken, setAuthToken] = useState(localStorage.getItem('token'));
 
-  const navigate = useNavigate
+  const navigate = useNavigate(); // Fix useNavigate hook call
+
   useEffect(() => {
     const fetchProperties = async () => {
       try {
@@ -31,17 +33,15 @@ const PropertyList = ({ userId }) => {
   }, []);
 
   const handleLike = async (propertyId) => {
-    if (!authToken) {
-      alert('User not authenticated. Please log in.');
-      return;
-    }
+    
 
+   
     try {
       const response = await fetch('http://localhost:5050/savedproperties/saved', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('token')}`
+           'Authorization': 'Bearer ' + localStorage.getItem('token'),
         },
         body: JSON.stringify({
           user_id: userId,
@@ -61,45 +61,34 @@ const PropertyList = ({ userId }) => {
       alert('Error saving property');
     }
   };
+
   
-  const handleContactAgent = (property) => {
-    
-      navigate(`/contact/?property_id=${property.id}&agent_id=${property.agent_id}`);
-    
-  
-    
-    };
-    
-    if (loading) return <p>Loading... Thank you for your patience!</p>;
+
+  if (loading) return <p>Loading... Thank you for your patience!</p>;
   if (error) return <p>{error}</p>;
 
   return (
     <div className="property-list">
       <Link to='/favourites-page'>Saved </Link>
       <h1>Properties</h1>
+      <BoostButton /> 
       <div className="property-list__cards">
-         {properties.map(property => (
-          
-           <div key={property.id} className="property-list__card">
-            <PhotosComponent id = {property.id}/>
+        {properties.map(property => (
+          <div key={property.id} className="property-list__card">
+            <div className={`property-photo-container ${property.listing_status === 'Sold' ? 'sold' : ''}`}>
+              <PhotosComponent id={property.id} />
+              {property.listing_status === 'Sold' && <span className="sold-overlay">Sold</span>}
+            </div>
             <div className="property-list__card-content">
               <h2>{property.address}</h2>
               <p>{property.city}</p>
               <p>${property.price}</p>
               <p>{property.photos && property.photos.map(photo => photo.photo_url).join(', ')}</p>
               <div className='property-actions'>
-                <Link to={"/favorites"}>
-                  <button className='like-button' onClick={() => handleLike(property.id)}>
-                    ❤️ Like
-                  </button>
-                </Link>
-
-                <button
-                  className='agent-button'
-                  onClick={() => handleContactAgent(property)}
-                >
-                  📞 Contact Agent
+                <button className='like-button' onClick={() => handleLike(property.id)}>
+                  ❤️ Like
                 </button>
+                
               </div>
               <Link to={`/property/${property.id}`}>View Details</Link>
             </div>

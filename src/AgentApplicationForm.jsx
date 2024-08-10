@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './AgentApplicationForm.css'; // Import the CSS file
 
 const AgentApplicationForm = () => {
     const [formData, setFormData] = useState({
@@ -41,8 +42,7 @@ const AgentApplicationForm = () => {
                 experience: '',
                 phone_number: '',
                 languages: '',
-                agency_name: '',
-                photo_url: ''
+                agency_name: ''
             });
         } catch (err) {
             setError(err.response?.data?.message || 'Failed to submit application.');
@@ -52,99 +52,102 @@ const AgentApplicationForm = () => {
     };
 
     return (
-        <div>
-            <h1>Apply to Become an Agent</h1>
-            {success && <p style={{ color: 'green' }}>{success}</p>}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="license_number">License Number</label>
+        <div className="agent-application-form">
+            <h1 className="form-heading">Apply to Become an Agent</h1>
+            {success && <p className="form-success">{success}</p>}
+            {error && <p className="form-error">{error}</p>}
+            <form className="form" onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label htmlFor="license_number" className="form-label">License Number</label>
                     <input
                         type="text"
                         id="license_number"
                         name="license_number"
                         value={formData.license_number}
                         onChange={handleChange}
+                        className="form-input"
+                        placeholder="Enter your license number"
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="full_name">Full Name</label>
+                <div className="form-group">
+                    <label htmlFor="full_name" className="form-label">Full Name</label>
                     <input
                         type="text"
                         id="full_name"
                         name="full_name"
                         value={formData.full_name}
                         onChange={handleChange}
+                        className="form-input"
+                        placeholder="Enter your full name"
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="email">Email</label>
+                <div className="form-group">
+                    <label htmlFor="email" className="form-label">Email</label>
                     <input
                         type="email"
                         id="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
+                        className="form-input"
+                        placeholder="Enter your email"
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="experience">Experience</label>
+                <div className="form-group">
+                    <label htmlFor="experience" className="form-label">Experience</label>
                     <textarea
                         id="experience"
                         name="experience"
                         value={formData.experience}
                         onChange={handleChange}
+                        className="form-textarea"
+                        placeholder="Describe your experience"
                         required
                     ></textarea>
                 </div>
-                <div>
-                    <label htmlFor="phone_number">Phone Number</label>
+                <div className="form-group">
+                    <label htmlFor="phone_number" className="form-label">Phone Number</label>
                     <input
                         type="text"
                         id="phone_number"
                         name="phone_number"
                         value={formData.phone_number}
                         onChange={handleChange}
+                        className="form-input"
+                        placeholder="Enter your phone number"
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="languages">Languages</label>
+                <div className="form-group">
+                    <label htmlFor="languages" className="form-label">Languages</label>
                     <input
                         type="text"
                         id="languages"
                         name="languages"
                         value={formData.languages}
                         onChange={handleChange}
+                        className="form-input"
+                        placeholder="Enter languages you speak"
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="agency_name">Agency Name</label>
+                <div className="form-group">
+                    <label htmlFor="agency_name" className="form-label">Agency Name</label>
                     <input
                         type="text"
                         id="agency_name"
                         name="agency_name"
                         value={formData.agency_name}
                         onChange={handleChange}
+                        className="form-input"
+                        placeholder="Enter your agency name"
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="photo_url">Photo Url</label>
-                    <input
-                        type="text"
-                        id="photo_url"
-                        name="photo_url"
-                        value={formData.photo_url}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <button type="submit" disabled={loading}>
+                <button type="submit" className="form-submit" disabled={loading}>
                     {loading ? 'Submitting...' : 'Submit Application'}
                 </button>
             </form>

@@ -18,11 +18,17 @@ import NotAuthorized from './NotAuthorized'
 import AgentApplication from './AgentApplication';
 import AgentApplicationForm from './AgentApplicationForm';
 import AgentDashboard from './AgentDashboard';
+import FavoritesPage from './FavoritesPage';
+import AddPropertyForm from './AddPropertyForm';
+import PropertyPhotos from './PropertyPhotos';
+import ContactForm from './ContactForm';
 import AddPropertyForm from './AddPropertyForm';
 import PropertyPhotos from './PropertyPhotos';
 import AgentMessages from './AgentMessages';
 import FavoritesPage from './FavoritesPage';
 import ContactForm from './ContactForm';
+import PaymentForm from './PaymentForm'
+import UserPurchaseRequest from './UserPurchaseRequests';
 import UserProfile from './UserProfile';
 
 function App() {
@@ -45,6 +51,12 @@ function App() {
         <Route path="/confirm-email" element={<ConfirmEmail/>} />
         <Route path="/properties" element={<PropertyList />} />
         <Route path="/property/:id" element={<PropertyDetails />} />
+        <Route path="/agent-application" element={<AgentApplication />} />
+        <Route path="/apply-agents" element={<AgentApplicationForm />} />
+        <Route path="/favorites" element={<FavoritesPage />} />
+        <Route path="/add-property" element={<AddPropertyForm />} />
+        <Route path="/property/:id/photos" element={<PropertyPhotos />} />
+        <Route path="/contact" element={<ContactForm />} />
         <Route path="/agent-application" element={<AgentApplication/>} />
         <Route path="/apply-agents" element={<AgentApplicationForm/>}/>
         <Route path = '/add-property' element = {<AddPropertyForm/>}/>
@@ -52,13 +64,8 @@ function App() {
         <Route path = '/agent-messages' element = {<AgentMessages/>}/>
         <Route path = '/favourites-page' element = {<FavoritesPage/>}/>
         <Route path='/contact' element = {<ContactForm/>}/>
-      
-        <Route path='/profile' element = {<UserProfile/>}/>
-        <Route path="/profile/:userId" element={<UserProfile />} />
-
 
         
-=======
         {/* <Route path='/user-list' element = {<UserList/>}/> */}
 
 
