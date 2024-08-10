@@ -25,9 +25,11 @@ import FavoritesPage from './FavoritesPage';
 import ContactForm from './ContactForm';
 import PaymentForm from './PaymentForm'
 import UserPurchaseRequest from './UserPurchaseRequests';
+import { RefreshProvider } from './RefreshContext';
 
 function App() {
   return (
+    
     <Router>
       <Routes>
        <Route path="/admin-dashboard" element={<AdminDashboard />} />
@@ -55,7 +57,7 @@ function App() {
         <Route path='/contact' element = {<ContactForm/>}/>
         <Route path="/payment" element={<PaymentForm />} />
         <Route path = "/purchase-requests/:propertyId" element = {<UserPurchaseRequest/>}/>
-
+         
         
 =======
         {/* <Route path='/user-list' element = {<UserList/>}/> */}
@@ -63,6 +65,7 @@ function App() {
 
       </Routes>
     </Router>
+    
   );
 }
 

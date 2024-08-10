@@ -1,83 +1,76 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useRefresh } from './RefreshContext';
 
-function AgentProperty({ property }) {
-  const navigate = useNavigate(); // Fix useNavigate usage
+function AgentProperty({ property, onRefresh }) {
+  const { triggerRefresh } = useRefresh();
+  const navigate = useNavigate(); 
   const [isEditing, setIsEditing] = useState(false);
-  const [address, setAddress] = useState(property.address);
-  const [description, setDescription] = useState(property.description);
-
-  const handleAddressChange = (event) => {
-    setAddress(event.target.value);
+  const [price, setPrice] = useState(property.price);
+  
+  const handlePriceChange = (event) => {
+    setPrice(event.target.value);
   };
 
-  const handleDescriptionChange = (event) => {
-    setDescription(event.target.value);
-  };
-
-  // Commented out CRUD operations
-  /*
-  const handleUpdateProperty = () => {
-    fetch(`http://127.0.0.1:5555/property/${property.id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem('token'),
-      },
-      body: JSON.stringify({
-        address,
-        description,
-      }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          if (response.status === 403) {
-            alert('Access denied');
-          }
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(() => {
-        setIsEditing(false);
-      })
-      .catch((error) => {
-        console.error(error);
+  const handleUpdateProperty = async () => {
+    try {
+      const response = await fetch(`http://127.0.0.1:5050/property/${property.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        },
+        body: JSON.stringify({ price }),
       });
+      
+      if (!response.ok) {
+        if (response.status === 403) {
+          alert('Access denied');
+        }
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      
+      await response.json();
+      setIsEditing(false);
+      onRefresh();
+      triggerRefresh();
+    } catch (error) {
+      console.error(error);
+      alert('Error updating property');
+    }
   };
 
   const handleCancelEdit = () => {
-    setAddress(property.address);
-    setDescription(property.description);
+    setPrice(property.price);
     setIsEditing(false);
   };
 
-  const handleDeleteProperty = () => {
+  const handleDeleteProperty = async () => {
     if (window.confirm(`Are you sure you want to delete property at "${property.address}"?`)) {
-      fetch(`http://127.0.0.1:5555/property/${property.id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': 'Bearer ' + localStorage.getItem('token'),
-        },
-      })
-        .then((response) => {
-          if (!response.ok) {
-            if (response.status === 403) {
-              alert('Access Denied');
-            }
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          return response.json();
-        })
-        .then(() => {
-          // Handle successful deletion, e.g., refresh the list
-        })
-        .catch((error) => {
-          console.error(error);
+      try {
+        const response = await fetch(`http://127.0.0.1:5050/property/${property.id}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+          },
         });
+        
+        if (!response.ok) {
+          if (response.status === 403) {
+            alert('Access Denied');
+          }
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        
+        await response.json();
+        onRefresh();
+        triggerRefresh();
+      } catch (error) {
+        console.error(error);
+        alert('Error deleting property');
+      }
     }
   };
-  */
 
   const handlePurchaseRequests = () => {
     navigate(`/purchase-requests/${property.id}`);
@@ -87,27 +80,16 @@ function AgentProperty({ property }) {
     <div className='card-list'>
       <div className="card">
         <div className="card-body">
-          {/* Uncomment and update if needed */}
-          {/* <img src={property.image || 'https://via.placeholder.com/150'} alt="Property" className="card-img-top" /> */}
-          {/* {isEditing ? (
-            <input
-              type="text"
-              value={address}
-              onChange={handleAddressChange}
-              className="form-control"
-            />
-          ) : (
-            <h5 className="card-title">{property.address}</h5>
-          )} */}
-          {/* {isEditing ? (
+          {isEditing ? (
             <textarea
-              value={description}
-              onChange={handleDescriptionChange}
+              value={price}
+              onChange={handlePriceChange}
               className="form-control"
             />
           ) : (
-            <p className="card-text">{description}</p>
-          )} */}
+            <p className="card-text">{property.id}</p>
+          )}
+
           <p className="card-text">Property ID: {property.id}</p>
           <p className="card-text">Address: {property.address}</p>
           <p className="card-text">City: {property.city}</p>
@@ -120,13 +102,13 @@ function AgentProperty({ property }) {
 
           {isEditing ? (
             <div>
-              {/* <button className='card-btn save-btn' onClick={handleUpdateProperty}>Save</button>
-              <button className='card-btn cancel-btn' onClick={handleCancelEdit}>Cancel</button> */}
+              <button className='card-btn save-btn' onClick={handleUpdateProperty}>Save</button>
+              <button className='card-btn cancel-btn' onClick={handleCancelEdit}>Cancel</button> 
             </div>
           ) : (
             <div>
-              {/* <button className='card-btn edit-btn' onClick={() => setIsEditing(true)}>Edit</button>
-              <button className='card-btn delete-btn' onClick={handleDeleteProperty}>Delete</button> */}
+              <button className='card-btn edit-btn' onClick={() => setIsEditing(true)}>Edit</button>
+              <button className='card-btn delete-btn' onClick={handleDeleteProperty}>Delete</button> 
             </div>
           )}
         </div>
