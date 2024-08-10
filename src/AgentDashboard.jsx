@@ -5,6 +5,12 @@ import AgentProperty from './AgentProperties';
 function AgentDashboard() {
     const [properties, setProperties] = useState([]);
     const [error, setError] = useState('');
+    const [refresh, setRefresh] = useState(false)
+  
+
+     const handleRefresh = () => {
+      setRefresh(prevRefresh => !prevRefresh);
+    };
   
     useEffect(() => {
       const fetchProperties = () => {
@@ -28,7 +34,7 @@ function AgentDashboard() {
       };
   
       fetchProperties();
-    }, []);
+    }, [refresh]);
     
   return (
     <div>AgentDashboard
@@ -38,7 +44,7 @@ function AgentDashboard() {
         {properties.map(property => (
             
 
-          <AgentProperty key = {property.id} property={property}/>
+          <AgentProperty key = {property.id} property={property} onRefresh = {handleRefresh}/>
         )
         )}
          
@@ -48,5 +54,6 @@ function AgentDashboard() {
     </div>
   )
 }
+
 
 export default AgentDashboard
