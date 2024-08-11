@@ -24,6 +24,7 @@ import FavoritesPage from './FavoritesPage';
 import ContactForm from './ContactForm';
 import PaymentForm from './PaymentForm';
 import UserPurchaseRequest from './UserPurchaseRequests';
+import UserProfile from './UserProfile';
 
 
 import { Elements } from '@stripe/react-stripe-js';
@@ -63,6 +64,7 @@ function App() {
           <Route path="/agent-messages" element={<AgentMessages />} />
           <Route path="/favourites-page" element={<FavoritesPage />} />
           <Route path="/contact" element={<ContactForm />} />
+          <Route path="/profile" element={<UserProfile />} />
           <Route path="/payment" element={<PaymentForm />} />
           <Route path="/purchase-requests/:propertyId" element={<UserPurchaseRequest />} />
            <Route path = "/payment/:feeId" element = {<Payment feeId={1} />} />
