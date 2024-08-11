@@ -8,6 +8,7 @@
   .property-list h1 {
     text-align: center;
     margin-bottom: 20px;
+    
   }
   
   .property-list__cards {
@@ -24,6 +25,7 @@
     width: 300px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
   }
   
   .property-list__card:hover {
@@ -38,6 +40,7 @@
   .property-list__card-content h2 {
     font-size: 1.25rem;
     margin: 0 0 10px;
+    color: black;
   }
   
   .property-list__card-content p {
@@ -65,4 +68,28 @@
   .property-list__card-content a:hover {
     text-decoration: underline;
   }
+  
+
+  .property-photo-container {
+    position: relative;
+  }
+  
+  .sold-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    z-index: 10;
+  }
+  
+  
+    
   

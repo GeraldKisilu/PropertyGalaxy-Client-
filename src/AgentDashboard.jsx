@@ -5,6 +5,12 @@ import AgentProperty from './AgentProperties';
 function AgentDashboard() {
     const [properties, setProperties] = useState([]);
     const [error, setError] = useState('');
+    const [refresh, setRefresh] = useState(false)
+  
+
+     const handleRefresh = () => {
+      setRefresh(prevRefresh => !prevRefresh);
+    };
   
     useEffect(() => {
       const fetchProperties = () => {
@@ -28,22 +34,26 @@ function AgentDashboard() {
       };
   
       fetchProperties();
-    }, []);
+    }, [refresh]);
     
   return (
     <div>AgentDashboard
         <Link to = '/add-property'>Add Property</Link>
+        <Link to = '/agent-messages'>Agent Messages</Link>
        
         {properties.map(property => (
             
 
-          <AgentProperty key = {property.id} property={property}/>
+          <AgentProperty key = {property.id} property={property} onRefresh = {handleRefresh}/>
         )
         )}
+         
 
+        
 
     </div>
   )
 }
+
 
 export default AgentDashboard

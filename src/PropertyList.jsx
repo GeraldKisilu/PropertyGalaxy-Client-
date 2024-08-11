@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Property.css';
-import BoostButton from './BoostButton';
+import PhotosComponent from './PhotosComponent';
+import { useRefresh } from './RefreshContext';
 
 const PropertyList = ({ userId }) => {
+  const { refresh } = useRefresh();
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [authToken, setAuthToken] = useState(localStorage.getItem('token'));
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProperties = async () => {
+      setLoading(true);
       try {
         const response = await fetch('http://localhost:5050/property/list');
         if (!response.ok) {
@@ -18,6 +21,7 @@ const PropertyList = ({ userId }) => {
         }
         const data = await response.json();
         setProperties(data);
+        setError(null); // Clear previous errors
       } catch (error) {
         console.error('Error fetching properties:', error);
         setError('Error fetching properties');
@@ -27,20 +31,15 @@ const PropertyList = ({ userId }) => {
     };
 
     fetchProperties();
-  }, []);
+  }, [refresh]); 
 
   const handleLike = async (propertyId) => {
-    if (!authToken) {
-      alert('User not authenticated. Please log in.');
-      return;
-    }
-
     try {
       const response = await fetch('http://localhost:5050/savedproperties/saved', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${authToken}`
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
         body: JSON.stringify({
           user_id: userId,
@@ -54,6 +53,11 @@ const PropertyList = ({ userId }) => {
         throw new Error('Network response was not ok');
       }
 
+      // Add liked property to local storage
+      const savedProperties = JSON.parse(localStorage.getItem('savedProperties')) || [];
+      savedProperties.push(propertyId);
+      localStorage.setItem('savedProperties', JSON.stringify(savedProperties));
+
       alert('Property saved successfully!');
     } catch (error) {
       console.error('Error saving property:', error);
@@ -61,45 +65,36 @@ const PropertyList = ({ userId }) => {
     }
   };
 
-  const handleContactAgent = (property) => {
-    alert(`Contacting agent for property: ${property.address}`);
-  };
-
   if (loading) return <p>Loading... Thank you for your patience!</p>;
   if (error) return <p>{error}</p>;
 
   return (
     <div className="property-list">
+      <Link to='/favourites-page'>Saved </Link>
       <h1>Properties</h1>
       <div className="property-list__cards">
-        {properties.map(property => (
+        {properties.length > 0 ? properties.map(property => (
           <div key={property.id} className="property-list__card">
+            <div className={`property-photo-container ${property.listing_status === 'Sold' ? 'sold' : ''}`}>
+              <PhotosComponent id={property.id} />
+              {property.listing_status === 'Sold' && <span className="sold-overlay">Sold</span>}
+            </div>
             <div className="property-list__card-content">
-              <h2>{property.address}</h2>
-              <p>{property.city}</p>
+              <h2>Address: {property.address}</h2>
+              <p>{property.property_type}</p>
+              <p>🗺️ {property.city}</p>
               <p>${property.price}</p>
-              <p>{property.photos && property.photos.map(photo => (
-                <img key={photo.id} src={photo.photo_url} alt="Property" className="property-photo" />
-              ))}</p>
+              <p>{property.listing_status}</p>
+              <p>{property.photos && property.photos.map(photo => photo.photo_url).join(', ')}</p>
               <div className='property-actions'>
-                <button
-                  className='like-button'
-                  onClick={() => handleLike(property.id)}
-                >
+                <button className='like-button' onClick={() => handleLike(property.id)}>
                   ❤️ Like
                 </button>
-                <button
-                  className='agent-button'
-                  onClick={() => handleContactAgent(property)}
-                >
-                  📞 Contact Agent
-                </button>
-                <BoostButton propertyId={property.id} authToken={authToken} /> 
               </div>
-              <Link to={`/property/${property.id}`} className="view-details-link">View Details</Link>
+              <Link to={`/property/${property.id}`}>View Details</Link>
             </div>
           </div>
-        ))}
+        )) : <p>No properties available.</p>}
       </div>
     </div>
   );

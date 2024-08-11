@@ -66,7 +66,9 @@ const HomePage = () => {
                                 <li><a href="#" className="header-top-social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
                                 <li><a href="#" className="header-top-social-link"><ion-icon name="logo-pinterest"></ion-icon></a></li>
                             </ul>
-                            <button className="header-top-btn">Profile</button>
+                            <Link to="/profile">
+                                <button className="header-top-btn">Profile</button>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -88,8 +90,10 @@ const HomePage = () => {
                     <Link to="/">Home</Link>
                     <Link to="/properties">Properties</Link>
                     <Link to="/reviews">Reviews</Link>
+                 
+
                     <Link to="/apply-agents">Do you wanna be an agent?</Link>
-                    <Link to="/favorites">❤️ Favorites</Link>
+                    <Link to="/favourites-page">❤️ Favorites</Link>
                 </nav>
             </header>
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import AddPhotos from './AddPhotos';
+import AddFeatureComponent from './AddFeatureComponents';
 
 const AddPropertyForm = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +11,7 @@ const AddPropertyForm = () => {
     price: '',
     property_type: '',
     listing_status: '',
-    rooms: '',
+   
   });
   const [propertyId, setPropertyId] = useState(null); // State to store property ID
   const [error, setError] = useState('');
@@ -46,7 +47,7 @@ const AddPropertyForm = () => {
         price: '',
         property_type: '',
         listing_status: '',
-        rooms: '',
+       
       });
     } catch (err) {
       setError('Failed to add property. Please try again.');
@@ -123,16 +124,7 @@ const AddPropertyForm = () => {
             required
           />
         </div>
-        <div>
-          <label>Rooms:</label>
-          <input
-            type="number"
-            name="rooms"
-            value={formData.rooms}
-            onChange={handleChange}
-            required
-          />
-        </div>
+       
         <button type="submit">Add Property</button>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
@@ -140,6 +132,7 @@ const AddPropertyForm = () => {
       {propertyId && (
         <div>
            <AddPhotos propertyId={propertyId} />
+           <AddFeatureComponent propertyId  = {propertyId}/>
         </div>
       )}
     </div>
