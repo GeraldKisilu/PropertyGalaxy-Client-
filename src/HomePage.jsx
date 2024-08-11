@@ -68,7 +68,7 @@ const HomePage = () => {
                  
 
                     <Link to="/apply-agents">Do you wanna be an agent?</Link>
-                    <Link to="/favorites">❤️ Favorites</Link>
+                    <Link to="/favourites-page">❤️ Favorites</Link>
                 </nav>
             </header>
 

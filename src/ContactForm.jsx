@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+
 import './ContactForm.css'; 
 
 const ContactForm = () => {
@@ -74,6 +75,7 @@ const ContactForm = () => {
   };
 
   return (
+
     <div className={`contact-form-container ${isVisible ? 'show' : 'hidden'}`}>
       <div className="contact-form-header" onClick={toggleVisibility}>
         {isVisible ? 'Close Contact Form' : 'Open Contact Form'}
@@ -106,8 +108,6 @@ const ContactForm = () => {
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         </div>
       )}
-    </div>
-  );
-};
+
 
 export default ContactForm;

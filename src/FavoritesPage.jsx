@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import './FavoritesPage.css';
 
 function FavoritesPage({ userId, authToken }) {
   const [savedProperties, setSavedProperties] = useState([]);
@@ -13,7 +14,7 @@ function FavoritesPage({ userId, authToken }) {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('token')}` 
+            Authorization: `Bearer ${localStorage.getItem('token')}`
           },
         });
         if (!response.ok) {
@@ -31,16 +32,16 @@ function FavoritesPage({ userId, authToken }) {
     fetchSavedProperties();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  if (loading) return <div className="favorites-loading">Loading...</div>;
+  if (error) return <div className="favorites-error">{error}</div>;
 
   return (
-    <div>
-      <h1>Your Favorite Properties</h1>
-      <ul>
-        {savedProperties.map(property => (
-          <li key={property.id}>
-            <Link to={`/property/${property.property_id}`}>
+    <div className="favorites-page">
+      <h1 className="favorites-header">Your Favorite Properties</h1>
+      <ul className="favorites-list">
+        {savedProperties.map((property) => (
+          <li key={property.id} className="favorites-item">
+            <Link to={`/property/${property.property_id}`} className="favorites-link">
               {property.property.address}, {property.property.city} - ${property.property.price}
             </Link>
           </li>
