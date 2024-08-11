@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
-const ReviewForm = ({ propertyId, authToken }) => {
-    const [rating, setRating] = useState(1);
+const ReviewForm = ({ propertyId }) => {
+    const [rating, setRating] = useState(0);
+    const [hoverRating, setHoverRating] = useState(0);
     const [comment, setComment] = useState('');
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState('');
@@ -16,8 +17,8 @@ const ReviewForm = ({ propertyId, authToken }) => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${localStorage.getItem('token')}` 
-                  },
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                },
                 body: JSON.stringify({
                     property_id: propertyId,
                     rating: rating,
@@ -26,16 +27,17 @@ const ReviewForm = ({ propertyId, authToken }) => {
             });
 
             if (!response.ok) {
-                throw new Error('Failed to submit review');
+                const errorText = await response.text();  
+                throw new Error(`Failed to submit review: ${errorText}`);
             }
 
             const data = await response.json();
             setSuccessMessage(data.message);
-            setRating(1); 
-            setComment(''); 
+            setRating(0); 
+            setComment('');
         } catch (err) {
             console.error(err);
-            setError('Error submitting review');
+            setError(err.message);
         }
     };
 
@@ -44,15 +46,21 @@ const ReviewForm = ({ propertyId, authToken }) => {
             <h2>Submit a Review</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Rating (1-5):</label>
-                    <input
-                        type="number"
-                        min="1"
-                        max="5"
-                        value={rating}
-                        onChange={(e) => setRating(e.target.value)}
-                        required
-                    />
+                    <label>Rating:</label>
+                    <div style={{ display: 'inline-block' }}>
+                        {[1, 2, 3, 4, 5].map((index) => (
+                            <span
+                                key={index}
+                                className={`star ${index <= (hoverRating || rating) ? 'filled' : ''}`}
+                                onMouseEnter={() => setHoverRating(index)}
+                                onMouseLeave={() => setHoverRating(0)}
+                                onClick={() => setRating(index)}
+                                style={{ cursor: 'pointer', fontSize: '2rem', color: index <= (hoverRating || rating) ? 'yellow' : 'gray' }}
+                            >
+                                ★
+                            </span>
+                        ))}
+                    </div>
                 </div>
                 <div>
                     <label>Comment:</label>
