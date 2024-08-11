@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './HomePage.css';
 import logo from './assets/Images/proppertygalaxy.jfif';
@@ -11,6 +11,29 @@ import icon3 from './assets/Images/agent.jpg';
 
 const HomePage = () => {
     const [showContactCard, setShowContactCard] = useState(false);
+    const [location, setLocation] = useState('');
+    const [properties, setProperties] = useState([]);
+    const [suggestions, setSuggestions] = useState([]);
+
+    useEffect(() => {
+        fetch('http://127.0.0.1:5050/property/list')
+            .then(response => response.json())
+            .then(data => {
+                setProperties(data);
+                const uniqueCities = [...new Set(data.map(property => property.city))];
+                setSuggestions(uniqueCities);
+            })
+            .catch(error => console.error("There was an error fetching the properties:", error));
+    }, []);
+
+    const handleSearch = () => {
+        const filteredProperties = properties.filter(property => property.city.toLowerCase().includes(location.toLowerCase()));
+        setProperties(filteredProperties);
+    };
+
+    const handleChange = (event) => {
+        setLocation(event.target.value);
+    };
 
     const toggleContactCard = () => {
         setShowContactCard(!showContactCard);
@@ -73,8 +96,19 @@ const HomePage = () => {
             <main className="body-content">
                 <div className="search-bar">
                     <img src={logo} alt="Property Galaxy" className="logo" />
-                    <input type="text" placeholder="Search by location" />
-                    <button>Search</button>
+                    <input
+                        type="text"
+                        value={location}
+                        onChange={handleChange}
+                        placeholder="Search by location"
+                        list="location-suggestions"
+                    />
+                    <datalist id="location-suggestions">
+                        {suggestions.map((city, index) => (
+                            <option key={index} value={city} />
+                        ))}
+                    </datalist>
+                    <button onClick={handleSearch}>Search</button>
                 </div>
 
                 <div className="hero-featured-property">
@@ -83,9 +117,7 @@ const HomePage = () => {
                             <div className="hero-content">
                                 <h2 className="h1 hero-title">Find Your Dream House By Us</h2>
                                 <p className="hero-text">
-                                    Find your dream house with ease at [PropertyGalaxy], where diverse listings and
-                                    expert guidance meet your real estate needs. Explore, discover, and make informed decisions
-                                    with us today!
+                                    Find your dream house with ease at Property Galaxy, where diverse listings and expert guidance meet your real estate needs. Explore, discover, and make informed decisions with us today!
                                 </p>
                                 <button className="contact-agent-button" onClick={toggleContactCard}>📞 Contact Agent</button>
                             </div>
@@ -95,8 +127,9 @@ const HomePage = () => {
                     <div className="featured-property">
                         <div className="property-details">
                             <h2>Featured Property</h2>
-                            <img src={image1} alt="Property Galaxy" className="Featured Property" />
+                            <img src={image1} alt="Property Galaxy" className="featured-property-image" />
                             <div className="property-gallery">
+                                {/* Additional images can be added here */}
                             </div>
                             <p>Price: $500,000</p>
                             <p>Description: This is a beautiful house located in a serene environment. It features modern amenities and spacious rooms.</p>
@@ -124,8 +157,7 @@ const HomePage = () => {
                             <p className="section-subtitle">About Us</p>
                             <h2 className="h2 section-title">The Leading Real Estate Rental Marketplace.</h2>
                             <p className="about-text">
-                                Over 30,000 people work for us in more than 70 countries all over the world. This breadth of global
-                                coverage, combined with specialist services.
+                                Over 30,000 people work for us in more than 70 countries all over the world. This breadth of global coverage, combined with specialist services.
                             </p>
                             <ul className="about-list">
                                 <li className="about-item">
@@ -154,8 +186,7 @@ const HomePage = () => {
                                 </li>
                             </ul>
                             <p className="callout">
-                                "The only place that can make you comfortable enough to stay by yourself,
-                                with your companion and your whole extended family."
+                                "The only place that can make you comfortable enough to stay by yourself, with your companion and your whole extended family."
                             </p>
                             <a href="#service" className="btn">Our Services</a>
                         </div>
@@ -171,24 +202,24 @@ const HomePage = () => {
                                     <img src={icon1} alt="Service Icon" />
                                 </div>
                                 <h3 className="card-title"><a href="#">Consulting Services</a></h3>
-                                <p className="card-text">We offer professional consulting services to help you make informed real estate decisions.</p>
-                                <a href="#" className="card-link">Learn More <i className="fas fa-arrow-right"></i></a>
+                                <p className="card-text">We offer professional consulting services to help you make informed decisions about your property investments.</p>
+                                <a href="#" className="card-link"><span>Read More</span> <ion-icon name="arrow-forward-outline"></ion-icon></a>
                             </div>
                             <div className="service-card">
                                 <div className="card-icon">
                                     <img src={icon2} alt="Service Icon" />
                                 </div>
                                 <h3 className="card-title"><a href="#">Property Management</a></h3>
-                                <p className="card-text">Our team manages properties with the utmost care and attention to detail.</p>
-                                <a href="#" className="card-link">Learn More <i className="fas fa-arrow-right"></i></a>
+                                <p className="card-text">Our property management services ensure that your real estate assets are well-maintained and profitable.</p>
+                                <a href="#" className="card-link"><span>Read More</span> <ion-icon name="arrow-forward-outline"></ion-icon></a>
                             </div>
                             <div className="service-card">
                                 <div className="card-icon">
                                     <img src={icon3} alt="Service Icon" />
                                 </div>
                                 <h3 className="card-title"><a href="#">Market Analysis</a></h3>
-                                <p className="card-text">We provide in-depth market analysis to help you understand the real estate trends.</p>
-                                <a href="#" className="card-link">Learn More <i className="fas fa-arrow-right"></i></a>
+                                <p className="card-text">We provide in-depth market analysis to help you understand the real estate trends and make the right investment choices.</p>
+                                <a href="#" className="card-link"><span>Read More</span> <ion-icon name="arrow-forward-outline"></ion-icon></a>
                             </div>
                         </div>
                     </div>
