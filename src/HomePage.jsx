@@ -43,7 +43,9 @@ const HomePage = () => {
                                 <li><a href="#" className="header-top-social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
                                 <li><a href="#" className="header-top-social-link"><ion-icon name="logo-pinterest"></ion-icon></a></li>
                             </ul>
-                            <button className="header-top-btn">Profile</button>
+                            <Link to="/profile">
+                                <button className="header-top-btn">Profile</button>
+                            </Link>
                         </div>
                     </div>
                 </div>
