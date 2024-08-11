@@ -25,14 +25,22 @@ import ContactForm from './ContactForm';
 import PaymentForm from './PaymentForm';
 import UserPurchaseRequest from './UserPurchaseRequests';
 
+
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
 const stripePromise = loadStripe('pk_test_51PmLeaP08hlmzVcwDEzRNsjrtMFXRW5nVs7bsL1WiKo75dBm8zSwp5WT1nGuy7jUExHlkPt2EEli4QtuNKrQkL2200cSqbwlFQ');
 
+import Payment from './Payment';
+import ListingFee from './ListingFee';
+
+import { RefreshProvider } from './RefreshContext';
+
+
 function App() {
   return (
     <Router>
+
       <Elements stripe={stripePromise}>
         <Routes>
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
@@ -57,8 +65,27 @@ function App() {
           <Route path="/contact" element={<ContactForm />} />
           <Route path="/payment" element={<PaymentForm />} />
           <Route path="/purchase-requests/:propertyId" element={<UserPurchaseRequest />} />
+           <Route path = "/payment/:feeId" element = {<Payment feeId={1} />} />
+
+
+          <Route path="/listingfee/:feeId" element={<ListingFee feeId={1} />} />
         </Routes>
       </Elements>
+     
+
+
+    
+        
+
+
+         
+
+        
+     
+
+
+      
+
     </Router>
   );
 }
