@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import './ContactForm.css'; 
+import './ContactForm.css';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
@@ -19,7 +19,7 @@ const ContactForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!name || !email || !subject || !message) {
       setErrorMessage('Please fill out all fields.');
       return;
@@ -34,17 +34,15 @@ const ContactForm = () => {
       agent_id: agentId ? parseInt(agentId) : null,
     };
 
-    console.log(contactData)
-
     setIsSubmitting(true);
 
     try {
-      const token = localStorage.getItem('jwt');
+      const token = localStorage.getItem('jwt'); // Ensure the token key matches what's used for authorization
       const response = await fetch('http://localhost:5050/contact/messages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(contactData),
       });
@@ -75,7 +73,6 @@ const ContactForm = () => {
   };
 
   return (
-
     <div className={`contact-form-container ${isVisible ? 'show' : 'hidden'}`}>
       <div className="contact-form-header" onClick={toggleVisibility}>
         {isVisible ? 'Close Contact Form' : 'Open Contact Form'}
@@ -108,6 +105,8 @@ const ContactForm = () => {
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         </div>
       )}
-
+    </div>
+  );
+};
 
 export default ContactForm;
