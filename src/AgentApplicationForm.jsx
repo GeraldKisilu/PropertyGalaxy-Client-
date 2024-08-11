@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './AgentApplicationForm.css'; // Import the CSS file
+import './AgentApplicationForm.css'; 
 
 const AgentApplicationForm = () => {
     const [formData, setFormData] = useState({
@@ -10,7 +10,8 @@ const AgentApplicationForm = () => {
         experience: '',
         phone_number: '',
         languages: '',
-        agency_name: ''
+        agency_name: '',
+        photo_url: '' // Added photo_url to state
     });
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
@@ -42,7 +43,8 @@ const AgentApplicationForm = () => {
                 experience: '',
                 phone_number: '',
                 languages: '',
-                agency_name: ''
+                agency_name: '',
+                photo_url: '' 
             });
         } catch (err) {
             setError(err.response?.data?.message || 'Failed to submit application.');
@@ -144,6 +146,19 @@ const AgentApplicationForm = () => {
                         onChange={handleChange}
                         className="form-input"
                         placeholder="Enter your agency name"
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="photo_url" className="form-label">Photo URL</label>
+                    <input
+                        type="url"
+                        id="photo_url"
+                        name="photo_url"
+                        value={formData.photo_url}
+                        onChange={handleChange}
+                        className="form-input"
+                        placeholder="Enter the URL of your photo"
                         required
                     />
                 </div>

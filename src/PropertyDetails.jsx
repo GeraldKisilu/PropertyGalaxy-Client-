@@ -8,6 +8,7 @@ const PropertyDetails = () => {
   const { id } = useParams();
   const [property, setProperty] = useState(null);
   const [photos, setPhotos] = useState([]);
+  const [features, setFeatures] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -30,10 +31,18 @@ const PropertyDetails = () => {
         const photosData = await photosResponse.json();
         setPhotos(photosData);
 
+        // Fetch property features
+        const featureResponse = await fetch(`http://localhost:5050/features/${id}`);
+        if (!featureResponse.ok) {
+          throw new Error('Failed to fetch features');
+        }
+        const featuresData = await featureResponse.json();
+        setFeatures(featuresData);
+
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching property and photos:', error);
-        setError('Error fetching data');
+        console.error('Error fetching property data:', error);
+        setError('Error fetching data. Please try again later.');
         setLoading(false);
       }
     };
@@ -61,7 +70,7 @@ const PropertyDetails = () => {
             <div key={photo.id} className="property-photo-item">
               <img 
                 src={photo.photo_url} 
-                alt={`Photo ${photo.id}`} 
+                alt={`View of property: ${property.address}`} 
                 className="property-photo" 
               />
             </div>
@@ -70,8 +79,21 @@ const PropertyDetails = () => {
           <p className="property-no-photos">No photos available</p>
         )}
       </div>
-      <h2 className='contact-agent'>Contact Agent</h2>
 
+      <h2 className="property-features-header">Features</h2>
+      <ul className="property-features">
+        {features.length > 0 ? (
+          features.map(feature => (
+            <p key={feature.id} className="property-info" >
+              <strong>{feature.name}</strong>: {feature.description}
+            </p>
+          ))
+        ) : (
+          <p className="property-no-features">No features available</p>
+        )}
+      </ul>
+
+      <h2 className="contact-agent">Contact Agent</h2>
       <Link to={`/contact/?property_id=${property.id}&agent_id=${property.agent_id}`} className="property-contact-link">
         Contact Agent
       </Link>
