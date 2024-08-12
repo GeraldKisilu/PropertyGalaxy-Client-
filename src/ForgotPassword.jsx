@@ -25,18 +25,24 @@ const ForgotPassword = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        Email:
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </label>
-      <button type="submit" disabled={loading}>
-        {loading ? 'Sending...' : 'Request Password Reset'}
-      </button>
+      <h2>Reset Your Password</h2>
+      <p style={{marginBottom: '60px'}}>To reset your password,  provide us with the email address you used during registration </p>
+      <div className="form-group" style={{marginBottom: '30px'}}>
+          <label htmlFor="email">Email:</label>
+          <div>
+            <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            placeholder="Enter your Email Address"
+          />
+          </div>
+      </div>
+        
+        <button type="submit" disabled={loading}>
+          {loading ? 'Sending...' : 'Send'}
+        </button>
     </form>
   );
 };
