@@ -1,6 +1,7 @@
+// ContactForm.jsx
+
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-
 import './ContactForm.css';
 
 const ContactForm = () => {
@@ -12,6 +13,7 @@ const ContactForm = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
   const propertyId = queryParams.get('property_id');
@@ -30,8 +32,8 @@ const ContactForm = () => {
       email,
       subject,
       message,
-      property_id: propertyId ? parseInt(propertyId) : null,
-      agent_id: agentId ? parseInt(agentId) : null,
+      property_id: propertyId ? parseInt(propertyId, 10) : null,
+      agent_id: agentId ? parseInt(agentId, 10) : null,
     };
 
     setIsSubmitting(true);
@@ -83,19 +85,38 @@ const ContactForm = () => {
           <form onSubmit={handleSubmit}>
             <div>
               <label>Name:</label>
-              <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+              <input 
+                type="text" 
+                value={name} 
+                onChange={(e) => setName(e.target.value)} 
+                required 
+              />
             </div>
             <div>
               <label>Email:</label>
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+              <input 
+                type="email" 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)} 
+                required 
+              />
             </div>
             <div>
               <label>Subject:</label>
-              <input type="text" value={subject} onChange={(e) => setSubject(e.target.value)} required />
+              <input 
+                type="text" 
+                value={subject} 
+                onChange={(e) => setSubject(e.target.value)} 
+                required 
+              />
             </div>
             <div>
               <label>Message:</label>
-              <textarea value={message} onChange={(e) => setMessage(e.target.value)} required />
+              <textarea 
+                value={message} 
+                onChange={(e) => setMessage(e.target.value)} 
+                required 
+              />
             </div>
             <button type="submit" disabled={isSubmitting}>
               {isSubmitting ? 'Sending...' : 'Send Message'}

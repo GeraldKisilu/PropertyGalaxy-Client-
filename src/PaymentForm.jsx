@@ -10,11 +10,15 @@ const PaymentForm = () => {
   const propertyId = searchParams.get('propertyId');
   const userId = searchParams.get('userId');
 
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState(''); 
   const [clientSecret, setClientSecret] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
+
+  // Installment related states
+  const [totalInstallments, setTotalInstallments] = useState(1);
+  const [installmentAmount, setInstallmentAmount] = useState('');
 
   useEffect(() => {
     if (propertyId && userId && amount) {
@@ -29,6 +33,8 @@ const PaymentForm = () => {
               amount: parseFloat(amount),
               property_id: propertyId,
               user_id: userId,
+              total_installments: totalInstallments,
+              installment_amount: parseFloat(installmentAmount),
             }),
           });
 
@@ -47,7 +53,7 @@ const PaymentForm = () => {
 
       fetchClientSecret();
     }
-  }, [amount, propertyId, userId]);
+  }, [amount, propertyId, userId, totalInstallments, installmentAmount]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -82,6 +88,8 @@ const PaymentForm = () => {
             property_id: propertyId,
             user_id: userId,
             payment_intent_id: paymentIntent.id,
+            total_installments: totalInstallments,
+            installment_amount: parseFloat(installmentAmount),
           };
 
           const response = await fetch('http://localhost:5050/userpayment/confirm-payment', {
@@ -101,6 +109,8 @@ const PaymentForm = () => {
           setResponseMessage('Payment succeeded and details posted successfully!');
           setErrorMessage('');
           setAmount('');
+          setTotalInstallments(1);
+          setInstallmentAmount('');
         } catch (error) {
           setErrorMessage(`Error posting payment details: ${error.message}`);
           console.error('Error posting payment details:', error);
@@ -130,6 +140,30 @@ const PaymentForm = () => {
             min="0.01"
             step="0.01"
             placeholder="Enter amount"
+          />
+        </div>
+        <div>
+          <label>Total Installments:</label>
+          <input
+            type="number"
+            value={totalInstallments}
+            onChange={(e) => setTotalInstallments(e.target.value)}
+            required
+            min="1"
+            step="1"
+            placeholder="Number of installments"
+          />
+        </div>
+        <div>
+          <label>Installment Amount:</label>
+          <input
+            type="number"
+            value={installmentAmount}
+            onChange={(e) => setInstallmentAmount(e.target.value)}
+            required
+            min="0.01"
+            step="0.01"
+            placeholder="Amount per installment"
           />
         </div>
         <div>
