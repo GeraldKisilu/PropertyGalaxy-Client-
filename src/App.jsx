@@ -25,6 +25,7 @@ import ContactForm from './ContactForm';
 import PaymentForm from './PaymentForm';
 import UserPurchaseRequest from './UserPurchaseRequests';
 import UserProfile from './UserProfile';
+import NavBar from './NavBar';
 
 
 import { Elements } from '@stripe/react-stripe-js';
