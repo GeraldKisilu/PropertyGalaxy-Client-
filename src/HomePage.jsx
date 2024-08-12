@@ -90,8 +90,6 @@ const HomePage = () => {
                     <Link to="/">Home</Link>
                     <Link to="/properties">Properties</Link>
                     <Link to="/reviews">Reviews</Link>
-                 
-
                     <Link to="/apply-agents">Do you wanna be an agent?</Link>
                     <Link to="/favourites-page">❤️ Favorites</Link>
                 </nav>
@@ -190,60 +188,28 @@ const HomePage = () => {
                                 </li>
                             </ul>
                             <p className="callout">
-                                "The only place that can make you comfortable enough to stay by yourself, with your companion and your whole extended family."
+                                <strong>15+</strong> Years of Experience
                             </p>
-                            <a href="#service" className="btn">Our Services</a>
                         </div>
                     </div>
                 </section>
 
-                {/* Service Section */}
-                <section className="service" id="service">
-                    <div className="container">
-                        <div className="service-list">
-                            <div className="service-card">
-                                <div className="card-icon">
-                                    <img src={icon1} alt="Service Icon" />
-                                </div>
-                                <h3 className="card-title"><a href="#">Consulting Services</a></h3>
-                                <p className="card-text">We offer professional consulting services to help you make informed decisions about your property investments.</p>
-                                <a href="#" className="card-link"><span>Read More</span> <ion-icon name="arrow-forward-outline"></ion-icon></a>
+                <section className="property">
+                    <h2>Properties</h2>
+                    <div className="property-list">
+                        {properties.map(property => (
+                            <div className="property-card" key={property.id}>
+                                <img src={property.imageUrl} alt="Property" className="property-image" />
+                                <h3>{property.name}</h3>
+                                <p>Price: {property.price}</p>
+                                <p>Location: {property.city}</p>
+                                
+                               
                             </div>
-                            <div className="service-card">
-                                <div className="card-icon">
-                                    <img src={icon2} alt="Service Icon" />
-                                </div>
-                                <h3 className="card-title"><a href="#">Property Management</a></h3>
-                                <p className="card-text">Our property management services ensure that your real estate assets are well-maintained and profitable.</p>
-                                <a href="#" className="card-link"><span>Read More</span> <ion-icon name="arrow-forward-outline"></ion-icon></a>
-                            </div>
-                            <div className="service-card">
-                                <div className="card-icon">
-                                    <img src={icon3} alt="Service Icon" />
-                                </div>
-                                <h3 className="card-title"><a href="#">Market Analysis</a></h3>
-                                <p className="card-text">We provide in-depth market analysis to help you understand the real estate trends and make the right investment choices.</p>
-                                <a href="#" className="card-link"><span>Read More</span> <ion-icon name="arrow-forward-outline"></ion-icon></a>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </section>
             </main>
-
-            {/* Footer Section */}
-            <footer className="footer">
-                <div className="footer-links">
-                    <span>Download our app:</span>
-                    <span className="footer-icon">📱 Google Play</span>
-                    <span className="footer-icon">🍏 App Store</span>
-                    <span className="footer-icon">💳 Visa</span>
-                    <span className="footer-icon">📲 Mpesa</span>
-                </div>
-                <div className="footer-terms">
-                    <Link to="/terms">Terms and Conditions</Link>
-                    <Link to="/privacy">Privacy Policy</Link>
-                </div>
-            </footer>
         </div>
     );
 };
