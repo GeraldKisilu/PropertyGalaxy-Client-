@@ -122,6 +122,8 @@ import './UserProfile.css';
 
 const UserProfile = () => {
     const [profile, setProfile] = useState({
+        full_name: '',
+        email: '',
         photo_url: '',
         bio: '',
         phone_number: '',
@@ -136,10 +138,12 @@ const UserProfile = () => {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const token = localStorage.getItem('token');
-                const response = await axios.get('http://127.0.0.1:5050/profile', {
+                // const token = localStorage.getItem('token');
+                const response = await axios.get('http://127.0.0.1:5050/profile/', {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Content-Type': 'application/json',
+
                     },
                 });
                 setProfile(response.data);
@@ -171,22 +175,24 @@ const UserProfile = () => {
         try {
             const token = localStorage.getItem('token');
             if (profileExists) {
-                await axios.put('http://127.0.0.1:5050/profile', profile, {
+                await axios.put('http://127.0.0.1:5050/profile/', profile, {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Content-Type': 'application/json',
                     },
                 });
                 alert("Profile updated successfully!");
                 setEditing(false);
-            } else {
-                await axios.post('http://127.0.0.1:5050/profile', profile, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-                alert("Profile created successfully!");
-                setProfileExists(true);
-            }
+             } 
+            // else {
+            //     await axios.post('http://127.0.0.1:5050/profile', profile, {
+            //         headers: {
+            //             Authorization: `Bearer ${token}`,
+            //         },
+            //     });
+            //     alert("Profile created successfully!");
+            //     setProfileExists(true);
+            // }
         } catch (error) {
             setError(error.response ? error.response.data.message : "Failed to save profile");
         }
@@ -196,9 +202,10 @@ const UserProfile = () => {
         if (window.confirm("Are you sure you want to delete your profile and account?")) {
             try {
                 const token = localStorage.getItem('token');
-                await axios.delete('http://127.0.0.1:5050/profile', {
+                await axios.delete('http://127.0.0.1:5050/profile/', {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Content-Type': 'application/json',
                     },
                 });
                 alert("Profile and account deleted successfully!");
@@ -223,6 +230,12 @@ const UserProfile = () => {
                             alt="Profile" 
                             style={{ borderRadius: '50%', width: '150px', height: '150px' }} 
                         />
+                    </div>
+                    <div>
+                        <p>{profile.full_name}</p>
+                    </div>
+                    <div>
+                        <p>{profile.email}</p>
                     </div>
                     <div>
                         <p>{profile.bio}</p>
