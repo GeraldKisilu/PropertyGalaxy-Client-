@@ -61,6 +61,7 @@ const HomePage = () => {
 
     return (
         <div className="home-page">
+
             {notification && (
                 <Notification 
                     city={notification.city} 
@@ -98,12 +99,18 @@ const HomePage = () => {
                         <li><a href="#" className="navbar-social-link"><ion-icon name="logo-pinterest"></ion-icon></a></li>
                     </ul>
                 </div>
+            
+
                 <nav className="navbar-links">
                     <Link to="/">Home</Link>
                     <Link to="/properties">Properties</Link>
                     <Link to="/reviews">Reviews</Link>
+
                     <Link to="/apply-agents">Do you wanna be an agent?</Link>
+
                     <Link to="/favourites-page">❤️ Favorites</Link>
+                    <Link to="/apply-agents">Become an agent?</Link>
+                    <Link to="/profile">Profile</Link>
                 </nav>
             </header>
 
@@ -131,7 +138,6 @@ const HomePage = () => {
                 </section>
 
                 <div className="search-bar">
-                    <img src={logo} alt="Property Galaxy" className="logo" />
                     <input
                         type="text"
                         value={location}
@@ -151,7 +157,7 @@ const HomePage = () => {
                     <section className="hero" id="home">
                         <div className="container">
                             <div className="hero-content">
-                                <h2 className="h1 hero-title">Find Your Dream House By Us</h2>
+                                <h2 className="hero-title">Find Your Dream House By Us</h2>
                                 <p className="hero-text">
                                     Find your dream house with ease at Property Galaxy, where diverse listings and expert guidance meet your real estate needs. Explore, discover, and make informed decisions with us today!
                                 </p>
