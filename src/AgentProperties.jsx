@@ -1,13 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRefresh } from './RefreshContext';
 import BoostButton from './BoostButton';
+import Notification from './Notification'; // Import Notification component
 
 function AgentProperty({ property, onRefresh }) {
   const { triggerRefresh } = useRefresh();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [price, setPrice] = useState(property.price);
+  const [boostedProperties, setBoostedProperties] = useState([]);
+  const [notification, setNotification] = useState(null); // State for notification
+
+  useEffect(() => {
+    fetchBoostedProperties();
+  }, []);
+
+  const fetchBoostedProperties = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:5050/boosted-properties');
+      const data = await response.json();
+      setBoostedProperties(data);
+    } catch (error) {
+      console.error("There was an error fetching boosted properties:", error);
+    }
+  };
 
   const handlePriceChange = (event) => {
     setPrice(event.target.value);
@@ -23,14 +40,14 @@ function AgentProperty({ property, onRefresh }) {
         },
         body: JSON.stringify({ price }),
       });
-      
+
       if (!response.ok) {
         if (response.status === 403) {
           alert('Access denied');
         }
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      
+
       await response.json();
       setIsEditing(false);
       onRefresh();
@@ -55,14 +72,14 @@ function AgentProperty({ property, onRefresh }) {
             'Authorization': 'Bearer ' + localStorage.getItem('token'),
           },
         });
-        
+
         if (!response.ok) {
           if (response.status === 403) {
             alert('Access Denied');
           }
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        
+
         await response.json();
         onRefresh();
         triggerRefresh();
@@ -77,8 +94,24 @@ function AgentProperty({ property, onRefresh }) {
     navigate(`/purchase-requests/${property.id}`);
   };
 
+  const onBoost = (city, price, image) => {
+    setNotification({ city, price, image }); // Set notification with city, price, and image
+  };
+
+  const handleCloseNotification = () => {
+    setNotification(null); // Close the notification
+  };
+
   return (
     <div className='card-list'>
+      {notification && (
+        <Notification 
+          city={notification.city} 
+          price={notification.price} 
+          image={notification.image}
+          onClose={handleCloseNotification} 
+        />
+      )}
       <div className="card">
         <div className="card-body">
           {isEditing ? (
@@ -100,25 +133,53 @@ function AgentProperty({ property, onRefresh }) {
           <p className="card-text">Listing Status: {property.listing_status}</p>
 
           <Link to={`/property/${property.id}/photos`}>View Property Photos</Link>
-            
+
           {isEditing ? (
             <div>
               <button className='card-btn save-btn' onClick={handleUpdateProperty}>Save</button>
-              <button className='card-btn cancel-btn' onClick={handleCancelEdit}>Cancel</button> 
+              <button className='card-btn cancel-btn' onClick={handleCancelEdit}>Cancel</button>
             </div>
           ) : (
             <div>
               <button className='card-btn edit-btn' onClick={() => setIsEditing(true)}>Edit</button>
-              <button className='card-btn delete-btn' onClick={handleDeleteProperty}>Delete</button> 
+              <button className='card-btn delete-btn' onClick={handleDeleteProperty}>Delete</button>
             </div>
           )}
 
-          <BoostButton /> 
+          <BoostButton 
+            propertyId={property.id} 
+            propertyCity={property.city} 
+            propertyPrice={property.price} 
+            propertyImage={property.imageUrl} 
+            onBoostSuccess={onBoost} 
+          />
         </div>
       </div>
       <button onClick={handlePurchaseRequests}>
         Purchase Requests
       </button>
+
+      {/* Boosted Properties Section */}
+      <section className="boosted-properties">
+        <h2>Boosted Properties</h2>
+        <div className="boosted-properties-grid">
+          {boostedProperties.map(property => (
+            <div className="boosted-property-item" key={property.id}>
+              <img src={property.imageUrl} alt={property.address} />
+              <p className="legend">{property.address}</p>
+              <p>City: {property.city}</p>
+              <p>Price: ${property.price}</p>
+              <BoostButton 
+                propertyId={property.id} 
+                propertyCity={property.city} 
+                propertyPrice={property.price} 
+                propertyImage={property.imageUrl} 
+                onBoostSuccess={onBoost} 
+              />
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

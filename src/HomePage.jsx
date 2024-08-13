@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './HomePage.css';
 import logo from './assets/Images/proppertygalaxy.jfif';
+import BoostButton from './BoostButton'; 
+import Notification from './Notification'; 
 import image1 from './assets/Images/homepage.jpg';
 import livingroom from './assets/Images/livingroom.jpg';
 import interior from './assets/Images/interior.jpg';
@@ -9,11 +11,13 @@ import icon1 from './assets/Images/agent.jpg';
 import icon2 from './assets/Images/agent.jpg';
 import icon3 from './assets/Images/agent.jpg';
 
+
 const HomePage = () => {
-    const [showContactCard, setShowContactCard] = useState(false);
     const [location, setLocation] = useState('');
     const [properties, setProperties] = useState([]);
     const [suggestions, setSuggestions] = useState([]);
+    const [boostedProperties, setBoostedProperties] = useState([]); 
+    const [notification, setNotification] = useState(null); // State for notification
 
     useEffect(() => {
         fetch('http://127.0.0.1:5050/property/list')
@@ -24,7 +28,19 @@ const HomePage = () => {
                 setSuggestions(uniqueCities);
             })
             .catch(error => console.error("There was an error fetching the properties:", error));
+
+        fetchBoostedProperties(); 
     }, []);
+
+    const fetchBoostedProperties = async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:5050/boosted-properties');
+            const data = await response.json();
+            setBoostedProperties(data);
+        } catch (error) {
+            console.error("There was an error fetching boosted properties:", error);
+        }
+    };
 
     const handleSearch = () => {
         const filteredProperties = properties.filter(property => property.city.toLowerCase().includes(location.toLowerCase()));
@@ -35,19 +51,63 @@ const HomePage = () => {
         setLocation(event.target.value);
     };
 
-    const toggleContactCard = () => {
-        setShowContactCard(!showContactCard);
+    const handleBoostSuccess = (city, price, image) => {
+        setNotification({ city, price, image }); // Set notification with city, price, and image
+    };
+
+    const handleCloseNotification = () => {
+        setNotification(null); // Close the notification
     };
 
     return (
         <div className="home-page">
+
+            {notification && (
+                <Notification 
+                    city={notification.city} 
+                    price={notification.price} 
+                    image={notification.image}
+                    onClose={handleCloseNotification} 
+                />
+            )}
+            <header className="header">
+                <div className="overlay"></div>
+                <div className="header-top">
+                    <div className="container">
+                        <div className="wrapper">
+                            <ul className="header-top-social-list">
+                                <li><a href="#" className="header-top-social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
+                                <li><a href="#" className="header-top-social-link"><ion-icon name="logo-twitter"></ion-icon></a></li>
+                                <li><a href="#" className="header-top-social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
+                                <li><a href="#" className="header-top-social-link"><ion-icon name="logo-pinterest"></ion-icon></a></li>
+                            </ul>
+                            <Link to="/profile">
+                                <button className="header-top-btn">Profile</button>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
             <header className="navbar">
-                <img src={logo} alt="Property Galaxy" className="logo" />
-                <p className='app-name'>Property Galaxy</p>
+                <div className="navbar-content">
+                    <div className="navbar-brand">Property Galaxy</div>
+                    <ul className="navbar-social-list">
+                        <li><a href="#" className="navbar-social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
+                        <li><a href="#" className="navbar-social-link"><ion-icon name="logo-twitter"></ion-icon></a></li>
+                        <li><a href="#" className="navbar-social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
+                        <li><a href="#" className="navbar-social-link"><ion-icon name="logo-pinterest"></ion-icon></a></li>
+                    </ul>
+                </div>
+            
+
                 <nav className="navbar-links">
                     <Link to="/">Home</Link>
                     <Link to="/properties">Properties</Link>
                     <Link to="/reviews">Reviews</Link>
+
+                    <Link to="/apply-agents">Do you wanna be an agent?</Link>
+
                     <Link to="/favourites-page">❤️ Favorites</Link>
                     <Link to="/apply-agents">Become an agent?</Link>
                     <Link to="/profile">Profile</Link>
@@ -55,6 +115,28 @@ const HomePage = () => {
             </header>
 
             <main className="body-content">
+                {/* Boosted Properties Section at the top */}
+                <section className="boosted-properties">
+                    <h2>Boosted Properties</h2>
+                    <div className="boosted-properties-grid">
+                        {boostedProperties.map(property => (
+                            <div className="boosted-property-item" key={property.id}>
+                                <img src={property.imageUrl} alt={property.address} />
+                                <p className="legend">{property.address}</p>
+                                <p>City: {property.city}</p>
+                                <p>Price: ${property.price}</p>
+                                <BoostButton 
+                                    propertyId={property.id} 
+                                    propertyCity={property.city} 
+                                    propertyPrice={property.price} 
+                                    propertyImage={property.imageUrl} 
+                                    onBoostSuccess={handleBoostSuccess} 
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
                 <div className="search-bar">
                     <input
                         type="text"
@@ -79,7 +161,7 @@ const HomePage = () => {
                                 <p className="hero-text">
                                     Find your dream house with ease at Property Galaxy, where diverse listings and expert guidance meet your real estate needs. Explore, discover, and make informed decisions with us today!
                                 </p>
-                                <button className="contact-agent-button" onClick={toggleContactCard}>📞 Contact Agent</button>
+                                <button className="contact-agent-button">📞 Contact Agent</button>
                             </div>
                         </div>
                     </section>
@@ -88,20 +170,9 @@ const HomePage = () => {
                         <div className="property-details">
                             <h2>Featured Property</h2>
                             <img src={image1} alt="Property Galaxy" className="featured-property-image" />
-                            <div className="property-gallery">
-                                {/* Additional images can be added here */}
-                            </div>
                             <p>Price: $500,000</p>
                             <p>Description: This is a beautiful house located in a serene environment. It features modern amenities and spacious rooms.</p>
                         </div>
-                        {showContactCard && (
-                            <div className="contact-card">
-                                <h3>Contact Agent</h3>
-                                <p>Email: agent@example.com</p>
-                                <p>Phone: (123) 456-7890</p>
-                                <button onClick={toggleContactCard}>Close</button>
-                            </div>
-                        )}
                     </div>
                 </div>
 
@@ -157,8 +228,7 @@ const HomePage = () => {
                 <section className="service" id="service">
                     <div className="container">
                         <p className="section-subtitle">Our Services</p>
-
-                        <h2 class="h2 section-title">Our Main Focus</h2>
+                        <h2 className="h2 section-title">Our Main Focus</h2>
                         <div className="service-list">
                             <div className="service-card">
                                 <div className="card-icon">
@@ -187,10 +257,6 @@ const HomePage = () => {
                         </div>
                     </div>
                 </section>
-
-                {/* Property Section */}
-
-
 
             </main>
 
