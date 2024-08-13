@@ -37,7 +37,7 @@ import { RefreshProvider } from './RefreshContext';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
-const stripePromise = loadStripe('pk_test_51PmLeaP08hlmzVcwDEzRNsjrtMFXRW5nVs7bsL1WiKo75dBm8zSwp5WT1nGuy7jUExHlkPt2EEli4QtuNKrQkL2200cSqbwlFQ');
+const stripePromise = loadStripe('pk_test_51PloPVHNjTG5ppcijzxnmDzRSYybNFys5Zf7pzgR8QwGxIP6s9aUb5cygPgSV8ZQQAY6iMZ2KRuCYVRpI7QGJN7z00rqUJuYtj');
 
 
 

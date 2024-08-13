@@ -16,9 +16,42 @@ const PaymentForm = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const [paymentType, setPaymentType] = useState('installments');
+  const [totalInstallments, setTotalInstallments] = useState(3);
+  const [installmentAmount, setInstallmentAmount] = useState('');
+
+  // Fetch property details and set the amount
   useEffect(() => {
-    if (propertyId && userId && amount) {
-      const fetchClientSecret = async () => {
+    const fetchPropertyDetails = async () => {
+      try {
+        const response = await fetch(`http://localhost:5050/userpayment/property-details/${propertyId}`);
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || 'Failed to fetch property details');
+        }
+
+        setAmount(data.price);
+      } catch (error) {
+        setErrorMessage(`Error fetching property details: ${error.message}`);
+        console.error('Error fetching property details:', error.message);
+      }
+    };
+
+    fetchPropertyDetails();
+  }, [propertyId]);
+
+  // Calculate installment amount and set client secret
+  useEffect(() => {
+    const calculateInstallmentAmount = () => {
+      if (amount && totalInstallments > 0) {
+        const amountPerInstallment = parseFloat(amount) / totalInstallments;
+        setInstallmentAmount(amountPerInstallment.toFixed(2));
+      }
+    };
+
+    const fetchClientSecret = async () => {
+      if (amount && propertyId && userId && installmentAmount) {
         try {
           const response = await fetch('http://localhost:5050/userpayment/create-intent', {
             method: 'POST',
@@ -29,6 +62,8 @@ const PaymentForm = () => {
               amount: parseFloat(amount),
               property_id: propertyId,
               user_id: userId,
+              total_installments: paymentType === 'installments' ? totalInstallments : 1,
+              installment_amount: paymentType === 'installments' ? parseFloat(installmentAmount) : null,
             }),
           });
 
@@ -43,11 +78,12 @@ const PaymentForm = () => {
           setErrorMessage(`Error fetching client secret: ${error.message}`);
           console.error('Error fetching client secret:', error.message);
         }
-      };
+      }
+    };
 
-      fetchClientSecret();
-    }
-  }, [amount, propertyId, userId]);
+    calculateInstallmentAmount();
+    fetchClientSecret();
+  }, [amount, propertyId, userId, paymentType, totalInstallments, installmentAmount]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -76,35 +112,35 @@ const PaymentForm = () => {
       }
 
       if (paymentIntent && paymentIntent.status === 'succeeded') {
-        try {
-          const paymentData = {
-            amount: parseFloat(amount),
-            property_id: propertyId,
-            user_id: userId,
-            payment_intent_id: paymentIntent.id,
-          };
+        const paymentData = {
+          amount: parseFloat(amount),
+          property_id: propertyId,
+          user_id: userId,
+          payment_intent_id: paymentIntent.id,
+          total_installments: paymentType === 'installments' ? totalInstallments : 1,
+          installment_amount: paymentType === 'installments' ? parseFloat(installmentAmount) : null,
+        };
 
-          const response = await fetch('http://localhost:5050/userpayment/confirm-payment', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(paymentData),
-          });
+        const endpoint = paymentType === 'installments' ? 'confirm-payment' : 'full-payment';
 
-          const text = await response.text();
+        const response = await fetch(`http://localhost:5050/userpayment/${endpoint}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(paymentData),
+        });
 
-          if (!response.ok) {
-            throw new Error(JSON.parse(text).message || 'Failed to post payment details');
-          }
+        const result = await response.json();
 
-          setResponseMessage('Payment succeeded and details posted successfully!');
-          setErrorMessage('');
-          setAmount('');
-        } catch (error) {
-          setErrorMessage(`Error posting payment details: ${error.message}`);
-          console.error('Error posting payment details:', error);
+        if (!response.ok) {
+          throw new Error(result.message || 'Failed to post payment details');
         }
+
+        setResponseMessage('Payment succeeded and details posted successfully!');
+        setErrorMessage('');
+        setAmount('');
+        setInstallmentAmount('');
       } else {
         setErrorMessage('Payment failed. Please try again.');
       }
@@ -121,29 +157,61 @@ const PaymentForm = () => {
       <h2>Submit Payment</h2>
       <form onSubmit={handleSubmit}>
         <div>
+          <label>Payment Type:</label>
+          <select value={paymentType} onChange={(e) => setPaymentType(e.target.value)}>
+            <option value="installments">Installments</option>
+
+          </select>
+        </div>
+        <div>
           <label>Amount:</label>
           <input
             type="number"
             value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            required
+            readOnly
             min="0.01"
             step="0.01"
             placeholder="Enter amount"
           />
         </div>
-        <div>
-          <label>Card Details:</label>
-          <CardElement />
-        </div>
-        <button type="submit" disabled={loading || !stripe || !elements}>
-          {loading ? 'Processing...' : 'Submit Payment'}
-        </button>
-      </form>
-      {responseMessage && <p style={{ color: 'green' }}>{responseMessage}</p>}
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-    </div>
-  );
+        {paymentType === 'installments' && (
+          <>
+            <div>
+              <label>Total Installments:</label>
+              <input
+                type="number"
+                value={totalInstallments}
+                onChange={(e) => setTotalInstallments(parseInt(e.target.value, 10) || 1)}
+                min="1"
+                step="1"
+                placeholder="Number of installments"
+              />
+            </div>
+            <div>
+              <label>Installment Amount:</label>
+              <input
+                type="number"
+                value={installmentAmount}
+                readOnly
+                min="0.01"
+                step="0.01"
+                placeholder="Amount per installment"
+/>
+</div>
+</>
+)}
+<div>
+<label>Card Details:</label>
+<CardElement />
+</div>
+<button type="submit" disabled={loading || !stripe || !elements}>
+{loading ? 'Processing...' : 'Submit Payment'}
+</button>
+{responseMessage && <p style={{ color: 'green' }}>{responseMessage}</p>}
+{errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+</form>
+</div>
+);
 };
 
-export default PaymentForm;
+export default PaymentForm
