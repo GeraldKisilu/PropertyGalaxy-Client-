@@ -20,6 +20,7 @@ const PaymentForm = () => {
   const [totalInstallments, setTotalInstallments] = useState(3);
   const [installmentAmount, setInstallmentAmount] = useState('');
 
+  // Fetch property details and set the amount
   useEffect(() => {
     const fetchPropertyDetails = async () => {
       try {
@@ -40,9 +41,17 @@ const PaymentForm = () => {
     fetchPropertyDetails();
   }, [propertyId]);
 
+  // Calculate installment amount and set client secret
   useEffect(() => {
-    if (amount && propertyId && userId) {
-      const fetchClientSecret = async () => {
+    const calculateInstallmentAmount = () => {
+      if (amount && totalInstallments > 0) {
+        const amountPerInstallment = parseFloat(amount) / totalInstallments;
+        setInstallmentAmount(amountPerInstallment.toFixed(2));
+      }
+    };
+
+    const fetchClientSecret = async () => {
+      if (amount && propertyId && userId && installmentAmount) {
         try {
           const response = await fetch('http://localhost:5050/userpayment/create-intent', {
             method: 'POST',
@@ -54,6 +63,7 @@ const PaymentForm = () => {
               property_id: propertyId,
               user_id: userId,
               total_installments: paymentType === 'installments' ? totalInstallments : 1,
+              installment_amount: paymentType === 'installments' ? parseFloat(installmentAmount) : null,
             }),
           });
 
@@ -68,11 +78,12 @@ const PaymentForm = () => {
           setErrorMessage(`Error fetching client secret: ${error.message}`);
           console.error('Error fetching client secret:', error.message);
         }
-      };
+      }
+    };
 
-      fetchClientSecret();
-    }
-  }, [amount, propertyId, userId, paymentType, totalInstallments]);
+    calculateInstallmentAmount();
+    fetchClientSecret();
+  }, [amount, propertyId, userId, paymentType, totalInstallments, installmentAmount]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -141,13 +152,6 @@ const PaymentForm = () => {
     }
   };
 
-  useEffect(() => {
-    if (amount && totalInstallments > 0) {
-      const amountPerInstallment = parseFloat(amount) / totalInstallments;
-      setInstallmentAmount(amountPerInstallment.toFixed(2));
-    }
-  }, [amount, totalInstallments]);
-
   return (
     <div>
       <h2>Submit Payment</h2>
@@ -156,7 +160,7 @@ const PaymentForm = () => {
           <label>Payment Type:</label>
           <select value={paymentType} onChange={(e) => setPaymentType(e.target.value)}>
             <option value="installments">Installments</option>
-            <option value="full">Full Payment</option>
+
           </select>
         </div>
         <div>
@@ -192,23 +196,22 @@ const PaymentForm = () => {
                 min="0.01"
                 step="0.01"
                 placeholder="Amount per installment"
-              />
-            </div>
-          </>
-        )}
-        <div>
-          <label>Card Details:</label>
-          <CardElement />
-        </div>
-        <button type="submit" disabled={loading || !stripe || !elements}>
-          {loading ? 'Processing...' : 'Submit Payment'}
-        </button>
-      </form>
-      {responseMessage && <p style={{ color: 'green' }}>{responseMessage}</p>}
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-    </div>
-  );
+/>
+</div>
+</>
+)}
+<div>
+<label>Card Details:</label>
+<CardElement />
+</div>
+<button type="submit" disabled={loading || !stripe || !elements}>
+{loading ? 'Processing...' : 'Submit Payment'}
+</button>
+{responseMessage && <p style={{ color: 'green' }}>{responseMessage}</p>}
+{errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+</form>
+</div>
+);
 };
 
-export default PaymentForm;
- 
+export default PaymentForm
