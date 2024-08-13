@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRefresh } from './RefreshContext';
+import BoostButton from './BoostButton';
 
 function AgentProperty({ property, onRefresh }) {
   const { triggerRefresh } = useRefresh();
   const navigate = useNavigate(); 
   const [isEditing, setIsEditing] = useState(false);
   const [price, setPrice] = useState(property.price);
-  
+
   const handlePriceChange = (event) => {
     setPrice(event.target.value);
   };
@@ -99,7 +100,7 @@ function AgentProperty({ property, onRefresh }) {
           <p className="card-text">Listing Status: {property.listing_status}</p>
 
           <Link to={`/property/${property.id}/photos`}>View Property Photos</Link>
-
+            
           {isEditing ? (
             <div>
               <button className='card-btn save-btn' onClick={handleUpdateProperty}>Save</button>
@@ -111,6 +112,8 @@ function AgentProperty({ property, onRefresh }) {
               <button className='card-btn delete-btn' onClick={handleDeleteProperty}>Delete</button> 
             </div>
           )}
+
+          <BoostButton /> 
         </div>
       </div>
       <button onClick={handlePurchaseRequests}>

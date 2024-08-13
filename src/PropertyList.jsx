@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Property.css';
-import BoostButton from './BoostButton'; // Import the BoostButton component
 import PhotosComponent from './PhotosComponent';
 import { useRefresh } from './RefreshContext';
 
@@ -10,28 +9,30 @@ const PropertyList = ({ userId }) => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchProperties = async () => {
       setLoading(true);
       try {
         const response = await fetch('http://localhost:5050/property/list');
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'An unknown error occurred');
         }
         const data = await response.json();
         setProperties(data);
         setError(null); // Clear previous errors
       } catch (error) {
         console.error('Error fetching properties:', error);
-        setError('Error fetching properties');
+        setError(error.message);
       } finally {
         setLoading(false);
       }
     };
 
     fetchProperties();
-  }, [refresh]); 
+  }, [refresh]);
 
   const handleLike = async (propertyId) => {
     try {
@@ -46,17 +47,21 @@ const PropertyList = ({ userId }) => {
           property_id: propertyId,
         }),
       });
-      
+
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error(`Error saving property: ${response.status} ${response.statusText} ${errorText}`);
-        throw new Error('Network response was not ok');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'An unknown error occurred');
       }
-      
+
+      // Add liked property to local storage
+      const savedProperties = JSON.parse(localStorage.getItem('savedProperties')) || [];
+      savedProperties.push(propertyId);
+      localStorage.setItem('savedProperties', JSON.stringify(savedProperties));
+
       alert('Property saved successfully!');
     } catch (error) {
       console.error('Error saving property:', error);
-      alert('Error saving property');
+      alert(`Error saving property: ${error.message}`);
     }
   };
 
@@ -67,7 +72,6 @@ const PropertyList = ({ userId }) => {
     <div className="property-list">
       <Link to='/favourites-page'>Saved </Link>
       <h1>Properties</h1>
-      <BoostButton /> 
       <div className="property-list__cards">
         {properties.length > 0 ? properties.map(property => (
           <div key={property.id} className="property-list__card">

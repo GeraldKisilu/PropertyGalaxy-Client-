@@ -66,37 +66,42 @@ function Login() {
     <div className="login-container">
       <h2>Login</h2>
       <form onSubmit={handleSubmit} className="login-form">
-        <div className="form-group">
+        <div className="form-group" style={{marginBottom: '20px'}}>
           <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            placeholder="Enter your email address"
-          />
+          <div>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              placeholder="Enter your email address"
+            />
+          </div>
         </div>
-        <div className="form-group">
+        <div className="form-group" style={{marginBottom: '30px'}}>
           <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            placeholder="Enter your password"
-          />
+          <div>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              placeholder="Enter your password"
+            />
+
+          </div>
         </div>
-        <button type="submit" className="login-button">Login</button>
+        <button type="submit" className="login-button" style={{marginBottom: '30px' }}>Login</button>
       </form>
-      <div>
-        <Link to='/forgot-password'>Forgot Password </Link> 
+      <div style={{marginBottom: '10px'}}>
+        <Link to='/forgot-password' style={{ color: 'black' }}>Forgot Password? </Link> 
       </div>
       <div>
-        <Link to='/register'>DON'T HAVE AN ACCOUNT? </Link> 
+        <Link to='/register' style={{ color: 'black' }}>DON'T HAVE AN ACCOUNT? </Link> 
       </div>
     </div>
   );

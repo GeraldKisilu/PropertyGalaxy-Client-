@@ -18,13 +18,20 @@ import AgentApplication from './AgentApplication';
 import AgentApplicationForm from './AgentApplicationForm';
 import AgentDashboard from './AgentDashboard';
 import AddPropertyForm from './AddPropertyForm';
-import PropertyPhotos from './PropertyPhotos'; // Removed the duplicate import
+import PropertyPhotos from './PropertyPhotos';
 import AgentMessages from './AgentMessages';
 import FavoritesPage from './FavoritesPage';
 import ContactForm from './ContactForm';
 import PaymentForm from './PaymentForm';
 import UserPurchaseRequest from './UserPurchaseRequests';
 import UserProfile from './UserProfile';
+import AgentPayments from './AgentPayments';
+import Payment from './Payment';
+// import ListingFee from './ListingFee';
+
+import { RefreshProvider } from './RefreshContext';
+
+
 
 
 import { Elements } from '@stripe/react-stripe-js';
@@ -32,10 +39,6 @@ import { loadStripe } from '@stripe/stripe-js';
 
 const stripePromise = loadStripe('pk_test_51PloPVHNjTG5ppcijzxnmDzRSYybNFys5Zf7pzgR8QwGxIP6s9aUb5cygPgSV8ZQQAY6iMZ2KRuCYVRpI7QGJN7z00rqUJuYtj');
 
-import Payment from './Payment';
-import ListingFee from './ListingFee';
-
-import { RefreshProvider } from './RefreshContext';
 
 
 function App() {
@@ -67,10 +70,11 @@ function App() {
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/payment" element={<PaymentForm />} />
           <Route path="/purchase-requests/:propertyId" element={<UserPurchaseRequest />} />
-           <Route path = "/payment/:feeId" element = {<Payment feeId={1} />} />
-
-
-          <Route path="/listingfee/:feeId" element={<ListingFee feeId={1} />} />
+          <Route path = "/agent-payment" element = {<AgentPayments />} />
+          
+ 
+          {/* <Route path="/listingfee/:feeId" element={<ListingFee feeId={1} />} /> */}
+          {/* <Route path = "/agent-payments" element = {<AgentPayments/>}/> */}
         </Routes>
       </Elements>
      
