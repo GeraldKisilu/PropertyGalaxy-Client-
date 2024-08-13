@@ -58,8 +58,12 @@
   
   .contact-form-content button:disabled {
     background: #aaa;
-=======
+  }
+
+
+
 /* ContactForm.css */
+
 
 .contact-form-container {
     width: 100%;

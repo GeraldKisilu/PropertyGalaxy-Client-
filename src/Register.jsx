@@ -64,52 +64,60 @@ function RegistrationForm() {
       <form onSubmit={handleSubmitSignup} className="registration-form">
         <div className="form-group">
           <label htmlFor="fullName">Full name:</label>
-          <input
-            type="text"
-            id="fullName"
-            name="fullName"
-            value={formData.fullName}
-            onChange={handleChange}
-            required
-            placeholder="Enter your full name"
-          />
+          <div>
+            <input
+              type="text"
+              id="fullName"
+              name="fullName"
+              value={formData.fullName}
+              onChange={handleChange}
+              required
+              placeholder="Enter your full name"
+            />
+          </div>
         </div>
         <div className="form-group">
           <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            placeholder="Enter your email address"
-          />
+          <div>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              placeholder="Enter your email address"
+            />
+          </div>
         </div>
         <div className="form-group">
           <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            placeholder="Create a password"
-          />
+          <div>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              placeholder="Create a password"
+            />
+          </div>
         </div>
-        <div className="form-group">
+        <div className="form-group" style={{marginBottom: '30px'}}>
           <label htmlFor="password2">Confirm Password:</label>
-          <input
-            type="password"
-            id="password2"
-            name="password2"
-            value={formData.password2}
-            onChange={handleChange}
-            required
-            placeholder="Confirm password"
-          />
-        </div>
+          <div>
+            <input
+              type="password"
+              id="password2"
+              name="password2"
+              value={formData.password2}
+              onChange={handleChange}
+              required
+              placeholder="Confirm password"
+            />
+          </div>
+          </div>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
         <button type="submit" className="register-button" disabled={loading}>
           {loading ? 'Registering...' : 'Register'}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ReviewForm = ({ propertyId }) => {
+const ReviewForm = () => {
     const [rating, setRating] = useState(0);
     const [hoverRating, setHoverRating] = useState(0);
     const [comment, setComment] = useState('');
@@ -20,7 +20,7 @@ const ReviewForm = ({ propertyId }) => {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 },
                 body: JSON.stringify({
-                    property_id: propertyId,
+                    
                     rating: rating,
                     comment: comment,
                 }),

@@ -37,16 +37,18 @@ function FavoritesPage() {
 
   if (loading) return <div className="favorites-loading">Loading...</div>;
   if (error) return <div className="favorites-error">{error}</div>;
+  console.log(savedProperties)
 
   return (
     <div className="favorites-page">
       <h1 className="favorites-header">Your Favorite Properties</h1>
       <ul className="favorites-list">
         {savedProperties.map((property) => (
-          <li key={property.id} className="favorites-item">
-            <Link to={`/property/${property.id}`} className="favorites-link">
-              {property.address}, {property.city} - ${property.price}
+                   <li key={property.property_id} className="favorites-item">
+            <Link to={`/property/${property.property.id}`} className="favorites-link">
+              {property.property.address}, {property.property.city} - ${property.property.price}
             </Link>
+            
           </li>
         ))}
       </ul>
