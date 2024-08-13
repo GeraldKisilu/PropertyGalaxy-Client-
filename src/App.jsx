@@ -66,7 +66,7 @@ function App() {
             <Route path="/user-dashboard" element={<UserDashboard />} />
             <Route path="/agent-dashboard" element={<AgentDashboard />} />
             <Route path="/not-authorized" element={<NotAuthorized />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Login />} />
             <Route path="/agents" element={<Agent />} />
             <Route path="/register" element={<Register />} /> 
             <Route path="/reviews" element={<Review />} />
