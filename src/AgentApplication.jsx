@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+
 const AgentApplication = () => {
     const [applications, setApplications] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -45,7 +46,7 @@ const AgentApplication = () => {
     };
 
     const confirmChange = (applicationId, status) => {
-        if (window.confirm('Are you sure you want to change the status?')) {
+        if (window.confirm(`Are you sure you want to ${status} this application?`)) {
             handleStatusChange(applicationId, status);
         }
     };
@@ -93,6 +94,7 @@ const AgentApplication = () => {
                                     <button onClick={() => confirmChange(application.id, 'rejected')}>
                                         Reject
                                     </button>
+                                    
                                 </td>
                             </tr>
                         ))}
@@ -104,4 +106,3 @@ const AgentApplication = () => {
 };
 
 export default AgentApplication;
-
