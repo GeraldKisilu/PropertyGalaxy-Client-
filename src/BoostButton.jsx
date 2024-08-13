@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const BoostButton = ({ propertyId, authToken }) => {
+const BoostButton = ({ propertyId, propertyCity, propertyPrice, propertyImage, onBoostSuccess }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -25,6 +25,7 @@ const BoostButton = ({ propertyId, authToken }) => {
       }
 
       setSuccess(true);
+      onBoostSuccess(propertyCity, propertyPrice, propertyImage); // Pass necessary details to parent
     } catch (error) {
       setError(error.message);
     } finally {

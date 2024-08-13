@@ -25,8 +25,6 @@ import ContactForm from './ContactForm';
 import PaymentForm from './PaymentForm';
 import UserPurchaseRequest from './UserPurchaseRequests';
 import UserProfile from './UserProfile';
-// import NavBar from './NavBar';
-
 
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -37,58 +35,61 @@ import Payment from './Payment';
 import ListingFee from './ListingFee';
 
 import { RefreshProvider } from './RefreshContext';
-
+import Notification from './Notification'; // Import Notification component
 
 function App() {
+  const [notification, setNotification] = useState(null); // State for notification
+
+  const handleBoostSuccess = (city, price, image) => {
+    setNotification({ city, price, image }); // Set notification with property details
+  };
+
+  const handleCloseNotification = () => {
+    setNotification(null); // Close the notification
+  };
+
   return (
     <Router>
-
       <Elements stripe={stripePromise}>
-        <Routes>
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />
-          <Route path="/user-dashboard" element={<UserDashboard />} />
-          <Route path="/agent-dashboard" element={<AgentDashboard />} />
-          <Route path="/not-authorized" element={<NotAuthorized />} />
-          <Route path="/agents" element={<Agent />} />
-          <Route path="/register" element={<Register />} /> 
-          <Route path="/reviews" element={<Review />} />
-          <Route path="/" element={<Login />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/confirm-email" element={<ConfirmEmail />} />
-          <Route path="/properties" element={<PropertyList />} />
-          <Route path="/property/:id" element={<PropertyDetails />} />
-          <Route path="/agent-application" element={<AgentApplication />} />
-          <Route path="/apply-agents" element={<AgentApplicationForm />} />
-          <Route path="/add-property" element={<AddPropertyForm />} />
-          <Route path="/property/:id/photos" element={<PropertyPhotos />} />
-          <Route path="/agent-messages" element={<AgentMessages />} />
-          <Route path="/favourites-page" element={<FavoritesPage />} />
-          <Route path="/contact" element={<ContactForm />} />
-          <Route path="/profile" element={<UserProfile />} />
-          <Route path="/payment" element={<PaymentForm />} />
-          <Route path="/purchase-requests/:propertyId" element={<UserPurchaseRequest />} />
-           <Route path = "/payment/:feeId" element = {<Payment feeId={1} />} />
-
-
-          <Route path="/listingfee/:feeId" element={<ListingFee feeId={1} />} />
-        </Routes>
+        <RefreshProvider>
+          {notification && (
+            <Notification 
+              city={notification.city} 
+              price={notification.price} 
+              image={notification.image}
+              onClose={handleCloseNotification} 
+            />
+          )}
+          <Routes>
+            <Route path="/" element={<HomePage onBoostSuccess={handleBoostSuccess} />} />
+            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/user-dashboard" element={<UserDashboard />} />
+            <Route path="/agent-dashboard" element={<AgentDashboard />} />
+            <Route path="/not-authorized" element={<NotAuthorized />} />
+            <Route path="/" element={<Login />} />
+            <Route path="/agents" element={<Agent />} />
+            <Route path="/register" element={<Register />} /> 
+            <Route path="/reviews" element={<Review />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/confirm-email" element={<ConfirmEmail />} />
+            <Route path="/properties" element={<PropertyList />} />
+            <Route path="/property/:id" element={<PropertyDetails />} />
+            <Route path="/agent-application" element={<AgentApplication />} />
+            <Route path="/apply-agents" element={<AgentApplicationForm />} />
+            <Route path="/add-property" element={<AddPropertyForm />} />
+            <Route path="/property/:id/photos" element={<PropertyPhotos />} />
+            <Route path="/agent-messages" element={<AgentMessages />} />
+            <Route path="/favourites-page" element={<FavoritesPage />} />
+            <Route path="/contact" element={<ContactForm />} />
+            <Route path="/profile" element={<UserProfile />} />
+            <Route path="/payment" element={<PaymentForm />} />
+            <Route path="/purchase-requests/:propertyId" element={<UserPurchaseRequest />} />
+            <Route path="/payment/:feeId" element={<Payment feeId={1} />} />
+            <Route path="/listingfee/:feeId" element={<ListingFee feeId={1} />} />
+          </Routes>
+        </RefreshProvider>
       </Elements>
-     
-
-
-    
-        
-
-
-         
-
-        
-     
-
-
-      
-
     </Router>
   );
 }

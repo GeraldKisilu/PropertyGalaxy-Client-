@@ -13,7 +13,7 @@ const AddPropertyForm = () => {
     listing_status: '',
    
   });
-  const [propertyId, setPropertyId] = useState(null); // State to store property ID
+  const [propertyId, setPropertyId] = useState(null); 
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
@@ -24,7 +24,7 @@ const AddPropertyForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    setSuccessMessage(''); // Reset success message before new submission
+    setSuccessMessage(''); 
 
     try {
       const response = await axios.post('http://127.0.0.1:5050/property/list', formData, {
@@ -32,7 +32,7 @@ const AddPropertyForm = () => {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
-      const { property_id } = response.data; // Assuming the response contains the new property's ID
+      const { property_id } = response.data; 
       setPropertyId(property_id);
       setSuccessMessage('Property added successfully!');
       
