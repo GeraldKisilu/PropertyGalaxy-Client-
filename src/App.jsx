@@ -26,35 +26,19 @@ import PaymentForm from './PaymentForm';
 import UserPurchaseRequest from './UserPurchaseRequests';
 import UserProfile from './UserProfile';
 
-
-import AgentPayments from './AgentPayments';
-import Payment from './Payment';
-// import ListingFee from './ListingFee';
-
-import { RefreshProvider } from './RefreshContext';
-
-
-
-
-
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
-const stripePromise = loadStripe('pk_test_51PloPVHNjTG5ppcijzxnmDzRSYybNFys5Zf7pzgR8QwGxIP6s9aUb5cygPgSV8ZQQAY6iMZ2KRuCYVRpI7QGJN7z00rqUJuYtj');
+const stripePromise = loadStripe('pk_test_51PmLeaP08hlmzVcwDEzRNsjrtMFXRW5nVs7bsL1WiKo75dBm8zSwp5WT1nGuy7jUExHlkPt2EEli4QtuNKrQkL2200cSqbwlFQ');
 
-
-// import Payment from './Payment';
-// import ListingFee from './ListingFee';
+import Payment from './Payment';
+import ListingFee from './ListingFee';
 
 import { RefreshProvider } from './RefreshContext';
 import Notification from './Notification'; // Import Notification component
 
-
-
-
 function App() {
   const [notification, setNotification] = useState(null); // State for notification
-
 
   const handleBoostSuccess = (city, price, image) => {
     setNotification({ city, price, image }); // Set notification with property details
@@ -105,8 +89,6 @@ function App() {
             <Route path="/listingfee/:feeId" element={<ListingFee feeId={1} />} />
           </Routes>
         </RefreshProvider>
-
-     
       </Elements>
     </Router>
   );
