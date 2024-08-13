@@ -18,7 +18,7 @@ import AgentApplication from './AgentApplication';
 import AgentApplicationForm from './AgentApplicationForm';
 import AgentDashboard from './AgentDashboard';
 import AddPropertyForm from './AddPropertyForm';
-import PropertyPhotos from './PropertyPhotos'; // Removed the duplicate import
+import PropertyPhotos from './PropertyPhotos';
 import AgentMessages from './AgentMessages';
 import FavoritesPage from './FavoritesPage';
 import ContactForm from './ContactForm';
@@ -30,6 +30,8 @@ import Payment from './Payment';
 // import ListingFee from './ListingFee';
 
 import { RefreshProvider } from './RefreshContext';
+
+
 
 
 import { Elements } from '@stripe/react-stripe-js';
