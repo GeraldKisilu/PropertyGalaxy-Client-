@@ -1,84 +1,74 @@
+// PaymentForm.jsx
 import React, { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
-import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { Elements, CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 
-const stripePromise = loadStripe('pk_test_51PloPVHNjTG5ppcijzxnmDzRSYybNFys5Zf7pzgR8QwGxIP6s9aUb5cygPgSV8ZQQAY6iMZ2KRuCYVRpI7QGJN7z00rqUJuYtj'); // Replace with your Stripe publishable key
 
-const PaymentForm = ({ feeId, onPaymentSuccess, onPaymentFailure }) => {
-    const stripe = useStripe();
-    const elements = useElements();
-    const [isProcessing, setIsProcessing] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
+// Make sure to replace with your own public key
+// const stripePromise = loadStripe('pk_test_51PloPVHNjTG5ppcijzxnmDzRSYybNFys5Zf7pzgR8QwGxIP6s9aUb5cygPgSV8ZQQAY6iMZ2KRuCYVRpI7QGJN7z00rqUJuYtj');
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        if (!stripe || !elements) return; // Make sure to disable the button if Stripe.js has not loaded
+const AgentPaymentForm = ({ listingFeeId }) => {
+  const stripe = useStripe();
+  const elements = useElements();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const searchParams = new URLSearchParams(location.search);
+  const userId = searchParams.get('userId');
+  const applicationId = searchParams.get('applicationId')
 
-        setIsProcessing(true);
-        setErrorMessage('');
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!stripe || !elements) return;
 
-        try {
-            // Call your backend to create a PaymentIntent
-            const response = await fetch(`http://localhost:5050/listingfee/${feeId}/pay`, { 
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            });
+    setLoading(true);
+    setError(null);
 
-            if (!response.ok) {
-                throw new Error('Failed to create PaymentIntent');
-            }
+    // Call your backend to create a PaymentIntent
+    const response = await fetch(`http://127.0.0.1:5050/listingfee/${listingFeeId}/pay`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ agent_id: userId,
+        application_id :applicationId
+      }),
+    });
+    
+    const { client_secret, message } = await response.json();
 
-            const { client_secret } = await response.json();
+    if (response.ok) {
+      // Confirm the PaymentIntent with the client secret
+      const { error: stripeError } = await stripe.confirmCardPayment(client_secret, {
+        payment_method: {
+          card: elements.getElement(CardElement),
+        },
+      });
 
-            // Confirm the payment with the card details
-            const { error, paymentIntent } = await stripe.confirmCardPayment(client_secret, {
-                payment_method: {
-                    card: elements.getElement(CardElement),
-                }
-            });
-
-            if (error) {
-                setErrorMessage(`Payment failed: ${error.message}`);
-                onPaymentFailure && onPaymentFailure(error.message);
-            } else if (paymentIntent.status === 'succeeded') {
-                onPaymentSuccess && onPaymentSuccess();
-            }
-        } catch (err) {
-            setErrorMessage(`Payment failed: ${err.message}`);
-            onPaymentFailure && onPaymentFailure(err.message);
-        } finally {
-            setIsProcessing(false);
-        }
-    };
-
-    return (
-        <form onSubmit={handleSubmit}>
-            <h2>Make a Payment</h2>
-            <CardElement options={{ hidePostalCode: true }} />
-            <button type="submit" disabled={!stripe || isProcessing}>
-                {isProcessing ? 'Processing...' : 'Pay'}
-            </button>
-            {errorMessage && <div className="error">{errorMessage}</div>}
-        </form>
-    );
-};
-
-const Payment = ({ feeId }) => {
-    const handlePaymentSuccess = () => {
+      if (stripeError) {
+        setError(stripeError.message);
+      } else {
+        // Payment succeeded
         alert('Payment successful!');
-    };
+      }
+    } else {
+      // Handle server errors
+      setError(message);
+    }
 
-    const handlePaymentFailure = (message) => {
-        alert(`Payment failed: ${message}`);
-    };
+    setLoading(false);
+  };
 
-    return (
-        <Elements stripe={stripePromise}>
-            <PaymentForm feeId={feeId} onPaymentSuccess={handlePaymentSuccess} onPaymentFailure={handlePaymentFailure} />
-        </Elements>
-    );
-};
-
-export default Payment;
+  return (
+    <div>
+      <h2>Pay for Listing Fee</h2>
+      <form onSubmit={handleSubmit}>
+        <CardElement />
+        {error && <div className="error">{error}</div>}
+        <button type="submit" disabled={loading}>
+          {loading ? 'Processing...' : 'Pay Now'}
+        </button>
+      </form>
+    </div>
+  );
+}
+export default AgentPaymentForm;

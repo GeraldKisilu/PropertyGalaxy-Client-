@@ -25,6 +25,11 @@ import ContactForm from './ContactForm';
 import PaymentForm from './PaymentForm';
 import UserPurchaseRequest from './UserPurchaseRequests';
 import UserProfile from './UserProfile';
+import AgentPayments from './AgentPayments';
+import Payment from './Payment';
+// import ListingFee from './ListingFee';
+
+import { RefreshProvider } from './RefreshContext';
 
 
 import { Elements } from '@stripe/react-stripe-js';
@@ -32,10 +37,6 @@ import { loadStripe } from '@stripe/stripe-js';
 
 const stripePromise = loadStripe('pk_test_51PmLeaP08hlmzVcwDEzRNsjrtMFXRW5nVs7bsL1WiKo75dBm8zSwp5WT1nGuy7jUExHlkPt2EEli4QtuNKrQkL2200cSqbwlFQ');
 
-import Payment from './Payment';
-import ListingFee from './ListingFee';
-
-import { RefreshProvider } from './RefreshContext';
 
 
 function App() {
@@ -67,10 +68,11 @@ function App() {
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/payment" element={<PaymentForm />} />
           <Route path="/purchase-requests/:propertyId" element={<UserPurchaseRequest />} />
-           <Route path = "/payment/:feeId" element = {<Payment feeId={1} />} />
-
-
-          <Route path="/listingfee/:feeId" element={<ListingFee feeId={1} />} />
+          <Route path = "/agent-payment" element = {<AgentPayments />} />
+          
+ 
+          {/* <Route path="/listingfee/:feeId" element={<ListingFee feeId={1} />} /> */}
+          {/* <Route path = "/agent-payments" element = {<AgentPayments/>}/> */}
         </Routes>
       </Elements>
      

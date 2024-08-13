@@ -35,7 +35,7 @@ const ContactForm = () => {
     setIsSubmitting(true);
 
     try {
-      const token = localStorage.getItem('jwt');
+      const token = localStorage.getItem('token');
       const response = await fetch('http://localhost:5050/contact/messages', {
         method: 'POST',
         headers: {
