@@ -1,3 +1,5 @@
+// ContactForm.jsx
+
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './ContactForm.css';
@@ -10,6 +12,10 @@ const ContactForm = () => {
   const [responseMessage, setResponseMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  
+
+
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
   const propertyId = queryParams.get('property_id');
@@ -28,14 +34,14 @@ const ContactForm = () => {
       email,
       subject,
       message,
-      property_id: propertyId ? parseInt(propertyId) : null,
-      agent_id: agentId ? parseInt(agentId) : null,
+      property_id: propertyId ? parseInt(propertyId, 10) : null,
+      agent_id: agentId ? parseInt(agentId, 10) : null,
     };
 
     setIsSubmitting(true);
 
     try {
-      const token = localStorage.getItem('jwt');
+      const token = localStorage.getItem('token');
       const response = await fetch('http://localhost:5050/contact/messages', {
         method: 'POST',
         headers: {
@@ -67,6 +73,8 @@ const ContactForm = () => {
   };
 
   return (
+    
+
     <div className="contact-form-container">
       <h2>Contact Agent</h2>
       <form onSubmit={handleSubmit}>
@@ -108,6 +116,7 @@ const ContactForm = () => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
+
         </div>
         <button
           type="submit"

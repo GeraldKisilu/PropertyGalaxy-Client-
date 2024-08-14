@@ -17,21 +17,22 @@ const PropertyList = ({ userId }) => {
       try {
         const response = await fetch('http://localhost:5050/property/list');
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'An unknown error occurred');
         }
         const data = await response.json();
         setProperties(data);
         setError(null); // Clear previous errors
       } catch (error) {
         console.error('Error fetching properties:', error);
-        setError('Error fetching properties');
+        setError(error.message);
       } finally {
         setLoading(false);
       }
     };
 
     fetchProperties();
-  }, [refresh]); 
+  }, [refresh]);
 
   const handleLike = async (propertyId) => {
     try {
@@ -48,9 +49,8 @@ const PropertyList = ({ userId }) => {
       });
 
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error(`Error saving property: ${response.status} ${response.statusText} ${errorText}`);
-        throw new Error('Network response was not ok');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'An unknown error occurred');
       }
 
       // Add liked property to local storage
@@ -61,7 +61,7 @@ const PropertyList = ({ userId }) => {
       alert('Property saved successfully!');
     } catch (error) {
       console.error('Error saving property:', error);
-      alert('Error saving property');
+      alert(`Error saving property: ${error.message}`);
     }
   };
 
