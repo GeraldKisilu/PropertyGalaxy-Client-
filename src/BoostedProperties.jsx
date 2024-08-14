@@ -34,14 +34,9 @@ const BoostedProperties = () => {
       <h2>Boosted Properties</h2>
       <ul>
         {boostedProperties.map(property => (
-          <li key={property.id}>
-            <p>Address: {property.address}</p>
-            <p>City: {property.city}</p>
-            <p>Price: ${property.price}</p>
-            <p>Square Footage: {property.square_footage} sq ft</p>
-            <p>Property Type: {property.property_type}</p>
-            <p>Listing Status: {property.listing_status}</p>
-          </li>
+          <Link to={`/property/${property.property.id}`} className="favorites-link">
+          {property.address}, {property.city} - ${property.price}
+        </Link>
         ))}
       </ul>
     </div>

@@ -34,7 +34,7 @@ const HomePage = () => {
 
     const fetchBoostedProperties = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:5050/boosted-properties');
+            const response = await fetch('http://127.0.0.1:5050/boost/properties');
             const data = await response.json();
             setBoostedProperties(data);
         } catch (error) {
@@ -75,15 +75,12 @@ const HomePage = () => {
                 <div className="header-top">
                     <div className="container">
                         <div className="wrapper">
-                            <ul className="header-top-social-list">
+                            {/* <ul className="header-top-social-list">
                                 <li><a href="#" className="header-top-social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
                                 <li><a href="#" className="header-top-social-link"><ion-icon name="logo-twitter"></ion-icon></a></li>
                                 <li><a href="#" className="header-top-social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
                                 <li><a href="#" className="header-top-social-link"><ion-icon name="logo-pinterest"></ion-icon></a></li>
-                            </ul>
-                            <Link to="/profile">
-                                <button className="header-top-btn">Profile</button>
-                            </Link>
+                            </ul> */}
                         </div>
                     </div>
                 </div>
@@ -92,12 +89,12 @@ const HomePage = () => {
             <header className="navbar">
                 <div className="navbar-content">
                     <div className="navbar-brand">Property Galaxy</div>
-                    <ul className="navbar-social-list">
+                    {/* <ul className="navbar-social-list">
                         <li><a href="#" className="navbar-social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
                         <li><a href="#" className="navbar-social-link"><ion-icon name="logo-twitter"></ion-icon></a></li>
                         <li><a href="#" className="navbar-social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
                         <li><a href="#" className="navbar-social-link"><ion-icon name="logo-pinterest"></ion-icon></a></li>
-                    </ul>
+                        </ul> */}
                 </div>
             
 
@@ -113,6 +110,9 @@ const HomePage = () => {
                    
                 </nav>
             </header>
+                        <Link to="/profile">
+                            <button className="header-top-btn">Profile</button>
+                        </Link>
 
             <main className="body-content">
                 {/* Boosted Properties Section at the top */}
@@ -121,17 +121,12 @@ const HomePage = () => {
                     <div className="boosted-properties-grid">
                         {boostedProperties.map(property => (
                             <div className="boosted-property-item" key={property.id}>
-                                <img src={property.imageUrl} alt={property.address} />
-                                <p className="legend">{property.address}</p>
-                                <p>City: {property.city}</p>
-                                <p>Price: ${property.price}</p>
-                                <BoostButton 
-                                    propertyId={property.id} 
-                                    propertyCity={property.city} 
-                                    propertyPrice={property.price} 
-                                    propertyImage={property.imageUrl} 
-                                    onBoostSuccess={handleBoostSuccess} 
-                                />
+                              <Link to={`/property/${property.id}`} className="favorites-link">
+              {property.address}, {property.city} - ${property.price}
+            </Link>   
+                                
+                                
+                             
                             </div>
                         ))}
                     </div>
