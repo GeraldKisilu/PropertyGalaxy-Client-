@@ -280,7 +280,7 @@ const HomePage = () => {
                 </div>
                 <div className="footer-terms">
                     <Link to="/terms">Terms and Conditions</Link>
-                    <Link to="/privacy">Privacy Policy</Link>
+                    <Link to="/privacy">Privacy Policyy</Link>
                 </div>
             </footer>
         </div>
