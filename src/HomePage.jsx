@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './HomePage.css';
 import logo from './assets/Images/proppertygalaxy.jfif';
-import BoostButton from './BoostButton'; 
-import Notification from './Notification'; 
+import BoostButton from './BoostButton';
+import Notification from './Notification';
 import image1 from './assets/Images/homepage.jpg';
 import livingroom from './assets/Images/livingroom.jpg';
 import interior from './assets/Images/interior.jpg';
@@ -16,7 +16,7 @@ const HomePage = () => {
     const [location, setLocation] = useState('');
     const [properties, setProperties] = useState([]);
     const [suggestions, setSuggestions] = useState([]);
-    const [boostedProperties, setBoostedProperties] = useState([]); 
+    const [boostedProperties, setBoostedProperties] = useState([]);
     const [notification, setNotification] = useState(null); // State for notification
 
     useEffect(() => {
@@ -29,7 +29,7 @@ const HomePage = () => {
             })
             .catch(error => console.error("There was an error fetching the properties:", error));
 
-        fetchBoostedProperties(); 
+        fetchBoostedProperties();
     }, []);
 
     const fetchBoostedProperties = async () => {
@@ -63,11 +63,11 @@ const HomePage = () => {
         <div className="home-page">
 
             {notification && (
-                <Notification 
-                    city={notification.city} 
-                    price={notification.price} 
+                <Notification
+                    city={notification.city}
+                    price={notification.price}
                     image={notification.image}
-                    onClose={handleCloseNotification} 
+                    onClose={handleCloseNotification}
                 />
             )}
             <header className="header">
@@ -96,7 +96,7 @@ const HomePage = () => {
                         <li><a href="#" className="navbar-social-link"><ion-icon name="logo-pinterest"></ion-icon></a></li>
                         </ul> */}
                 </div>
-            
+
 
                 <nav className="navbar-links">
                     <Link to="/">Home</Link>
@@ -106,13 +106,13 @@ const HomePage = () => {
                     <Link to="/apply-agents">Do you wanna be an agent?</Link>
 
                     <Link to="/favourites-page">❤️ Favorites</Link>
-                    
-                   
+
+
                 </nav>
             </header>
-                        <Link to="/profile">
-                            <button className="header-top-btn">Profile</button>
-                        </Link>
+            <Link to="/profile">
+                <button className="header-top-btn">Profile</button>
+            </Link>
 
             <main className="body-content">
                 {/* Boosted Properties Section at the top */}
@@ -121,12 +121,12 @@ const HomePage = () => {
                     <div className="boosted-properties-grid">
                         {boostedProperties.map(property => (
                             <div className="boosted-property-item" key={property.id}>
-                              <Link to={`/property/${property.id}`} className="favorites-link">
-              {property.address}, {property.city} - ${property.price}
-            </Link>   
-                                
-                                
-                             
+                                <Link to={`/property/${property.id}`} className="favorites-link">
+                                    {property.address}, {property.city} - ${property.price}
+                                </Link>
+
+
+
                             </div>
                         ))}
                     </div>
@@ -229,25 +229,32 @@ const HomePage = () => {
                                 <div className="card-icon">
                                     <img src={icon1} alt="Service Icon" />
                                 </div>
-                                <h3 className="card-title"><a href="#">Consulting Services</a></h3>
-                                <p className="card-text">We offer professional consulting services to help you make informed decisions about your property investments.</p>
-                                <a href="#" className="card-link"><span>Read More</span> <ion-icon name="arrow-forward-outline"></ion-icon></a>
+                                <h3 className="card-title">
+                                    <Link to="/properties">Buy Property</Link>
+                                </h3>
+                                <p className="card-text">
+                                    We offer professional consulting services to help you make informed decisions about your property investments.
+                                </p>
+                                <Link to="/properties" className="view-all-button">Read More</Link>
+
                             </div>
                             <div className="service-card">
                                 <div className="card-icon">
                                     <img src={icon2} alt="Service Icon" />
                                 </div>
-                                <h3 className="card-title"><a href="#">Property Management</a></h3>
+                                <h3 className="card-title"><a href="#">Sell Property </a></h3>
+
                                 <p className="card-text">Our property management services ensure that your real estate assets are well-maintained and profitable.</p>
-                                <a href="#" className="card-link"><span>Read More</span> <ion-icon name="arrow-forward-outline"></ion-icon></a>
+                                <Link to="/agents" className="view-all-button">Read More</Link>
+
                             </div>
                             <div className="service-card">
                                 <div className="card-icon">
                                     <img src={icon3} alt="Service Icon" />
                                 </div>
-                                <h3 className="card-title"><a href="#">Market Analysis</a></h3>
+                                <h3 className="card-title"><a href="#">Rent Property</a></h3>
                                 <p className="card-text">We provide in-depth market analysis to help you understand the real estate trends and make the right investment choices.</p>
-                                <a href="#" className="card-link"><span>Read More</span> <ion-icon name="arrow-forward-outline"></ion-icon></a>
+                                <Link to="/properties" className="view-all-button">Read More</Link>
                             </div>
                         </div>
                     </div>
