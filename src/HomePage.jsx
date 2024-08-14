@@ -10,7 +10,6 @@ import interior from './assets/Images/interior.jpg';
 import icon1 from './assets/Images/agent.jpg';
 import icon2 from './assets/Images/agent.jpg';
 import icon3 from './assets/Images/agent.jpg';
-// import { IonIcon } from 'ionicons';
 
 
 const HomePage = () => {
@@ -159,34 +158,20 @@ const HomePage = () => {
                                 </p>
                                 <button className="contact-agent-button">📞 Contact Agent</button>
                             </div>
-                            {showContactCard && (
-                            <div className="contact-card">
-                                <p>
-                                    <a href="mailto:info@propertygalaxy.com" className="header-top-link">
-                                        <ion-icon name="mail-outline"></ion-icon>
-                                        <span>info@propertygalaxy.com</span>
-                                    </a>
-                                </p>
-                                <p>📞 +254 718 338217</p>
-                            </div>
-                        )}
                         </div>
                     </section>
 
                     <div className="featured-property">
                         <div className="property-details">
+                            <h2>Featured Property</h2>
                             <img src={image1} alt="Property Galaxy" className="featured-property-image" />
-                            <div className="property-gallery">
-                                {/* Additional images can be added here */}
-                            </div>
+                            <p>Price: $500,000</p>
+                            <p>Description: This is a beautiful house located in a serene environment. It features modern amenities and spacious rooms.</p>
                         </div>
-
-
                     </div>
                 </div>
-                <div className='view-all-properties'>
-                    <Link to="/properties"><button className='view-all-button'>View All Properties</button></Link>
-                </div>
+
+                <Link to="/properties" className="view-all-button">View All Properties</Link>
 
                 <section className="about" id="about">
                     <div className="container">
@@ -195,15 +180,15 @@ const HomePage = () => {
                             <img src={interior} alt="House interior" className="abs-img" />
                         </figure>
                         <div className="about-content">
-                            <p className="title">About Us</p>
-                            <h2 className="section-title">The Leading Real Estate Rental Marketplace.</h2>
+                            <p className="section-subtitle">About Us</p>
+                            <h2 className="h2 section-title">The Leading Real Estate Rental Marketplace.</h2>
                             <p className="about-text">
                                 Over 30,000 people work for us in more than 70 countries all over the world. This breadth of global coverage, combined with specialist services.
                             </p>
                             <ul className="about-list">
                                 <li className="about-item">
                                     <div className="about-item-icon">
-                                        {/* <IonIcon name="home-outline" /> */}
+                                        <ion-icon name="home-outline"></ion-icon>
                                     </div>
                                     <p className="about-item-text">Smart Home Design</p>
                                 </li>
@@ -229,7 +214,7 @@ const HomePage = () => {
                             <p className="callout">
                                 "The only place that can make you comfortable enough to stay by yourself, with your companion and your whole extended family."
                             </p>
-                            {/* <a href="#service" className="btn">Our Services</a> */}
+                            <a href="#service" className="btn">Our Services</a>
                         </div>
                     </div>
                 </section>
@@ -237,10 +222,8 @@ const HomePage = () => {
                 {/* Service Section */}
                 <section className="service" id="service">
                     <div className="container">
-                        <p className="title">Our Services</p>
-
-                        <h2 class="h2 section-title">Our Main Focus</h2>
-
+                        <p className="section-subtitle">Our Services</p>
+                        <h2 className="h2 section-title">Our Main Focus</h2>
                         <div className="service-list">
                             <div className="service-card">
                                 <div className="card-icon">
@@ -297,7 +280,7 @@ const HomePage = () => {
                 </div>
                 <div className="footer-terms">
                     <Link to="/terms">Terms and Conditions</Link>
-                    <Link to="/privacy">Privacy Policy</Link>
+                    <Link to="/privacy">Privacy Policyy</Link>
                 </div>
             </footer>
         </div>
