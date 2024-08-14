@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useRefresh } from './RefreshContext';
 import BoostButton from './BoostButton';
 import Notification from './Notification'; // Import Notification component
+import './AgentProperties.css'
 
 function AgentProperty({ property, onRefresh }) {
   const { triggerRefresh } = useRefresh();
@@ -154,10 +155,10 @@ function AgentProperty({ property, onRefresh }) {
             onBoostSuccess={onBoost} 
           />
         </div>
-      </div>
-      <button onClick={handlePurchaseRequests}>
+      <button className='request-btn' onClick={handlePurchaseRequests}>
         Purchase Requests
       </button>
+      </div>
 
       {/* Boosted Properties Section */}
       <section className="boosted-properties">
