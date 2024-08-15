@@ -158,14 +158,15 @@ function Login() {
         </form>
         <div style={{ marginTop: '1.5em', fontSize: '0.9em' }}>
           <Link to='/forgot-password' style={{
-            color: '#007bff',
             textDecoration: 'none',
             fontWeight: 'bold',
+            backgroundColor: '#fff',
           }}>Forgot Password?</Link>
           <br />
           <Link to='/register' style={{
             textDecoration: 'none',
             fontWeight: 'bold',
+            backgroundColor: '#fff'
           }}>DON'T HAVE AN ACCOUNT?</Link>
         </div>
 
