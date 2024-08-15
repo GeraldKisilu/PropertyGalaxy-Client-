@@ -1,0 +1,56 @@
+.agent-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 19px;
+  }
+  
+  .agent-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+  
+  .agent-photo {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  
+  .agent-photo img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 40%;
+  }
+  
+  .placeholder-photo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    background: #f0f0f0;
+    border-radius: 50%;
+    color: #888;
+  }
+  
+  .agent-contact {
+    margin-top: auto;
+    text-align: center;
+  }
+  
+  .contact-email, .contact-phone {
+    display: block;
+    margin-top: 8px;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .contact-email:hover, .contact-phone:hover {
+    text-decoration: underline;
+  }
+  

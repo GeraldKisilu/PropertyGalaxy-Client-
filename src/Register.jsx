@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
-
 function RegistrationForm() {
-    const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     password: '',
@@ -58,68 +57,111 @@ function RegistrationForm() {
   };
 
   return (
-    <div className="registration-form-container">
-      <h2>Join Our Real Estate Community</h2>
-      <p>Create an account to explore properties and connect with agents.</p>
-      <form onSubmit={handleSubmitSignup} className="registration-form">
-        <div className="form-group">
-          <label htmlFor="fullName">Full name:</label>
-          <div>
-            <input
-              type="text"
-              id="fullName"
-              name="fullName"
-              value={formData.fullName}
-              onChange={handleChange}
-              required
-              placeholder="Enter your full name"
-            />
-          </div>
+    <div  style={{
+      maxWidth: '400px',
+      margin: '0 auto',
+      padding: '2em',
+      background: 'rgba(255, 255, 255, 0.9)',
+      borderRadius: '15px',
+      boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)',
+      textAlign: 'center'
+    }}>
+      <h2 style={{ marginBottom: '1em' }}>Join Our Real Estate Community</h2>
+      <p style={{ marginBottom: '1.5em' }}>Create an account to explore properties and connect with agents.</p>
+      <form onSubmit={handleSubmitSignup} style={{ textAlign: 'left' }}>
+        <div style={{ marginBottom: '20px' }}>
+          <label htmlFor="fullName" style={{ display: 'block', marginBottom: '0.5em' }}>Full name:</label>
+          <input
+            type="text"
+            id="fullName"
+            name="fullName"
+            value={formData.fullName}
+            onChange={handleChange}
+            required
+            placeholder="Enter your full name"
+            style={{
+              width: '100%',
+              padding: '0.75em',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+              fontSize: '1em',
+              boxSizing: 'border-box',
+            }}
+          />
         </div>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <div>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              placeholder="Enter your email address"
-            />
-          </div>
+        <div style={{ marginBottom: '20px' }}>
+          <label htmlFor="email" style={{ display: 'block', marginBottom: '0.5em' }}>Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            placeholder="Enter your email address"
+            style={{
+              width: '100%',
+              padding: '0.75em',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+              fontSize: '1em',
+              boxSizing: 'border-box',
+            }}
+          />
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <div>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              placeholder="Create a password"
-            />
-          </div>
+        <div style={{ marginBottom: '20px' }}>
+          <label htmlFor="password" style={{ display: 'block', marginBottom: '0.5em' }}>Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+            placeholder="Create a password"
+            style={{
+              width: '100%',
+              padding: '0.75em',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+              fontSize: '1em',
+              boxSizing: 'border-box',
+            }}
+          />
         </div>
-        <div className="form-group" style={{marginBottom: '30px'}}>
-          <label htmlFor="password2">Confirm Password:</label>
-          <div>
-            <input
-              type="password"
-              id="password2"
-              name="password2"
-              value={formData.password2}
-              onChange={handleChange}
-              required
-              placeholder="Confirm password"
-            />
-          </div>
-          </div>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-        <button type="submit" className="register-button" disabled={loading}>
+        <div style={{ marginBottom: '30px' }}>
+          <label htmlFor="password2" style={{ display: 'block', marginBottom: '0.5em' }}>Confirm Password:</label>
+          <input
+            type="password"
+            id="password2"
+            name="password2"
+            value={formData.password2}
+            onChange={handleChange}
+            required
+            placeholder="Confirm password"
+            style={{
+              width: '100%',
+              padding: '0.75em',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+              fontSize: '1em',
+              boxSizing: 'border-box',
+            }}
+          />
+        </div>
+        {errorMessage && <p style={{ color: 'red', marginBottom: '20px' }}>{errorMessage}</p>}
+        <button type="submit" style={{
+          width: '100%',
+          padding: '0.75em',
+          border: 'none',
+          borderRadius: '30px',
+          background: '#c78880',
+          color: '#fff',
+          fontWeight: '600',
+          fontSize: '1em',
+          cursor: 'pointer',
+          transition: 'background 0.3s ease',
+        }} disabled={loading}>
           {loading ? 'Registering...' : 'Register'}
         </button>
       </form>
