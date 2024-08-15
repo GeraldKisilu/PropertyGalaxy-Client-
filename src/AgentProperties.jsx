@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useRefresh } from './RefreshContext';
 import BoostButton from './BoostButton';
 import Notification from './Notification'; // Import Notification component
-import './AgentProperties.css'
+import './AgentProperties.css';
 
 function AgentProperty({ property, onRefresh }) {
   const { triggerRefresh } = useRefresh();
@@ -19,7 +19,7 @@ function AgentProperty({ property, onRefresh }) {
 
   const fetchBoostedProperties = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:5050/boosted-properties');
+      const response = await fetch('http://127.0.0.1:5050/boost/properties');
       const data = await response.json();
       setBoostedProperties(data);
     } catch (error) {
@@ -95,6 +95,10 @@ function AgentProperty({ property, onRefresh }) {
     navigate(`/purchase-requests/${property.id}`);
   };
 
+  const handleViewUserPayments = () => {
+    navigate(`/user-payments/${property.id}`);
+  };
+
   const onBoost = (city, price, image) => {
     setNotification({ city, price, image }); // Set notification with city, price, and image
   };
@@ -154,33 +158,38 @@ function AgentProperty({ property, onRefresh }) {
             propertyImage={property.imageUrl} 
             onBoostSuccess={onBoost} 
           />
-        </div>
-      <button className='request-btn' onClick={handlePurchaseRequests}>
-        Purchase Requests
-      </button>
-      </div>
+          
+          <button className='request-btn' onClick={handlePurchaseRequests}>
+            Purchase Requests
+          </button>
 
-      {/* Boosted Properties Section */}
-      <section className="boosted-properties">
-        <h2>Boosted Properties</h2>
-        <div className="boosted-properties-grid">
-          {boostedProperties.map(property => (
-            <div className="boosted-property-item" key={property.id}>
-              <img src={property.imageUrl} alt={property.address} />
-              <p className="legend">{property.address}</p>
-              <p>City: {property.city}</p>
-              <p>Price: ${property.price}</p>
-              <BoostButton 
-                propertyId={property.id} 
-                propertyCity={property.city} 
-                propertyPrice={property.price} 
-                propertyImage={property.imageUrl} 
-                onBoostSuccess={onBoost} 
-              />
-            </div>
-          ))}
+          <button className='view-payments-btn' onClick={handleViewUserPayments}>
+            View User Payments
+          </button>
         </div>
-      </section>
+
+        {/* Boosted Properties Section */}
+        <section className="boosted-properties">
+          <h2>Boosted Properties</h2>
+          <div className="boosted-properties-grid">
+            {boostedProperties.map(property => (
+              <div className="boosted-property-item" key={property.id}>
+                <img src={property.imageUrl} alt={property.address} />
+                <p className="legend">{property.address}</p>
+                <p>City: {property.city}</p>
+                <p>Price: ${property.price}</p>
+                <BoostButton 
+                  propertyId={property.id} 
+                  propertyCity={property.city} 
+                  propertyPrice={property.price} 
+                  propertyImage={property.imageUrl} 
+                  onBoostSuccess={onBoost} 
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

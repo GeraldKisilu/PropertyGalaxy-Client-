@@ -1,0 +1,54 @@
+.purchase-request-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+  }
+  
+  .requests-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .requests-table th,
+  .requests-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .requests-table th {
+    background-color: #f4f4f4;
+  }
+  
+  .approve-button,
+  .reject-button {
+    border: none;
+    padding: 6px 12px;
+    margin-right: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .approve-button {
+    background-color: #28a745;
+    color: #fff;
+  }
+  
+  .reject-button {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  .approve-button:hover,
+  .reject-button:hover {
+    opacity: 0.8;
+  }
+  
+  .error-message {
+    color: #dc3545;
+  }
+  
