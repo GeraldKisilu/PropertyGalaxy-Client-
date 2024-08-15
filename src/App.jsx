@@ -27,6 +27,7 @@ import UserPurchaseRequest from './UserPurchaseRequests';
 import UserProfile from './UserProfile';
 import AgentPayments from './AgentPayments';
 import Payment from './Payment';
+import RentalProperties from './Rentals';
 // import ListingFee from './ListingFee';
 
 import { RefreshProvider } from './RefreshContext';
@@ -71,6 +72,7 @@ function App() {
           <Route path="/payment" element={<PaymentForm />} />
           <Route path="/purchase-requests/:propertyId" element={<UserPurchaseRequest />} />
           <Route path = "/agent-payment" element = {<AgentPayments />} />
+          <Route path='/rental' element={<RentalProperties/>}/>
           
  
           {/* <Route path="/listingfee/:feeId" element={<ListingFee feeId={1} />} /> */}

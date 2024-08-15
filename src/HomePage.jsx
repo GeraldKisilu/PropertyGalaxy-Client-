@@ -234,7 +234,7 @@ const HomePage = () => {
                                 <div className="card-icon">
                                     <img src={icon3} alt="Service Icon" />
                                 </div>
-                                <h3 className="card-title"><a href="#">Rent Property</a></h3>
+                                <Link to="/rental" className="service-button">Read More</Link>
                                 <p className="card-text">We provide in-depth market analysis to help you understand the real estate trends and make the right investment choices.</p>
                                 <Link to="/properties" className="service-button">Read More</Link>
                             </div>
