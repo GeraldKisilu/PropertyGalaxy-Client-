@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './Property.css';
 import PhotosComponent from './PhotosComponent';
 import { useRefresh } from './RefreshContext';
@@ -9,6 +9,7 @@ const PropertyList = ({ userId }) => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,8 +22,18 @@ const PropertyList = ({ userId }) => {
           throw new Error(errorData.message || 'An unknown error occurred');
         }
         const data = await response.json();
-        setProperties(data);
-        setError(null); // Clear previous errors
+        const query = new URLSearchParams(location.search);
+        const locationFilter = query.get('location');
+
+        if (locationFilter) {
+          const filteredProperties = data.filter(property => 
+            property.city.toLowerCase().includes(locationFilter.toLowerCase())
+          );
+          setProperties(filteredProperties);
+        } else {
+          setProperties(data);
+        }
+        setError(null);
       } catch (error) {
         console.error('Error fetching properties:', error);
         setError(error.message);
@@ -32,7 +43,7 @@ const PropertyList = ({ userId }) => {
     };
 
     fetchProperties();
-  }, [refresh]);
+  }, [refresh, location.search]);
 
   const handleLike = async (propertyId) => {
     try {
@@ -53,7 +64,6 @@ const PropertyList = ({ userId }) => {
         throw new Error(errorData.message || 'An unknown error occurred');
       }
 
-      // Add liked property to local storage
       const savedProperties = JSON.parse(localStorage.getItem('savedProperties')) || [];
       savedProperties.push(propertyId);
       localStorage.setItem('savedProperties', JSON.stringify(savedProperties));

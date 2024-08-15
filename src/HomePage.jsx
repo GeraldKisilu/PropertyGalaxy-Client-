@@ -11,13 +11,12 @@ import icon1 from './assets/Images/agent.jpg';
 import icon2 from './assets/Images/agent.jpg';
 import icon3 from './assets/Images/agent.jpg';
 
-
 const HomePage = () => {
     const [location, setLocation] = useState('');
     const [properties, setProperties] = useState([]);
     const [suggestions, setSuggestions] = useState([]);
     const [boostedProperties, setBoostedProperties] = useState([]);
-    const [notification, setNotification] = useState(null); // State for notification
+    const [notification, setNotification] = useState(null);
 
     useEffect(() => {
         fetch('http://127.0.0.1:5050/property/list')
@@ -43,25 +42,45 @@ const HomePage = () => {
     };
 
     const handleSearch = () => {
-        const filteredProperties = properties.filter(property => property.city.toLowerCase().includes(location.toLowerCase()));
-        setProperties(filteredProperties);
+        if (location.trim() !== '') {
+            fetch(`http://127.0.0.1:5050/property/city/${location}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data); 
+                    setProperties(data);
+                })
+                .catch(error => console.error("There was an error searching for properties:", error));
+
+        }
     };
+
 
     const handleChange = (event) => {
         setLocation(event.target.value);
+        if (event.target.value.trim() === '') {
+            // Fetch all properties if search is cleared
+            fetch('http://127.0.0.1:5050/property/list')
+                .then(response => response.json())
+                .then(data => setProperties(data))
+                .catch(error => console.error("There was an error fetching the properties:", error));
+        }
     };
 
     const handleBoostSuccess = (city, price, image) => {
-        setNotification({ city, price, image }); // Set notification with city, price, and image
+        setNotification({ city, price, image });
     };
 
     const handleCloseNotification = () => {
-        setNotification(null); // Close the notification
+        setNotification(null);
     };
 
     return (
         <div className="home-page">
-
             {notification && (
                 <Notification
                     city={notification.city}
@@ -74,14 +93,7 @@ const HomePage = () => {
                 <div className="overlay"></div>
                 <div className="header-top">
                     <div className="container">
-                        <div className="wrapper">
-                            {/* <ul className="header-top-social-list">
-                                <li><a href="#" className="header-top-social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
-                                <li><a href="#" className="header-top-social-link"><ion-icon name="logo-twitter"></ion-icon></a></li>
-                                <li><a href="#" className="header-top-social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
-                                <li><a href="#" className="header-top-social-link"><ion-icon name="logo-pinterest"></ion-icon></a></li>
-                            </ul> */}
-                        </div>
+                        <div className="wrapper"></div>
                     </div>
                 </div>
             </header>
@@ -89,33 +101,21 @@ const HomePage = () => {
             <header className="navbar">
                 <div className="navbar-content">
                     <div className="navbar-brand">Property Galaxy</div>
-                    {/* <ul className="navbar-social-list">
-                        <li><a href="#" className="navbar-social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
-                        <li><a href="#" className="navbar-social-link"><ion-icon name="logo-twitter"></ion-icon></a></li>
-                        <li><a href="#" className="navbar-social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
-                        <li><a href="#" className="navbar-social-link"><ion-icon name="logo-pinterest"></ion-icon></a></li>
-                        </ul> */}
                 </div>
-
-
                 <nav className="navbar-links">
                     <Link to="/">Home</Link>
                     <Link to="/properties">Properties</Link>
                     <Link to="/reviews">Reviews</Link>
-
                     <Link to="/apply-agents">Do you wanna be an agent?</Link>
-
                     <Link to="/favourites-page">❤️ Favorites</Link>
-
-
                 </nav>
             </header>
+
             <Link to="/profile">
                 <button className="header-top-btn">Profile</button>
             </Link>
 
             <main className="body-content">
-                {/* Boosted Properties Section at the top */}
                 <section className="boosted-properties">
                     <h2>Boosted Properties</h2>
                     <div className="boosted-properties-grid">
@@ -124,9 +124,6 @@ const HomePage = () => {
                                 <Link to={`/property/${property.id}`} className="favorites-link">
                                     {property.address}, {property.city} - ${property.price}
                                 </Link>
-
-
-
                             </div>
                         ))}
                     </div>
@@ -219,7 +216,6 @@ const HomePage = () => {
                     </div>
                 </section>
 
-                {/* Service Section */}
                 <section className="service" id="service">
                     <div className="container">
                         <p className="section-subtitle">Our Services</p>
@@ -233,63 +229,47 @@ const HomePage = () => {
                                     <Link to="/properties">Buy Property</Link>
                                 </h3>
                                 <p className="card-text">
-                                    We offer professional consulting services to help you make informed decisions about your property investments.
+                                    Discover a range of homes for sale in different cities and communities. Find your perfect fit.
                                 </p>
-                                <Link to="/properties" className="view-all-button">Read More</Link>
-
+                                <Link to="/properties" className="btn-link">
+                                    <span>Find A Property</span>
+                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                </Link>
                             </div>
                             <div className="service-card">
                                 <div className="card-icon">
                                     <img src={icon2} alt="Service Icon" />
                                 </div>
-                                <h3 className="card-title"><a href="#">Sell Property </a></h3>
-
-                                <p className="card-text">Our property management services ensure that your real estate assets are well-maintained and profitable.</p>
-                                <Link to="/agents" className="view-all-button">Read More</Link>
-
+                                <h3 className="card-title">
+                                    <Link to="/rentals">Rent Property</Link>
+                                </h3>
+                                <p className="card-text">
+                                    Explore rental options that meet your needs and budget. From apartments to houses, we have it all.
+                                </p>
+                                <Link to="/rentals" className="btn-link">
+                                    <span>Find Rentals</span>
+                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                </Link>
                             </div>
                             <div className="service-card">
                                 <div className="card-icon">
                                     <img src={icon3} alt="Service Icon" />
                                 </div>
-                                <h3 className="card-title"><a href="#">Rent Property</a></h3>
-                                <p className="card-text">We provide in-depth market analysis to help you understand the real estate trends and make the right investment choices.</p>
-                                <Link to="/properties" className="view-all-button">Read More</Link>
+                                <h3 className="card-title">
+                                    <Link to="/mortgages">Mortgages</Link>
+                                </h3>
+                                <p className="card-text">
+                                    Secure financing for your property with the best mortgage rates and terms available.
+                                </p>
+                                <Link to="/mortgages" className="btn-link">
+                                    <span>Learn More</span>
+                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                </Link>
                             </div>
                         </div>
                     </div>
                 </section>
-
             </main>
-
-            {/* Footer Section */}
-            <footer className="footer">
-                <ul className="header-top-list">
-                    <li>
-                        <a href="mailto:info@propertygalaxy.com" className="header-top-link">
-                            <ion-icon name="mail-outline"></ion-icon>
-                            <span>info@propertygalaxy.com</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" className="header-top-link">
-                            <ion-icon name="location-outline"></ion-icon>
-                            <address>15/A, Nairobi, Kenya</address>
-                        </a>
-                    </li>
-                </ul>
-                <div className="footer-links">
-                    <span>Download our app:</span>
-                    <span className="footer-icon">📱 Google Play</span>
-                    <span className="footer-icon">🍏 App Store</span>
-                    <span className="footer-icon">💳 Visa</span>
-                    <span className="footer-icon">📲 Mpesa</span>
-                </div>
-                <div className="footer-terms">
-                    <Link to="/terms">Terms and Conditions</Link>
-                    <Link to="/privacy">Privacy Policyy</Link>
-                </div>
-            </footer>
         </div>
     );
 };
