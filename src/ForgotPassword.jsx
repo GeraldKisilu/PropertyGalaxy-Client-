@@ -45,17 +45,17 @@ const ForgotPassword = () => {
           type="submit"
           disabled={loading}
           style={{
-            display: 'block',
             width: '100%',
-            padding: '5px',
-            fontSize: '16px',
-            color: 'white',
-            backgroundColor: '#c78880',
+            padding: '0.75em',
             border: 'none',
-            borderRadius: '15px',
+            borderRadius: '30px',
+            background: '#c78880',
+            color: '#fff',
+            fontWeight: '600',
+            fontSize: '1em',
             cursor: 'pointer',
-            opacity: loading ? '0.6' : '1',
-            transition: 'background-color 0.3s',
+            transition: 'background 0.3s ease',
+            marginTop: '1em',
           }}
         >
           {loading ? 'Sending...' : 'Send'}
