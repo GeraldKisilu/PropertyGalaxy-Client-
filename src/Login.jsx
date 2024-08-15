@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './Login.css';
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -62,15 +61,38 @@ function Login() {
         setToastMessage('Error: ' + error.message);
         setShowToast(true);
       });
-  };
+    
+    }
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit} className="login-form">
-        <div className="form-group" style={{ marginBottom: '20px' }}>
-          <label htmlFor="email">Email:</label>
-          <div>
+    <div>
+    <div style={{
+      // backgroundImage: 'url(src/assets/Images/technology-background-1632715.jpg)',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '100vh',
+    }}>
+      <div style={{
+        background: 'rgba(255, 255, 255, 0.9)',
+        padding: '2em',
+        borderRadius: '15px',
+        boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)',
+        maxWidth: '400px',
+        width: '100%',
+        textAlign: 'center',
+      }}>
+        <h2 style={{ color: '#333', marginBottom: '1.5em' }}>Login</h2>
+        <form onSubmit={handleSubmit} className="login-form">
+          <div style={{ marginBottom: '20px', textAlign: 'left' }}>
+            <label htmlFor="email" style={{
+              display: 'block',
+              marginBottom: '0.5em',
+              color: '#555',
+              fontWeight: 'bold',
+            }}>Email:</label>
             <input
               type="email"
               id="email"
@@ -79,12 +101,26 @@ function Login() {
               onChange={handleChange}
               required
               placeholder="Enter your email address"
+              style={{
+                width: '100%',
+                padding: '0.75em',
+                border: '1px solid #ccc',
+                borderRadius: '4px',
+                fontSize: '1em',
+                boxSizing: 'border-box',
+                transition: 'border 0.3s ease',
+              }}
+              onFocus={(e) => e.target.style.borderColor = '#c78880'}
+              onBlur={(e) => e.target.style.borderColor = '#ccc'}
             />
           </div>
-        </div>
-        <div className="form-group" style={{ marginBottom: '30px' }}>
-          <label htmlFor="password">Password:</label>
-          <div>
+          <div style={{ marginBottom: '20px', textAlign: 'left' }}>
+            <label htmlFor="password" style={{
+              display: 'block',
+              marginBottom: '0.5em',
+              color: '#555',
+              fontWeight: 'bold',
+            }}>Password:</label>
             <input
               type="password"
               id="password"
@@ -93,34 +129,78 @@ function Login() {
               onChange={handleChange}
               required
               placeholder="Enter your password"
+              style={{
+                width: '100%',
+                padding: '0.75em',
+                border: '1px solid #ccc',
+                borderRadius: '4px',
+                fontSize: '1em',
+                boxSizing: 'border-box',
+                transition: 'border 0.3s ease',
+              }}
+              onFocus={(e) => e.target.style.borderColor = '#c78880'}
+              onBlur={(e) => e.target.style.borderColor = '#ccc'}
             />
           </div>
+          <button type="submit" style={{
+            width: '100%',
+            padding: '0.75em',
+            border: 'none',
+            borderRadius: '30px',
+            background: '#c78880',
+            color: '#fff',
+            fontWeight: '600',
+            fontSize: '1em',
+            cursor: 'pointer',
+            transition: 'background 0.3s ease',
+            marginTop: '1em',
+          }}>Login</button>
+        </form>
+        <div style={{ marginTop: '1.5em', fontSize: '0.9em' }}>
+          <Link to='/forgot-password' style={{
+            textDecoration: 'none',
+            fontWeight: 'bold',
+            backgroundColor: '#fff',
+          }}>Forgot Password?</Link>
+          <br />
+          <Link to='/register' style={{
+            textDecoration: 'none',
+            fontWeight: 'bold',
+            backgroundColor: '#fff'
+          }}>DON'T HAVE AN ACCOUNT?</Link>
         </div>
-        <button type="submit" className="login-button" style={{ marginBottom: '30px' }}>Login</button>
-      </form>
-      <div style={{ marginBottom: '10px' }}>
-        <Link to='/forgot-password' style={{ color: 'black' }}>Forgot Password? </Link>
-      </div>
-      <div>
-        <Link to='/register' style={{ color: 'black' }}>DON'T HAVE AN ACCOUNT? </Link>
-      </div>
 
-      {/* Toast Notification */}
-      {showToast && (
-        <div className="toast-container position-fixed bottom-0 end-0 p-3" style={{ zIndex: 11 }}>
-          <div className="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-            <div className="toast-header">
-              <img src="..." className="rounded me-2" alt="..." />
-              <strong className="me-auto">Login Notification</strong>
-              <small>Just now</small>
-              <button type="button" className="btn-close" data-bs-dismiss="toast" aria-label="Close" onClick={() => setShowToast(false)}></button>
-            </div>
-            <div className="toast-body">
-              {toastMessage}
+        {/* Toast Notification */}
+        {showToast && (
+          <div style={{
+            position: 'fixed',
+            bottom: '20px',
+            right: '20px',
+            zIndex: 11,
+          }}>
+            <div style={{
+              background: '#333',
+              color: '#fff',
+              borderRadius: '5px',
+              padding: '0.75em',
+            }}>
+              <strong style={{ display: 'block', marginBottom: '0.5em' }}>Login Notification</strong>
+              <small style={{ display: 'block', marginBottom: '0.5em' }}>Just now</small>
+              <button type="button" onClick={() => setShowToast(false)} style={{
+                background: 'none',
+                border: 'none',
+                color: '#fff',
+                fontSize: '1.25em',
+                cursor: 'pointer',
+              }}>✖</button>
+              <div style={{ padding: '0.75em' }}>
+                {toastMessage}
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
+    </div>
     </div>
   );
 }

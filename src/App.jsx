@@ -26,9 +26,13 @@ import PaymentForm from './PaymentForm';
 import UserPurchaseRequest from './UserPurchaseRequests';
 import UserProfile from './UserProfile';
 import AgentPayments from './AgentPayments';
-import Payment from './Payment';
+import Payment from './Payment';<<<<<<< mercy/reviews
 import AgentUserPayments from './AgentUserPayments';
+
+import RentalProperties from './Rentals';
+
 // import ListingFee from './ListingFee';
+import PropertySearched from './PropertySearched';
 
 import { RefreshProvider } from './RefreshContext';
 
@@ -75,9 +79,14 @@ function App() {
           <Route path="/payment" element={<PaymentForm />} />
           <Route path="/purchase-requests/:propertyId" element={<UserPurchaseRequest />} />
           <Route path = "/agent-payment" element = {<AgentPayments />} />
+
           <Route path="/user-payments/:propertyId" element={<AgentUserPayments/>} />
           {/* <Route path = "/reviews-list" element = {<Reviews />} /> */}
- 
+
+          <Route path='/rental' element={<RentalProperties/>}/>
+          <Route path="/properties/search/:city" element={<PropertySearched />} />
+          
+
           {/* <Route path="/listingfee/:feeId" element={<ListingFee feeId={1} />} /> */}
           {/* <Route path = "/agent-payments" element = {<AgentPayments/>}/> */}
         </Routes>

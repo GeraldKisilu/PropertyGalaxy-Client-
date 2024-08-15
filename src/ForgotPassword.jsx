@@ -24,26 +24,44 @@ const ForgotPassword = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Reset Your Password</h2>
-      <p style={{marginBottom: '60px'}}>To reset your password,  provide us with the email address you used during registration </p>
-      <div className="form-group" style={{marginBottom: '30px'}}>
-          <label htmlFor="email">Email:</label>
-          <div>
-            <input
+    <div style={{ maxWidth: '400px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '8px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
+      <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Reset Your Password</h2>
+      <p style={{ marginBottom: '20px', fontSize: '16px', textAlign: 'center' }}>
+        To reset your password, provide us with the email address you used during registration.
+      </p>
+      <form onSubmit={handleSubmit}>
+        <div style={{ marginBottom: '20px' }}>
+          <label htmlFor="email" style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>Email:</label>
+          <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
             placeholder="Enter your Email Address"
+            style={{ width: '100%', padding: '8px', fontSize: '16px', border: '2px solid solid', borderRadius: '2px' }}
           />
-          </div>
-      </div>
-        
-        <button type="submit" disabled={loading}>
+        </div>
+        <button
+          type="submit"
+          disabled={loading}
+          style={{
+            width: '100%',
+            padding: '0.75em',
+            border: 'none',
+            borderRadius: '30px',
+            background: '#c78880',
+            color: '#fff',
+            fontWeight: '600',
+            fontSize: '1em',
+            cursor: 'pointer',
+            transition: 'background 0.3s ease',
+            marginTop: '1em',
+          }}
+        >
           {loading ? 'Sending...' : 'Send'}
         </button>
-    </form>
+      </form>
+    </div>
   );
 };
 
