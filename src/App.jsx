@@ -36,7 +36,7 @@ import PropertySearch from './PropertySearch';
 
 import AgentUserPayments from './AgentUserPayments';
 import RentalProperties from './Rentals';
-import PropertySearched from './PropertySearched';
+
 
 const stripePromise = loadStripe('pk_test_51PmLeaP08hlmzVcwDEzRNsjrtMFXRW5nVs7bsL1WiKo75dBm8zSwp5WT1nGuy7jUExHlkPt2EEli4QtuNKrQkL2200cSqbwlFQ');
 
