@@ -26,7 +26,7 @@ import PaymentForm from './PaymentForm';
 import UserPurchaseRequest from './UserPurchaseRequests';
 import UserProfile from './UserProfile';
 import AgentPayments from './AgentPayments';
-import Payment from './Payment';<<<<<<< mercy/reviews
+import Payment from './Payment';
 import AgentUserPayments from './AgentUserPayments';
 
 import RentalProperties from './Rentals';

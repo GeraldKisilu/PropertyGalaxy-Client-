@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import AgentProperty from './AgentProperties';
+import { useNavigate } from 'react-router-dom';
 
 function AgentDashboard() {
     const [properties, setProperties] = useState([]);
     const [error, setError] = useState('');
     const [refresh, setRefresh] = useState(false)
+    const navigate = useNavigate()
   
 
      const handleRefresh = () => {
@@ -20,6 +22,10 @@ function AgentDashboard() {
           },
         })
           .then((response) => {
+            if (response.status === 401) { // Unauthorized
+              navigate('/not-authorized');
+              return;
+          }
             if (!response.ok) {
               throw new Error('Failed to fetch properties');
             }
@@ -35,11 +41,19 @@ function AgentDashboard() {
   
       fetchProperties();
     }, [refresh]);
+
+    const handleHomePage = () => {
+      navigate('/user-dashboard')
+    }
+  
     
   return (
     <div>AgentDashboard
         <Link to = '/add-property'>Add Property</Link>
         <Link to = '/agent-messages'>Agent Messages</Link>
+        <button className='dashboard-button' onClick={handleHomePage}>
+      🏠︎ Home
+      </button>
        
         {properties.map(property => (
             

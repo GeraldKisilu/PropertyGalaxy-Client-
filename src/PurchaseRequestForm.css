@@ -1,0 +1,49 @@
+/* PurchaseRequestForm.css */
+
+.purchase-request-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .purchase-request-form h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .purchase-request-form form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .purchase-request-form .submit-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .purchase-request-form .submit-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .purchase-request-form .message {
+    margin-top: 15px;
+    font-size: 1rem;
+  }
+  
+  .purchase-request-form .message.success {
+    color: green;
+  }
+  
+  .purchase-request-form .message.error {
+    color: red;
+  }
+  

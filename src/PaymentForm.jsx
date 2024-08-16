@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+import './PaymentForm.css'; // Import your CSS file
 
 const PaymentForm = () => {
   const stripe = useStripe();
@@ -20,7 +21,6 @@ const PaymentForm = () => {
   const [totalInstallments, setTotalInstallments] = useState(3);
   const [installmentAmount, setInstallmentAmount] = useState('');
 
-  // Fetch property details and set the amount
   useEffect(() => {
     const fetchPropertyDetails = async () => {
       try {
@@ -41,7 +41,6 @@ const PaymentForm = () => {
     fetchPropertyDetails();
   }, [propertyId]);
 
-  // Calculate installment amount and set client secret
   useEffect(() => {
     const calculateInstallmentAmount = () => {
       if (amount && totalInstallments > 0) {
@@ -153,18 +152,22 @@ const PaymentForm = () => {
   };
 
   return (
-    <div>
-      <h2>Submit Payment</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Payment Type:</label>
-          <select value={paymentType} onChange={(e) => setPaymentType(e.target.value)}>
+    <div className="agent-application-form">
+      <h2 className="form-heading">Submit Payment</h2>
+      <form onSubmit={handleSubmit} className="form">
+        <div className="form-group">
+          <label className="form-label">Payment Type:</label>
+          <select
+            value={paymentType}
+            onChange={(e) => setPaymentType(e.target.value)}
+            className="form-input"
+          >
             <option value="installments">Installments</option>
-
+            {/* Add more payment types if needed */}
           </select>
         </div>
-        <div>
-          <label>Amount:</label>
+        <div className="form-group">
+          <label className="form-label">Amount:</label>
           <input
             type="number"
             value={amount}
@@ -172,12 +175,13 @@ const PaymentForm = () => {
             min="0.01"
             step="0.01"
             placeholder="Enter amount"
+            className="form-input"
           />
         </div>
         {paymentType === 'installments' && (
           <>
-            <div>
-              <label>Total Installments:</label>
+            <div className="form-group">
+              <label className="form-label">Total Installments:</label>
               <input
                 type="number"
                 value={totalInstallments}
@@ -185,10 +189,11 @@ const PaymentForm = () => {
                 min="1"
                 step="1"
                 placeholder="Number of installments"
+                className="form-input"
               />
             </div>
-            <div>
-              <label>Installment Amount:</label>
+            <div className="form-group">
+              <label className="form-label">Installment Amount:</label>
               <input
                 type="number"
                 value={installmentAmount}
@@ -196,22 +201,27 @@ const PaymentForm = () => {
                 min="0.01"
                 step="0.01"
                 placeholder="Amount per installment"
-/>
-</div>
-</>
-)}
-<div>
-<label>Card Details:</label>
-<CardElement />
-</div>
-<button type="submit" disabled={loading || !stripe || !elements}>
-{loading ? 'Processing...' : 'Submit Payment'}
-</button>
-{responseMessage && <p style={{ color: 'green' }}>{responseMessage}</p>}
-{errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-</form>
-</div>
-);
+                className="form-input"
+              />
+            </div>
+          </>
+        )}
+        <div className="form-group">
+          <label className="form-label">Card Details:</label>
+          <CardElement className="form-input" />
+        </div>
+        <button
+          type="submit"
+          disabled={loading || !stripe || !elements}
+          className="form-submit"
+        >
+          {loading ? 'Processing...' : 'Submit Payment'}
+        </button>
+        {responseMessage && <p className="form-success">{responseMessage}</p>}
+        {errorMessage && <p className="form-error">{errorMessage}</p>}
+      </form>
+    </div>
+  );
 };
 
-export default PaymentForm
+export default PaymentForm;

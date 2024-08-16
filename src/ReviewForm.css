@@ -1,92 +1,81 @@
-/* ReviewPage.css */
-
-.review-page {
-    padding: 20px;
+.review-form-container {
     max-width: 600px;
-    margin: auto;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
+.review-form-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
     color: #333;
 }
 
-.review-list {
+.review-form .form-group {
     margin-bottom: 20px;
 }
 
-.review-item {
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-}
-
-.review-item strong {
+.review-form .form-label {
     display: block;
-    color: #007bff;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #555;
 }
 
-.rating {
+.review-form .form-input,
+.review-form .form-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.review-form .form-textarea {
+    height: 100px;
+    resize: none;
+}
+
+.rating-stars {
     display: flex;
-    align-items: center;
-    margin: 5px 0;
+    gap: 5px;
 }
 
 .star {
-    font-size: 20px;
-    cursor: pointer;
-    color: #FFD700; /* Gold color for stars */
+    font-size: 2rem;
+    color: gray;
+    transition: color 0.3s ease;
 }
 
-.selected {
-    color: #FFD700; /* Gold color for selected stars */
+.star.filled {
+    color: yellow;
 }
 
-.review-form {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-input[type="text"],
-textarea {
+.submit-button {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-textarea {
-    resize: vertical;
-}
-
-button {
+    padding: 12px;
     background-color: #007bff;
-    color: white;
-    padding: 10px;
+    color: #fff;
     border: none;
     border-radius: 5px;
+    font-size: 18px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-button:hover {
+.submit-button:hover {
     background-color: #0056b3;
 }
 
-.star {
-    color: gray; /* Default color for unfilled stars */
-    transition: color 0.2s ease-in-out;
+.error-message {
+    color: red;
+    margin-top: 10px;
 }
 
-.star.filled {
-    color: yellow; /* Color for filled stars */
+.success-message {
+    color: green;
+    margin-top: 10px;
 }

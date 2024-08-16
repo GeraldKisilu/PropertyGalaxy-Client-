@@ -46,6 +46,10 @@ const AgentApplicationForm = () => {
                 agency_name: '',
                 photo_url: '' 
             });
+            if (response.status === 401) { // Unauthorized
+                navigate('/not-authorized');
+                return;
+            }
         } catch (err) {
             setError(err.response?.data?.message || 'Failed to submit application.');
         } finally {

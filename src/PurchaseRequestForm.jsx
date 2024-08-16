@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './PurchaseRequestForm.css'; // Import the CSS file for styling
 
 const PurchaseRequestForm = ({ propertyId }) => {
   const [message, setMessage] = useState('');
@@ -32,13 +33,13 @@ const PurchaseRequestForm = ({ propertyId }) => {
   };
 
   return (
-    <div>
-      <h2>Request to Purchase Property</h2>
+    <div className="purchase-request-form">
+     
       <form onSubmit={handleSubmit}>
-        <button type="submit">Request Payment</button>
+        <button type="submit" className="submit-button">Request Payment</button>
       </form>
-      {message && <p style={{ color: 'green' }}>{message}</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {message && <p className="message success">{message}</p>}
+      {error && <p className="message error">{error}</p>}
     </div>
   );
 };

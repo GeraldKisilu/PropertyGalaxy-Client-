@@ -47,7 +47,10 @@ const PropertyList = ({ userId }) => {
           property_id: propertyId,
         }),
       });
-
+      if (response.status === 401) { // Unauthorized
+        navigate('/not-authorized');
+        return;
+    }
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || 'An unknown error occurred');

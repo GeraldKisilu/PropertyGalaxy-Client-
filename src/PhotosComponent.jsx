@@ -60,10 +60,9 @@ const PhotosComponent = ({ id }) => {
             <img
               src={photos[currentIndex].photo_url}
               alt={`Photo ${currentIndex + 1}`}
-              style={{ maxWidth: '100%', maxHeight: '500px' }}
             />
           </div>
-          <div>
+          <div className="photo-navigation">
             <button onClick={handlePrev} disabled={photos.length <= 1}>
               &lt;
             </button>
@@ -71,7 +70,7 @@ const PhotosComponent = ({ id }) => {
               {currentIndex + 1} / {photos.length}
             </span>
             <button onClick={handleNext} disabled={photos.length <= 1}>
-               &gt;
+              &gt;
             </button>
           </div>
         </div>

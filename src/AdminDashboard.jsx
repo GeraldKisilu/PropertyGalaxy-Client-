@@ -58,10 +58,17 @@ const AdminDashboard = () => {
     navigate('/agent-application');
   };
 
+  const handleHomePage = () => {
+    navigate('/user-dashboard')
+  }
+
   return (
     <div className="dashboard-container">
       <button className="dashboard-button" onClick={handleApplications}>
         Agent Applications
+      </button>
+      <button className='dashboard-button' onClick={handleHomePage}>
+      🏠︎ Home
       </button>
       <h1 className="dashboard-heading">Admin Dashboard</h1>
       <div>
