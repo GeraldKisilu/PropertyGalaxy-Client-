@@ -71,7 +71,7 @@ function App() {
           <Route path="/search/property/:location" element={<PropertySearch />} />
           <Route path="/user-payments/:propertyId" element={<AgentUserPayments />} />
           <Route path="/rentals" element={<RentalProperties />} />
-          <Route path="/properties/search/:city" element={<PropertySearched />} />
+          
           <Route path = "/agent-payment" element = {<AgentPayments />} />
         </Routes>
 

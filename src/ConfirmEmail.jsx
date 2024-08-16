@@ -17,7 +17,7 @@ function ConfirmEmail() {
     const confirmEmail = async () => {
       if (token) {
         try {
-          const response = await fetch(`http://127.0.0.1:5050/api/auth/confirm-email?token=${token}`, {
+          const response = await fetch(`https://phase-5-group-project-backend-24.onrender.com/auth/confirm-email?token=${token}`, {
             method: 'GET',
           });
           const data = await response.json();

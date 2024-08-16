@@ -35,7 +35,7 @@ const RentalProperties = ({ userId }) => {
 
   const handleLike = async (propertyId) => {
     try {
-      const response = await fetch('http://localhost:5050/api/savedproperties/saved', {
+      const response = await fetch('https://phase-5-group-project-backend-24.onrender.com/savedproperties/saved', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -18,7 +18,7 @@ const PropertyList = ({ userId }) => {
     const fetchProperties = async () => {
       setLoading(true);
       try {
-        const response = await fetch('http://localhost:5050/api/property/list');
+        const response = await fetch('https://phase-5-group-project-backend-24.onrender.com/property/list');
         if (!response.ok) {
           const errorData = await response.json();
           throw new Error(errorData.message || 'An unknown error occurred');
@@ -39,7 +39,7 @@ const PropertyList = ({ userId }) => {
 
   const handleLike = async (propertyId) => {
     try {
-      const response = await fetch('http://localhost:5050/api/savedproperties/saved', {
+      const response = await fetch('https://phase-5-group-project-backend-24.onrender.com/savedproperties/saved', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

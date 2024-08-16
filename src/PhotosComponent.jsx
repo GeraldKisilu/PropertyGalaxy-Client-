@@ -11,7 +11,7 @@ const PhotosComponent = ({ id }) => {
   useEffect(() => {
     const fetchPhotos = async () => {
       try {
-        const response = await fetch(`http://localhost:5050/api/property/${id}/photos`);
+        const response = await fetch(`https://phase-5-group-project-backend-24.onrender.com/property/${id}/photos`);
         if (!response.ok) {
           throw new Error('Failed to fetch photos');
         }

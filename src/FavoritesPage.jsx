@@ -13,7 +13,7 @@ function FavoritesPage() {
     const fetchSavedProperties = async () => {
       setLoading(true);
       try {
-        const response = await fetch('http://localhost:5050/api/savedproperties/user', {
+        const response = await fetch('https://phase-5-group-project-backend-24.onrender.com/savedproperties/user', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
