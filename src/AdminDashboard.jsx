@@ -65,7 +65,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="dashboard-container">
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="dashboard-actions">
         <button className="dashboard-button" onClick={handleApplications}>
           Agent Applications

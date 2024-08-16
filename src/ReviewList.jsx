@@ -14,8 +14,8 @@ function ReviewList() {
   useEffect(() => {
     async function fetchReviews() {
       try {
-        const response = await axios.get('http://127.0.0.1:5050/reviews/gotten'); // Adjust the endpoint as needed
-        setReviews(response.data.reviews || []); // Ensure reviews is set to an empty array if not provided
+        const response = await axios.get('http://127.0.0.1:5050/reviews/gotten'); 
+        setReviews(response.data.reviews || []);
         setLoading(false);
       } catch (err) {
         setError('Failed to load reviews');

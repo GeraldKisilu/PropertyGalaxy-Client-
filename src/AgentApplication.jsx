@@ -66,7 +66,7 @@ const AgentApplication = () => {
 
     return (
         <div>
-            <Navbar />
+           
             <h1>Applications List</h1>
             <div className="application-container">
                 {applications.length === 0 ? (

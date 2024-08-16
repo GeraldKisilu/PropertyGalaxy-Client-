@@ -48,7 +48,7 @@ const HomePage = () => {
 
     const handleSearch = () => {
         if (location) {
-            navigate(`/search/property/city/${encodeURIComponent(location)}`);
+            navigate(`/search/property/${encodeURIComponent(location)}`);
         } else {
             console.warn('No location provided');
         }

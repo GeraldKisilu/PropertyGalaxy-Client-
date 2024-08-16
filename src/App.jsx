@@ -70,7 +70,7 @@ function App() {
           <Route path="/purchase-requests/:propertyId" element={<UserPurchaseRequest />} />
           <Route path="/search/property/:location" element={<PropertySearch />} />
           <Route path="/user-payments/:propertyId" element={<AgentUserPayments />} />
-          <Route path="/rental" element={<RentalProperties />} />
+          <Route path="/rentals" element={<RentalProperties />} />
           <Route path="/properties/search/:city" element={<PropertySearched />} />
           <Route path = "/agent-payment" element = {<AgentPayments />} />
         </Routes>

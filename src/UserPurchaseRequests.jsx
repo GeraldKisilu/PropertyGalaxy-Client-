@@ -1,19 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import './UserPurchaseRequest.css'; // Import the CSS file for styling
 
 const UserPurchaseRequest = () => {
-    const { propertyId } = useParams();
+    const { propertyId } = useParams(); // Call useParams as a function
     const [requests, setRequests] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [success, setSuccess] = useState(null);
-    const [confirmationDialog, setConfirmationDialog] = useState({
-        open: false,
-        requestId: null,
-        status: null
-    });
 
     useEffect(() => {
         const fetchRequests = async () => {
@@ -23,7 +16,7 @@ const UserPurchaseRequest = () => {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     }
                 });
-                setRequests(response.data.purchase_requests || response.data);
+                setRequests(response.data.purchase_requests || response.data); // Adjust based on actual response structure
             } catch (err) {
                 setError('Failed to fetch requests.');
             } finally {
@@ -32,7 +25,7 @@ const UserPurchaseRequest = () => {
         };
 
         fetchRequests();
-    }, [propertyId]);
+    }, [propertyId]); // Add propertyId as a dependency
 
     const handleStatusChange = async (purchaseRequestId, status) => {
         try {
@@ -47,53 +40,28 @@ const UserPurchaseRequest = () => {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             });
-            setRequests(response.data.purchase_requests || response.data);
-            setSuccess(`Request ${status.toLowerCase()}d successfully.`);
-            setConfirmationDialog({ open: false, requestId: null, status: null });
+            setRequests(response.data.purchase_requests || response.data); // Adjust based on actual response structure
         } catch (err) {
             setError('Failed to update request status.');
-        } finally {
-            setTimeout(() => {
-                setSuccess(null);
-                setError(null);
-            }, 5000); // Clear message after 5 seconds
         }
     };
 
-    const openConfirmationDialog = (purchaseRequestId, status) => {
-        setConfirmationDialog({
-            open: true,
-            requestId: purchaseRequestId,
-            status: status
-        });
-    };
-
-    const handleConfirmation = (confirm) => {
-        if (confirm && confirmationDialog.requestId && confirmationDialog.status) {
-            handleStatusChange(confirmationDialog.requestId, confirmationDialog.status);
-        } else {
-            setConfirmationDialog({ open: false, requestId: null, status: null });
+    const confirmChange = (purchaseRequestId, status) => {
+        if (window.confirm(`Are you sure you want to ${status} this request?`)) {
+            handleStatusChange(purchaseRequestId, status);
         }
     };
 
     if (loading) return <p>Loading...</p>;
-    if (error) return <p className="error-message">{error}</p>;
+    if (error) return <p>{error}</p>;
 
     return (
-        <div className="purchase-request-container">
+        <div>
             <h1>Purchase Requests List</h1>
-            {success && <p className="success-message">{success}</p>}
-            {confirmationDialog.open && (
-                <div className="confirmation-dialog">
-                    <p>Are you sure you want to {confirmationDialog.status.toLowerCase()} this request?</p>
-                    <button onClick={() => handleConfirmation(true)}>Yes</button>
-                    <button onClick={() => handleConfirmation(false)}>No</button>
-                </div>
-            )}
             {requests.length === 0 ? (
                 <p>No requests found.</p>
             ) : (
-                <table className="requests-table">
+                <table>
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -113,14 +81,10 @@ const UserPurchaseRequest = () => {
                                 <td>
                                     {request.status === 'Pending' && (
                                         <>
-                                            <button 
-                                                className="approve-button" 
-                                                onClick={() => openConfirmationDialog(request.id, 'Approve')}>
+                                            <button onClick={() => confirmChange(request.id, 'Approve')}>
                                                 Approve
                                             </button>
-                                            <button 
-                                                className="reject-button" 
-                                                onClick={() => openConfirmationDialog(request.id, 'Reject')}>
+                                            <button onClick={() => confirmChange(request.id, 'Reject')}>
                                                 Reject
                                             </button>
                                         </>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams,Link } from 'react-router-dom';
+import './PropertySearch.css'; // Import the CSS file
 
 const PropertySearch = () => {
     const { location } = useParams(); // Get location from the URL
@@ -27,7 +28,6 @@ const PropertySearch = () => {
             console.error('Error fetching properties:', error);
         }
     };
-    
 
     const renderProperties = () => {
         const categorizedProperties = properties.reduce((acc, property) => {
@@ -37,31 +37,37 @@ const PropertySearch = () => {
             acc[property.city].push(property);
             return acc;
         }, {});
-    
+
         return Object.keys(categorizedProperties).map(city => (
-            <div key={city}>
-                <h2>{city}</h2>
-                <ul>
+            <div key={city} className="property-city-section">
+                <h2 className="property-city-title">{city}</h2>
+                <ul className="property-list">
                     {categorizedProperties[city].map(property => (
+                         <Link 
+                         to={`/property/${property.id}`}
+                         className="property-card-unique property-card-hover-unique"
+                         key={property.id}
+                     >
                         <li key={property.id}>
                             <div className="property-item">
-                                <img src={property.image} alt={property.address} className="property-image" />
+                           
                                 <div className="property-details">
                                     <h3>{property.address}</h3>
                                     <p>Price: ${property.price}</p>
                                     <p>Type: {property.property_type}</p>
                                 </div>
+                               
                             </div>
                         </li>
+                        </Link>
                     ))}
                 </ul>
             </div>
         ));
     };
-    
 
     return (
-        <div>
+        <div className="property-search-container">
             <h3>Properties in {location}</h3>
             {renderProperties()}
         </div>
