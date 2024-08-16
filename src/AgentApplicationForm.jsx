@@ -12,7 +12,7 @@ const AgentApplicationForm = () => {
         phone_number: '',
         languages: '',
         agency_name: '',
-        photo_url: '' // Added photo_url to state
+        photo_url: '' 
     });
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);

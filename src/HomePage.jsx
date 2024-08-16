@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import { Link, useNavigate } from 'react-router-dom';
-
 import './HomePage.css';
 import BoostButton from './BoostButton';
 import Notification from './Notification';
@@ -12,25 +9,20 @@ import interior from './assets/Images/interior.jpg';
 import icon1 from './assets/Images/agent.jpg';
 import icon2 from './assets/Images/agent.jpg';
 import icon3 from './assets/Images/agent.jpg';
-import PropertySearch from './PropertySearch';
-import Navbar from './Navbar';
-
+import Navbar from './Navbar'; // Assuming Navbar is a valid component
 
 const HomePage = () => {
     const [location, setLocation] = useState('');
-    const [properties, setProperties] = useState([]);
     const [suggestions, setSuggestions] = useState([]);
     const [boostedProperties, setBoostedProperties] = useState([]);
     const [notification, setNotification] = useState(null);
     const [showContactCard, setShowContactCard] = useState(false);
     const navigate = useNavigate();
 
-
     useEffect(() => {
         fetch('http://127.0.0.1:5050/property/list')
             .then(response => response.json())
             .then(data => {
-                setProperties(data);
                 const uniqueCities = [...new Set(data.map(property => property.city))];
                 setSuggestions(uniqueCities);
             })
@@ -49,15 +41,12 @@ const HomePage = () => {
         }
     };
 
-   
     const handleSearch = () => {
         if (location) {
             navigate(`/search/property/city/${encodeURIComponent(location)}`);
         } else {
             console.warn('No location provided');
         }
-        // Navigate to PropertySearched component with the city as a URL parameter
-        navigate(`/properties/search/${location}`);
     };
 
     const handleChange = (event) => {
@@ -105,8 +94,6 @@ const HomePage = () => {
                     </datalist>
                     <button onClick={handleSearch}>Search</button>
                 </div>
-
-
 
                 {/* Boosted Properties Section at the top */}
                 <section className="boosted-properties">
@@ -164,7 +151,7 @@ const HomePage = () => {
                         </figure>
                         <div className="about-content">
                             <p className="title">About Us</p>
-                            <h2 className="h2 section-title">The Leading Real Estate Rental Marketplace.</h2>
+                            <h2 className="section-title">The Leading Real Estate Rental Marketplace.</h2>
                             <p className="about-text">
                                 Over 30,000 people work for us in more than 70 countries all over the world. This breadth of global coverage, combined with specialist services.
                             </p>
@@ -213,53 +200,39 @@ const HomePage = () => {
                             <h3 className="card-title">
                                 <Link to="/properties">Buy Property</Link>
                             </h3>
+
                             <p className="card-text">
                                 We offer professional consulting services to help you make informed decisions about your property investments.
                             </p>
+                            <Link to="/properties" className="service-button">Read More</Link>
+
                         </div>
-                            <div className="service-card">
-                                <div className="card-icon">
-                                    <img src={icon2} alt="Service Icon" />
-                                </div>
-                                
-                                 <Link to="/agents">Sell Property</Link>
-
-                                <p className="card-text">Our property management services ensure that your real estate assets are well-maintained and profitable.</p>
-                                <Link to="/agents" className="service-button">Read More</Link>
-
                         <div className="service-card">
                             <div className="card-icon">
                                 <img src={icon2} alt="Service Icon" />
                             </div>
                             <h3 className="card-title">
-                                <Link to="/properties">Rent Property</Link>
+                                <Link to="/agents">Sell Property</Link>
+                            </h3>
+                            <p className="card-text">
+                                Our property management services ensure that your real estate assets are well-maintained and profitable.
+                            </p>
+                            <Link to="/agents" className="service-button">Read More</Link>
+                        </div>
+                        <div className="service-card">
+                            <div className="card-icon">
+                                <img src={icon3} alt="Service Icon" />
+                            </div>
+                            <h3 className="card-title">
+                                <Link to="/rentals">Rent Property</Link>
                             </h3>
                             <p className="card-text">
                                 Explore a diverse range of properties available for rent, tailored to fit your lifestyle and budget.
                             </p>
-                        </div>
-
-                        <div className="service-card">
-                            <div className="card-icon">
-                                <img src={icon3} alt="Service Icon" />
-                            <div className="service-card">
-                                <div className="card-icon">
-                                    <img src={icon3} alt="Service Icon" />
-                                </div>
-                                <Link to="/rentals">Rentals</Link>
-                                <p className="card-text">We provide in-depth market analysis to help you understand the real estate trends and make the right investment choices.</p>
-                                <Link to="/rental" className="service-button">Read More</Link>
-                            </div>
-                            <h3 className="card-title">
-                                <Link to="/properties">Sell Property</Link>
-                            </h3>
-                            <p className="card-text">
-                                Our expert team is here to assist you in selling your property efficiently and at the best possible price.
-                            </p>
+                            <Link to="/rentals" className="service-button">Read More</Link>
                         </div>
                     </div>
                 </section>
-
             </main>
         </div>
     );

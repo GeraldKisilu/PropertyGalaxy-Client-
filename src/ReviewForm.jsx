@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Navbar from './Navbar';
-import React, { useState, useEffect } from 'react';
+// import React, { useState, useEffect } from 'react';
 import ReviewList from './ReviewList';
 
 const ReviewForm = () => {
