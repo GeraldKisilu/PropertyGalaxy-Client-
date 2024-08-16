@@ -64,16 +64,18 @@ const AdminDashboard = () => {
   }
 
   return (
-
     <div className="dashboard-container">
-      <button className="dashboard-button" onClick={handleApplications}>
-        Agent Applications
-      </button>
-      <button className='dashboard-button' onClick={handleHomePage}>
-      🏠︎ Home
-      </button>
+      <Navbar />
+      <div className="dashboard-actions">
+        <button className="dashboard-button" onClick={handleApplications}>
+          Agent Applications
+        </button>
+        <button className="dashboard-button" onClick={handleHomePage}>
+          🏠︎ Home
+        </button>
+      </div>
       <h1 className="dashboard-heading">Admin Dashboard</h1>
-      <div>
+      <div className="user-management-section">
         <h2>User Management</h2>
         <table className="table">
           <thead>
@@ -89,26 +91,21 @@ const AdminDashboard = () => {
           </thead>
           <tbody>
             {users.length === 0 ? (
-
-    <div>
-      <Navbar />
-      
-                <tr>
-                  <td colSpan="7">No users found</td>
-                </tr>
-              ) : (
-                users.map(user => (
-                  <SingleUser
-                    key={user.id}
-                    user={user}
-                    onDeactivate={handleDeactivate}
-                    onReactivate={handleReactivate}
-                  />
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+              <tr>
+                <td colSpan="7" className="no-users-message">No users found</td>
+              </tr>
+            ) : (
+              users.map(user => (
+                <SingleUser
+                  key={user.id}
+                  user={user}
+                  onDeactivate={handleDeactivate}
+                  onReactivate={handleReactivate}
+                />
+              ))
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );

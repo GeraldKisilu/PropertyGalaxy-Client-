@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-
-
+import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
-// import React, { useState, useEffect } from 'react';
-
 import ReviewList from './ReviewList';
 import './ReviewForm.css';
 
@@ -14,6 +11,7 @@ const ReviewForm = () => {
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState('');
     const [refresh, setRefresh] = useState(false); // State to trigger refresh
+    const navigate = useNavigate(); // Ensure navigate is available
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -60,22 +58,13 @@ const ReviewForm = () => {
     };
 
     return (
-
         <div className="review-form-container">
+            <Navbar />
             <h2 className="review-form-title">Submit a Review</h2>
             <form onSubmit={handleSubmit} className="review-form">
                 <div className="form-group">
                     <label className="form-label">Rating:</label>
                     <div className="rating-stars">
-
-        <div>
-            <Navbar />
-            <h2>Submit a Review</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Rating:</label>
-                    <div style={{ display: 'inline-block' }}>
-
                         {[1, 2, 3, 4, 5].map((index) => (
                             <span
                                 key={index}
@@ -100,12 +89,12 @@ const ReviewForm = () => {
                     />
                 </div>
                 <button type="submit" className="submit-button">Submit Review</button>
+                {error && <p className="error-message">{error}</p>}
+                {successMessage && <p className="success-message">{successMessage}</p>}
             </form>
-            {error && <p className="error-message">{error}</p>}
-            {successMessage && <p className="success-message">{successMessage}</p>}
             <ReviewList key={refresh} /> {/* Use the refresh state to trigger re-render */}
         </div>
     );
-};
+}
 
 export default ReviewForm;
