@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+import Navbar from './Navbar';
 import React, { useState, useEffect } from 'react';
 import ReviewList from './ReviewList';
 
@@ -50,6 +52,7 @@ const ReviewForm = () => {
 
     return (
         <div>
+            <Navbar />
             <h2>Submit a Review</h2>
             <form onSubmit={handleSubmit}>
                 <div>

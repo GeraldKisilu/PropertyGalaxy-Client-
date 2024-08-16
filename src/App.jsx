@@ -25,8 +25,8 @@ import ContactForm from './ContactForm';
 import PaymentForm from './PaymentForm';
 import UserPurchaseRequest from './UserPurchaseRequests';
 import UserProfile from './UserProfile';
-import AgentPayments from './AgentPayments';
 import Payment from './Payment';
+import PropertySearch from './PropertySearch';
 import AgentUserPayments from './AgentUserPayments';
 
 import RentalProperties from './Rentals';
@@ -35,31 +35,29 @@ import RentalProperties from './Rentals';
 import PropertySearched from './PropertySearched';
 
 import { RefreshProvider } from './RefreshContext';
-
-
-
-
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import Navbar from './Navbar'; 
 import ReviewList from './ReviewList';
 
 import ReviewForm from './ReviewForm';
 
 const stripePromise = loadStripe('pk_test_51PmLeaP08hlmzVcwDEzRNsjrtMFXRW5nVs7bsL1WiKo75dBm8zSwp5WT1nGuy7jUExHlkPt2EEli4QtuNKrQkL2200cSqbwlFQ');
 
-
-
 function App() {
   return (
     <Router>
-
       <Elements stripe={stripePromise}>
+     
         <Routes>
+          <Route path="/register" element={<Register />} />
+          <Route path="/" element={<Login />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/user-dashboard" element={<UserDashboard />} />
           <Route path="/agent-dashboard" element={<AgentDashboard />} />
           <Route path="/not-authorized" element={<NotAuthorized />} />
           <Route path="/agents" element={<Agent />} />
+          <Route path="/reviews" element={<Review />} />
           <Route path="/register" element={<Register />} /> 
           <Route path="/reviews" element={<ReviewForm />} />
           <Route path="/" element={<Login />} />
@@ -78,6 +76,7 @@ function App() {
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/payment" element={<PaymentForm />} />
           <Route path="/purchase-requests/:propertyId" element={<UserPurchaseRequest />} />
+          <Route path="/search/property/:location" element={<PropertySearch />} />
           <Route path = "/agent-payment" element = {<AgentPayments />} />
 
           <Route path="/user-payments/:propertyId" element={<AgentUserPayments/>} />
@@ -91,24 +90,7 @@ function App() {
           {/* <Route path = "/agent-payments" element = {<AgentPayments/>}/> */}
         </Routes>
       </Elements>
-     
-
-
-    
-        
-
-
-         
-
-        
-     
-
-
-      
-
-
-
-</Router>
+    </Router>
   );
 }
 

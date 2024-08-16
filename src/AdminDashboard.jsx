@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import SingleUser from './SingleUser'; 
+import Navbar from './Navbar';
 import SingleUser from './SingleUser';
 import './AdminDashboard.css'; 
 
@@ -59,6 +61,10 @@ const AdminDashboard = () => {
   };
 
   return (
+    <div>
+      <Navbar />
+        <button onClick={handleApplications}>Agent Applications</button>
+      <h1>Admin Dashboard</h1>
     <div className="dashboard-container">
       <button className="dashboard-button" onClick={handleApplications}>
         Agent Applications

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Navbar from './Navbar';
+
 import './AgentApplication.css'; 
 
 const AgentApplication = () => {
@@ -55,6 +57,9 @@ const AgentApplication = () => {
     if (error) return <p>{error}</p>;
 
     return (
+        <div>
+            <Navbar />
+            <h1>Applications List</h1>
         <div className="application-container">
             <h1 className="application-heading">Applications List</h1>
             {applications.length === 0 ? (
