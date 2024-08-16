@@ -1,0 +1,69 @@
+.add-photos {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2em;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.photos-heading {
+    margin-bottom: 1em;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.photos-message {
+    margin-bottom: 1.5em;
+    font-size: 1em;
+}
+
+.photos-success {
+    color: green;
+}
+
+.photos-error {
+    color: red;
+}
+
+.photos-form {
+    text-align: left;
+}
+
+.photos-form-group {
+    margin-bottom: 20px;
+}
+
+.photos-form-label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+}
+
+.photos-form-input {
+    width: 100%;
+    padding: 0.75em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+.photos-form-submit {
+    width: 100%;
+    padding: 0.75em;
+    border: none;
+    border-radius: 30px;
+    background: #c78880;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1em;
+    cursor: pointer;
+    /* transition: background 0.3s ease; */
+}
+
+.photos-form-submit:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}

@@ -44,12 +44,12 @@ function Agent() {
               <p>Email: {agent.email}</p>
               <p>Phone: {agent.phone_number}</p>
               <p>Experience: {agent.experience}</p>
-              <p>For Sale: {agent.for_sale}</p>
-              <p>Sold: {agent.sold}</p>
+              {/* <p>For Sale: {agent.for_sale}</p> */}
+              {/* <p>Sold: {agent.sold}</p> */}
               <p>Languages: {agent.languages}</p>
               <p>Agency: {agent.agency_name}</p>
-              <p>Listed Properties: {agent.listed_properties}</p>
-              <Link to={`/agent/${agent.id}`} className="btn btn-primary">View Details</Link>
+              {/* <p>Listed Properties: {agent.listed_properties}</p> */}
+              {/* <Link to={`/agent/${agent.id}`} className="btn btn-primary">View Details</Link> */}
             </div>
           ))
         ) : (

@@ -59,30 +59,40 @@ const AdminDashboard = () => {
     navigate('/agent-application');
   };
 
+  const handleHomePage = () => {
+    navigate('/user-dashboard')
+  }
+
   return (
+
+    <div className="dashboard-container">
+      <button className="dashboard-button" onClick={handleApplications}>
+        Agent Applications
+      </button>
+      <button className='dashboard-button' onClick={handleHomePage}>
+      🏠︎ Home
+      </button>
+      <h1 className="dashboard-heading">Admin Dashboard</h1>
+      <div>
+        <h2>User Management</h2>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Email Confirmation</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.length === 0 ? (
+
     <div>
       <Navbar />
-      <h1>Admin Dashboard</h1>
-      <div className="dashboard-container">
-        <button className="dashboard-button" onClick={handleApplications}>
-          Agent Applications
-        </button>
-        <div>
-          <h2>User Management</h2>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Full Name</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Status</th>
-                <th>Email Confirmation</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.length === 0 ? (
+      
                 <tr>
                   <td colSpan="7">No users found</td>
                 </tr>

@@ -1,0 +1,69 @@
+.add-property-form {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2em;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.form-heading {
+    margin-bottom: 1em;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.form-success, .form-error {
+    margin-bottom: 1.5em;
+    font-size: 1em;
+}
+
+.form-success {
+    color: green;
+}
+
+.form-error {
+    color: red;
+}
+
+.form {
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+.form-submit {
+    width: 100%;
+    padding: 0.75em;
+    border: none;
+    border-radius: 30px;
+    background: #c78880;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1em;
+    cursor: pointer;
+    /* transition: background 0.3s ease; */
+}
+
+.form-submit:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}

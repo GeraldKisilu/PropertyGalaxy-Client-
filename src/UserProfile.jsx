@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './UserProfile.css';
 
 const UserProfile = () => {
@@ -62,11 +64,12 @@ const UserProfile = () => {
                         'Content-Type': 'application/json',
                     },
                 });
-                alert("Profile updated successfully!");
+                toast.success("Profile updated successfully!");
                 setEditing(false);
-             } 
+            } 
         } catch (error) {
             setError(error.response ? error.response.data.message : "Failed to save profile");
+            toast.error("Failed to save profile");
         }
     };
 
@@ -80,10 +83,11 @@ const UserProfile = () => {
                         'Content-Type': 'application/json',
                     },
                 });
-                alert("Profile and account deleted successfully!");
+                toast.success("Profile and account deleted successfully!");
                 navigate('/');
             } catch (error) {
                 setError(error.response ? error.response.data.message : "Failed to delete profile");
+                toast.error("Failed to delete profile");
             }
         }
     };
@@ -209,6 +213,7 @@ const UserProfile = () => {
                     <button type="submit">Save</button>
                 </form>
             )}
+            <ToastContainer />
         </div>
     );
 };

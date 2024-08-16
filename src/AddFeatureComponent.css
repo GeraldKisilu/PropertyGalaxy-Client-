@@ -1,0 +1,74 @@
+.add-feature {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2em;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.feature-heading {
+    margin-bottom: 1em;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.feature-message {
+    margin-bottom: 1.5em;
+    font-size: 1em;
+}
+
+.feature-success {
+    color: green;
+}
+
+.feature-error {
+    color: red;
+}
+
+.feature-form {
+    text-align: left;
+}
+
+.feature-form-group {
+    margin-bottom: 20px;
+}
+
+.feature-form-label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+}
+
+.feature-form-input,
+.feature-form-textarea {
+    width: 100%;
+    padding: 0.75em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+.feature-form-textarea {
+    height: 100px;
+}
+
+.feature-form-submit {
+    width: 100%;
+    padding: 0.75em;
+    border: none;
+    border-radius: 30px;
+    background: #c78880;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1em;
+    cursor: pointer;
+    /* transition: background 0.3s ease; */
+}
+
+.feature-form-submit:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}

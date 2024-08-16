@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import PurchaseRequestForm from './PurchaseRequestForm';
-import './PropertyDetails.css'; 
+import './PropertyDetails.css';
 
 const PropertyDetails = () => {
   const { id } = useParams();
   const [property, setProperty] = useState(null);
   const [photos, setPhotos] = useState([]);
   const [features, setFeatures] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [fade, setFade] = useState(false); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,6 +35,10 @@ const PropertyDetails = () => {
 
         // Fetch property features
         const featureResponse = await fetch(`http://localhost:5050/features/${id}`);
+        if (featureResponse.status === 401) { // Unauthorized
+          navigate('/not-authorized');
+          return;
+        }
         if (!featureResponse.ok) {
           throw new Error('Failed to fetch features');
         }
@@ -48,7 +54,23 @@ const PropertyDetails = () => {
     };
 
     fetchData();
-  }, [id]);
+  }, [id, navigate]);
+
+  const handleNext = () => {
+    setFade(true);
+    setTimeout(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % photos.length);
+      setFade(false);
+    }, 300); // Duration of fade-out
+  };
+
+  const handlePrev = () => {
+    setFade(true);
+    setTimeout(() => {
+      setCurrentIndex((prevIndex) => (prevIndex - 1 + photos.length) % photos.length);
+      setFade(false);
+    }, 300); // Duration of fade-out
+  };
 
   if (loading) return <p className="property-loading">Loading...</p>;
   if (error) return <p className="property-error">{error}</p>;
@@ -64,36 +86,45 @@ const PropertyDetails = () => {
       <p className="property-info">Status: {property.listing_status}</p>
 
       <h2 className="property-photos-header">Photos</h2>
-      <div className="property-photos">
-        {photos.length > 0 ? (
-          photos.map(photo => (
-            <div key={photo.id} className="property-photo-item">
-              <img 
-                src={photo.photo_url} 
-                alt={`View of property: ${property.address}`} 
-                className="property-photo" 
-              />
-            </div>
-          ))
-        ) : (
-          <p className="property-no-photos">No photos available</p>
-        )}
-      </div>
+      {photos.length > 0 ? (
+        <div>
+          <div className={`photo-container ${fade ? 'fade-out' : 'fade-in'}`}>
+            <img
+              src={photos[currentIndex].photo_url}
+              alt={`Photo ${currentIndex + 1}`}
+              className="photo-image"
+            />
+          </div>
+          <div className="photo-navigation">
+            <button onClick={handlePrev} disabled={photos.length <= 1}>
+              &lt;
+            </button>
+            <span>
+              {currentIndex + 1} / {photos.length}
+            </span>
+            <button onClick={handleNext} disabled={photos.length <= 1}>
+              &gt;
+            </button>
+          </div>
+        </div>
+      ) : (
+        <p className="property-no-photos">No photos available.</p>
+      )}
 
       <h2 className="property-features-header">Features</h2>
       <ul className="property-features">
         {features.length > 0 ? (
           features.map(feature => (
-            <p key={feature.id} className="property-info" >
+            <li className = 'property-info' key={feature.id} >
               <strong>{feature.name}</strong>: {feature.description}
-            </p>
+            </li>
           ))
         ) : (
           <p className="property-no-features">No features available</p>
         )}
       </ul>
 
-      <h2 className="contact-agent">Contact Agent</h2>
+     
       <Link to={`/contact/?property_id=${property.id}&agent_id=${property.agent_id}`} className="property-contact-link">
         Contact Agent
       </Link>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import './AddFeatureComponent.css';  // Import the CSS file
 
-const AddFeatureComponent = ({propertyId}) => {
+const AddFeatureComponent = ({ propertyId }) => {
   const [featureName, setFeatureName] = useState('');
   const [featureDescription, setFeatureDescription] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
@@ -14,7 +15,7 @@ const AddFeatureComponent = ({propertyId}) => {
       description: featureDescription,
       property_id: propertyId
     };
-    console.log(propertyId)
+    console.log(propertyId);
 
     try {
       const response = await fetch('http://localhost:5050/features/list', {
@@ -42,30 +43,34 @@ const AddFeatureComponent = ({propertyId}) => {
   };
 
   return (
-    <div>
-      <h2>Add a New Feature</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Feature Name:</label>
+    <div className="add-feature">
+      <h2 className="feature-heading">Add a New Feature</h2>
+      <form onSubmit={handleSubmit} className="feature-form">
+        <div className="feature-form-group">
+          <label htmlFor="featureName" className="feature-form-label">Feature Name:</label>
           <input
             type="text"
+            id="featureName"
             value={featureName}
             onChange={(e) => setFeatureName(e.target.value)}
+            className="feature-form-input"
             required
           />
         </div>
-        <div>
-          <label>Feature Description:</label>
+        <div className="feature-form-group">
+          <label htmlFor="featureDescription" className="feature-form-label">Feature Description:</label>
           <textarea
+            id="featureDescription"
             value={featureDescription}
             onChange={(e) => setFeatureDescription(e.target.value)}
+            className="feature-form-textarea"
             required
           />
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" className="feature-form-submit">Submit</button>
       </form>
-      {responseMessage && <p style={{ color: 'green' }}>{responseMessage}</p>}
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      {responseMessage && <p className="feature-success">{responseMessage}</p>}
+      {errorMessage && <p className="feature-error">{errorMessage}</p>}
     </div>
   );
 };

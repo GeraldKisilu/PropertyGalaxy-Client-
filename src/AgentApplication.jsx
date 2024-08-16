@@ -17,6 +17,10 @@ const AgentApplication = () => {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     }
                 });
+                if (response.status === 401) { // Unauthorized
+                    navigate('/not-authorized');
+                    return;
+                }
                 setApplications(response.data.applications);
             } catch (err) {
                 setError('Failed to fetch applications.');

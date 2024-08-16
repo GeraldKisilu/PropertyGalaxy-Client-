@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+
+
 import Navbar from './Navbar';
 // import React, { useState, useEffect } from 'react';
+
 import ReviewList from './ReviewList';
+import './ReviewForm.css';
 
 const ReviewForm = () => {
     const [rating, setRating] = useState(0);
@@ -21,13 +25,18 @@ const ReviewForm = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
                 body: JSON.stringify({
                     rating: rating,
                     comment: comment,
                 }),
             });
+
+            if (response.status === 401) { // Unauthorized
+                navigate('/not-authorized');
+                return;
+            }
 
             if (!response.ok) {
                 const errorText = await response.text();
@@ -51,6 +60,14 @@ const ReviewForm = () => {
     };
 
     return (
+
+        <div className="review-form-container">
+            <h2 className="review-form-title">Submit a Review</h2>
+            <form onSubmit={handleSubmit} className="review-form">
+                <div className="form-group">
+                    <label className="form-label">Rating:</label>
+                    <div className="rating-stars">
+
         <div>
             <Navbar />
             <h2>Submit a Review</h2>
@@ -58,6 +75,7 @@ const ReviewForm = () => {
                 <div>
                     <label>Rating:</label>
                     <div style={{ display: 'inline-block' }}>
+
                         {[1, 2, 3, 4, 5].map((index) => (
                             <span
                                 key={index}
@@ -65,25 +83,26 @@ const ReviewForm = () => {
                                 onMouseEnter={() => setHoverRating(index)}
                                 onMouseLeave={() => setHoverRating(0)}
                                 onClick={() => setRating(index)}
-                                style={{ cursor: 'pointer', fontSize: '2rem', color: index <= (hoverRating || rating) ? 'yellow' : 'gray' }}
+                                style={{ cursor: 'pointer' }}
                             >
                                 ★
                             </span>
                         ))}
                     </div>
                 </div>
-                <div>
-                    <label>Comment:</label>
+                <div className="form-group">
+                    <label className="form-label">Comment:</label>
                     <textarea
+                        className="form-textarea"
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
                         required
                     />
                 </div>
-                <button type="submit">Submit Review</button>
+                <button type="submit" className="submit-button">Submit Review</button>
             </form>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+            {error && <p className="error-message">{error}</p>}
+            {successMessage && <p className="success-message">{successMessage}</p>}
             <ReviewList key={refresh} /> {/* Use the refresh state to trigger re-render */}
         </div>
     );

@@ -1,8 +1,6 @@
-// ContactForm.jsx
-
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-// import './ContactForm.css';
+import './ContactForm.css'; // Import the CSS file
 
 const ContactForm = () => {
   const [name, setName] = useState('');
@@ -12,9 +10,6 @@ const ContactForm = () => {
   const [responseMessage, setResponseMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  
-
 
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
@@ -51,6 +46,11 @@ const ContactForm = () => {
         body: JSON.stringify(contactData),
       });
 
+      if (response.status === 401) { // Unauthorized
+        navigate('/not-authorized');
+        return;
+      }
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Failed to send message');
@@ -73,8 +73,6 @@ const ContactForm = () => {
   };
 
   return (
-    
-
     <div className="contact-form-container">
       <h2>Contact Agent</h2>
       <form onSubmit={handleSubmit}>
@@ -116,7 +114,6 @@ const ContactForm = () => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
-
         </div>
         <button
           type="submit"

@@ -27,8 +27,13 @@ import ContactForm from './ContactForm';
 import PaymentForm from './PaymentForm';
 import UserPurchaseRequest from './UserPurchaseRequests';
 import UserProfile from './UserProfile';
+
+import AgentPayments from './AgentPayments';
+
+
 import Payment from './Payment';
 import PropertySearch from './PropertySearch';
+
 import AgentUserPayments from './AgentUserPayments';
 import RentalProperties from './Rentals';
 import PropertySearched from './PropertySearched';

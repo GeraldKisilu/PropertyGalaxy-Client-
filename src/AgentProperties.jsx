@@ -163,7 +163,7 @@ function AgentProperty({ property, onRefresh }) {
             Purchase Requests
           </button>
 
-          <button className='view-payments-btn' onClick={handleViewUserPayments}>
+          <button className = 'request-btn' onClick={handleViewUserPayments}>
             View User Payments
           </button>
         </div>

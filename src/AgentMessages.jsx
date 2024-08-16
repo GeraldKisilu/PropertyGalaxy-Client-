@@ -14,7 +14,11 @@ const AgentMessages = () => {
                         Authorization: `Bearer ${localStorage.getItem('token')}`, 
                     },
                 });
-
+                
+                if (response.status === 401) { // Unauthorized
+                    navigate('/not-authorized');
+                    return;
+                }
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }

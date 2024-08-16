@@ -19,7 +19,12 @@ const AgentUserPayments = () => {
                         'X-Agent-ID': localStorage.getItem('agentId')  // Or other method of agent identification
                     }
                 });
-
+                
+                if (response.status === 401) { // Unauthorized
+                    navigate('/not-authorized');
+                    return;
+                }
+                
                 if (!response.ok) {
                     throw new Error('Failed to fetch payments');
                 }

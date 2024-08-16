@@ -34,6 +34,11 @@ const HomePage = () => {
     const fetchBoostedProperties = async () => {
         try {
             const response = await fetch('http://127.0.0.1:5050/boost/properties');
+
+            if (response.status === 401) { // Unauthorized
+                navigate('/not-authorized');
+                return;
+            }
             const data = await response.json();
             setBoostedProperties(data);
         } catch (error) {
