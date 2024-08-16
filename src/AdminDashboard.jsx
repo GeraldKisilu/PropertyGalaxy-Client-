@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import SingleUser from './SingleUser'; 
 import Navbar from './Navbar';
-import SingleUser from './SingleUser';
 import './AdminDashboard.css'; 
 
 const AdminDashboard = () => {
@@ -63,44 +62,43 @@ const AdminDashboard = () => {
   return (
     <div>
       <Navbar />
-        <button onClick={handleApplications}>Agent Applications</button>
       <h1>Admin Dashboard</h1>
-    <div className="dashboard-container">
-      <button className="dashboard-button" onClick={handleApplications}>
-        Agent Applications
-      </button>
-      <h1 className="dashboard-heading">Admin Dashboard</h1>
-      <div>
-        <h2>User Management</h2>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Full Name</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Status</th>
-              <th>Email Confirmation</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.length === 0 ? (
+      <div className="dashboard-container">
+        <button className="dashboard-button" onClick={handleApplications}>
+          Agent Applications
+        </button>
+        <div>
+          <h2>User Management</h2>
+          <table className="table">
+            <thead>
               <tr>
-                <td colSpan="7">No users found</td>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Email Confirmation</th>
+                <th>Actions</th>
               </tr>
-            ) : (
-              users.map(user => (
-                <SingleUser
-                  key={user.id}
-                  user={user}
-                  onDeactivate={handleDeactivate}
-                  onReactivate={handleReactivate}
-                />
-              ))
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {users.length === 0 ? (
+                <tr>
+                  <td colSpan="7">No users found</td>
+                </tr>
+              ) : (
+                users.map(user => (
+                  <SingleUser
+                    key={user.id}
+                    user={user}
+                    onDeactivate={handleDeactivate}
+                    onReactivate={handleReactivate}
+                  />
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
