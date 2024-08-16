@@ -19,7 +19,7 @@ const ReviewForm = () => {
         setSuccessMessage('');
 
         try {
-            const response = await fetch('http://localhost:5050/reviews/gotten', {
+            const response = await fetch('http://localhost:5050/api/reviews/gotten', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

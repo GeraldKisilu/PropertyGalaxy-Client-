@@ -20,7 +20,7 @@ const HomePage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://127.0.0.1:5050/property/list')
+        fetch('http://127.0.0.1:5050/api/property/list')
             .then(response => response.json())
             .then(data => {
                 const uniqueCities = [...new Set(data.map(property => property.city))];
@@ -33,7 +33,7 @@ const HomePage = () => {
 
     const fetchBoostedProperties = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:5050/boost/properties');
+            const response = await fetch('http://127.0.0.1:5050/api/boost/properties');
 
             if (response.status === 401) { // Unauthorized
                 navigate('/not-authorized');

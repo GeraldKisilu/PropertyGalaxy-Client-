@@ -10,7 +10,7 @@ const BoostedProperties = () => {
   useEffect(() => {
     const fetchBoostedProperties = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:5050/boost/properties');
+        const response = await fetch('http://127.0.0.1:5050/api/boost/properties');
 
         if (!response.ok) {
           throw new Error('Failed to fetch boosted properties');

@@ -31,7 +31,7 @@ const AgentApplicationForm = () => {
         setLoading(true);
 
         try {
-            await axios.post('http://127.0.0.1:5050/user/agent-application', formData, {
+            await axios.post('http://127.0.0.1:5050/api/user/agent-application', formData, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }

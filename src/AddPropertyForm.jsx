@@ -27,7 +27,7 @@ const AddPropertyForm = () => {
     setSuccessMessage(''); 
 
     try {
-      const response = await axios.post('http://127.0.0.1:5050/property/list', formData, {
+      const response = await axios.post('http://127.0.0.1:5050/api/property/list', formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

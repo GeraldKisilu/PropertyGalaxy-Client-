@@ -19,7 +19,7 @@ function AgentProperty({ property, onRefresh }) {
 
   const fetchBoostedProperties = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:5050/boost/properties');
+      const response = await fetch('http://127.0.0.1:5050/api/boost/properties');
       const data = await response.json();
       setBoostedProperties(data);
     } catch (error) {
@@ -33,7 +33,7 @@ function AgentProperty({ property, onRefresh }) {
 
   const handleUpdateProperty = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:5050/property/${property.id}`, {
+      const response = await fetch(`http://127.0.0.1:5050/api/property/${property.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ function AgentProperty({ property, onRefresh }) {
   const handleDeleteProperty = async () => {
     if (window.confirm(`Are you sure you want to delete property at "${property.address}"?`)) {
       try {
-        const response = await fetch(`http://127.0.0.1:5050/property/${property.id}`, {
+        const response = await fetch(`http://127.0.0.1:5050/api/property/${property.id}`, {
           method: 'DELETE',
           headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token'),

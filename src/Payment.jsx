@@ -24,7 +24,7 @@ const AgentPaymentForm = ({ listingFeeId }) => {
     setError(null);
 
     // Call your backend to create a PaymentIntent
-    const response = await fetch(`http://127.0.0.1:5050/listingfee/${listingFeeId}/pay`, {
+    const response = await fetch(`http://127.0.0.1:5050/api/listingfee/${listingFeeId}/pay`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

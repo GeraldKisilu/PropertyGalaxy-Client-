@@ -15,7 +15,7 @@ const PropertySearch = () => {
 
     const handleSearch = async (location) => {
         try {
-            const response = await fetch(`http://127.0.0.1:5050/property/city/${encodeURIComponent(location)}`);
+            const response = await fetch(`http://127.0.0.1:5050/api/property/city/${encodeURIComponent(location)}`);
             if (response.ok) {
                 const propertiesData = await response.json();
                 setProperties(propertiesData);

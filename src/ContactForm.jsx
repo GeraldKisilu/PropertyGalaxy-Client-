@@ -37,7 +37,7 @@ const ContactForm = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5050/contact/messages', {
+      const response = await fetch('http://localhost:5050/api/contact/messages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

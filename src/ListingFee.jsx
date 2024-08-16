@@ -7,7 +7,7 @@ const ListingFee = ({ feeId }) => {
     useEffect(() => {
         const fetchFee = async () => {
             try {
-                const response = await fetch(`http://localhost:5050/listingfee/${feeId}`);
+                const response = await fetch(`http://localhost:5050/api/listingfee/${feeId}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch listing fee');
                 }

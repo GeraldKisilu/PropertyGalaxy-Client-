@@ -13,7 +13,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:5050/admin/users', {
+        const response = await axios.get('http://127.0.0.1:5050/api/admin/users', {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         });
 
@@ -35,7 +35,7 @@ const AdminDashboard = () => {
 
   const handleDeactivate = async (userId) => {
     try {
-      await axios.post(`http://127.0.0.1:5050/admin/users/${userId}/deactivate`, {}, {
+      await axios.post(`http://127.0.0.1:5050/api/admin/users/${userId}/deactivate`, {}, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       setUsers(users.map(user => (user.id === userId ? { ...user, active: false } : user)));
@@ -46,7 +46,7 @@ const AdminDashboard = () => {
 
   const handleReactivate = async (userId) => {
     try {
-      await axios.post(`http://127.0.0.1:5050/admin/users/${userId}/reactivate`, {}, {
+      await axios.post(`http://127.0.0.1:5050/api/admin/users/${userId}/reactivate`, {}, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       setUsers(users.map(user => (user.id === userId ? { ...user, active: true } : user)));

@@ -18,14 +18,14 @@ const PropertyList = ({ userId }) => {
     const fetchProperties = async () => {
       setLoading(true);
       try {
-        const response = await fetch('http://localhost:5050/property/list');
+        const response = await fetch('http://localhost:5050/api/property/list');
         if (!response.ok) {
           const errorData = await response.json();
           throw new Error(errorData.message || 'An unknown error occurred');
         }
         const data = await response.json();
         setProperties(data);
-        setError(null); // Clear previous errors
+        setError(null); 
       } catch (error) {
         console.error('Error fetching properties:', error);
         setError(error.message);
@@ -39,7 +39,7 @@ const PropertyList = ({ userId }) => {
 
   const handleLike = async (propertyId) => {
     try {
-      const response = await fetch('http://localhost:5050/savedproperties/saved', {
+      const response = await fetch('http://localhost:5050/api/savedproperties/saved', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -13,7 +13,7 @@ const AgentUserPayments = () => {
         const fetchPayments = async () => {
             try {
                 // Replace with your API endpoint and authentication token
-                const response = await fetch(`http://localhost:5050/userpayment/agent/${propertyId}`, {
+                const response = await fetch(`http://localhost:5050/api/userpayment/agent/${propertyId}`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Use token for authentication
                         'X-Agent-ID': localStorage.getItem('agentId')  // Or other method of agent identification

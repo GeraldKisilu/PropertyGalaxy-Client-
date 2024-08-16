@@ -11,7 +11,7 @@ const PurchaseRequestForm = ({ propertyId }) => {
 
     try {
       const response = await axios.post(
-        'http://127.0.0.1:5050/purchase_request/list',
+        'http://127.0.0.1:5050/api/purchase_request/list',
         {
           property_id: propertyId,
           status: 'Pending',

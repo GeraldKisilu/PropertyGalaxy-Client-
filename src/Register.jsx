@@ -29,7 +29,7 @@ function RegistrationForm() {
     }
 
     setLoading(true);
-    fetch('http://127.0.0.1:5050/auth/register', {
+    fetch('http://127.0.0.1:5050/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ full_name: fullName, email: email, password: password, password2: password2 }),

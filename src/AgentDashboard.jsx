@@ -15,7 +15,7 @@ function AgentDashboard() {
 
     useEffect(() => {
         const fetchProperties = () => {
-            fetch('http://127.0.0.1:5050/property/agents', {
+            fetch('http://127.0.0.1:5050/api/property/agents', {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },

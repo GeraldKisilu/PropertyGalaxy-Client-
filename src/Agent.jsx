@@ -9,7 +9,7 @@ function Agent() {
   useEffect(() => {
     const fetchAgents = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:5050/agents/list'); // Adjust the URL as needed
+        const response = await fetch('http://127.0.0.1:5050/api/agents/list'); // Adjust the URL as needed
 
         if (!response.ok) {
           throw new Error('Failed to fetch agents');

@@ -10,7 +10,7 @@ const PropertyPhotos = () => {
   useEffect(() => {
     const fetchPhotos = async () => {
       try {
-        const photosResponse = await fetch(`http://localhost:5050/property/${id}/photos`);
+        const photosResponse = await fetch(`http://localhost:5050/api/property/${id}/photos`);
         if (!photosResponse.ok) {
           throw new Error('Failed to fetch photos');
         }
@@ -25,8 +25,7 @@ const PropertyPhotos = () => {
     };
 
     fetchPhotos();
-  }, [id]); // Add id as a dependency to refetch if it changes
-
+  }, [id]); 
   if (loading) return <p>Loading...</p>;
   if (error) return <p style={{ color: 'red' }}>{error}</p>;
 

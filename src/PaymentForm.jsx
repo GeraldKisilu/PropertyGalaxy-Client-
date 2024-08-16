@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
-import './PaymentForm.css'; // Import your CSS file
+import './PaymentForm.css'; 
 
 const PaymentForm = () => {
   const stripe = useStripe();
@@ -24,7 +24,7 @@ const PaymentForm = () => {
   useEffect(() => {
     const fetchPropertyDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:5050/userpayment/property-details/${propertyId}`);
+        const response = await fetch(`http://localhost:5050/api/userpayment/property-details/${propertyId}`);
         const data = await response.json();
 
         if (!response.ok) {
@@ -52,7 +52,7 @@ const PaymentForm = () => {
     const fetchClientSecret = async () => {
       if (amount && propertyId && userId && installmentAmount) {
         try {
-          const response = await fetch('http://localhost:5050/userpayment/create-intent', {
+          const response = await fetch('http://localhost:5050/api/userpayment/create-intent', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -122,7 +122,7 @@ const PaymentForm = () => {
 
         const endpoint = paymentType === 'installments' ? 'confirm-payment' : 'full-payment';
 
-        const response = await fetch(`http://localhost:5050/userpayment/${endpoint}`, {
+        const response = await fetch(`http://localhost:5050/api/userpayment/${endpoint}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -14,7 +14,7 @@ const RentalProperties = ({ userId }) => {
     const fetchRentalProperties = async () => {
       setLoading(true);
       try {
-        const response = await fetch('http://localhost:5050/property/rentals');
+        const response = await fetch('http://localhost:5050/api/property/rentals');
         if (!response.ok) {
           const errorData = await response.json();
           throw new Error(errorData.message || 'An unknown error occurred');
@@ -35,7 +35,7 @@ const RentalProperties = ({ userId }) => {
 
   const handleLike = async (propertyId) => {
     try {
-      const response = await fetch('http://localhost:5050/savedproperties/saved', {
+      const response = await fetch('http://localhost:5050/api/savedproperties/saved', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

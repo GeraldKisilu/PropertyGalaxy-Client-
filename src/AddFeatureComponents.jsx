@@ -18,7 +18,7 @@ const AddFeatureComponent = ({ propertyId }) => {
     console.log(propertyId);
 
     try {
-      const response = await fetch('http://localhost:5050/features/list', {
+      const response = await fetch('http://localhost:5050/api/features/list', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
