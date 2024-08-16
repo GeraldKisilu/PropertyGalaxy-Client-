@@ -14,7 +14,7 @@ const AddPhotos = ({ propertyId }) => {
     };
     console.log(propertyId);
     try {
-      const response = await fetch('http://127.0.0.1:5050/api/photo/list', {
+      const response = await fetch('https://phase-5-group-project-backend-24.onrender.com/photo/list', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

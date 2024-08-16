@@ -122,7 +122,7 @@ const PaymentForm = () => {
 
         const endpoint = paymentType === 'installments' ? 'confirm-payment' : 'full-payment';
 
-        const response = await fetch(`http://localhost:5050/api/userpayment/${endpoint}`, {
+        const response = await fetch(`https://phase-5-group-project-backend-24.onrender.com/userpayment/${endpoint}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

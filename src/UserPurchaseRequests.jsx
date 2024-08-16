@@ -11,7 +11,7 @@ const UserPurchaseRequest = () => {
     useEffect(() => {
         const fetchRequests = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:5050/api/purchase_request/agent/list/${propertyId}`, {
+                const response = await axios.get(`https://phase-5-group-project-backend-24.onrender.com/purchase_request/agent/list/${propertyId}`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     }
@@ -29,13 +29,13 @@ const UserPurchaseRequest = () => {
 
     const handleStatusChange = async (purchaseRequestId, status) => {
         try {
-            await axios.patch(`http://127.0.0.1:5050/api/purchase_request/agent/${purchaseRequestId}/approve`, {}, {
+            await axios.patch(`https://phase-5-group-project-backend-24.onrender.com/purchase_request/agent/${purchaseRequestId}/approve`, {}, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             });
             // Refresh the list after updating the status
-            const response = await axios.get(`http://127.0.0.1:5050/api/purchase_request/agent/list/${propertyId}`, {
+            const response = await axios.get(`https://phase-5-group-project-backend-24.onrender.com/purchase_request/agent/list/${propertyId}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }

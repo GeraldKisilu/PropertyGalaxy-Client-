@@ -10,7 +10,7 @@ const PropertyPhotos = () => {
   useEffect(() => {
     const fetchPhotos = async () => {
       try {
-        const photosResponse = await fetch(`http://localhost:5050/api/property/${id}/photos`);
+        const photosResponse = await fetch(`https://phase-5-group-project-backend-24.onrender.com/property/${id}/photos`);
         if (!photosResponse.ok) {
           throw new Error('Failed to fetch photos');
         }

@@ -14,7 +14,7 @@ function ReviewList() {
   useEffect(() => {
     async function fetchReviews() {
       try {
-        const response = await axios.get('http://127.0.0.1:5050/api/reviews/gotten'); 
+        const response = await axios.get('https://phase-5-group-project-backend-24.onrender.com/reviews/gotten'); 
         setReviews(response.data.reviews || []);
         setLoading(false);
       } catch (err) {

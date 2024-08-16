@@ -37,7 +37,7 @@ const ContactForm = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5050/api/contact/messages', {
+      const response = await fetch('https://phase-5-group-project-backend-24.onrender.com/contact/messages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

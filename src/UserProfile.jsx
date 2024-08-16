@@ -23,7 +23,7 @@ const UserProfile = () => {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:5050/api/profile/', {
+                const response = await axios.get('https://phase-5-group-project-backend-24.onrender.com/profile/', {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
                         'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ const UserProfile = () => {
         try {
             const token = localStorage.getItem('token');
             if (profileExists) {
-                await axios.put('http://127.0.0.1:5050/api/profile/', profile, {
+                await axios.put('https://phase-5-group-project-backend-24.onrender.com/profile/', profile, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
                         'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ const UserProfile = () => {
         if (window.confirm("Are you sure you want to delete your profile and account?")) {
             try {
                 const token = localStorage.getItem('token');
-                await axios.delete('http://127.0.0.1:5050/api/profile/', {
+                await axios.delete('https://phase-5-group-project-backend-24.onrender.com/profile/', {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
                         'Content-Type': 'application/json',
