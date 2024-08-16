@@ -90,6 +90,61 @@
     z-index: 10;
   }
   
-  
+  /* Property.css */
+
+.property-list {
+  padding: 20px;
+}
+
+.success-message, .error-message {
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.success-message {
+  background-color: #4caf50; /* Green for success */
+}
+
+.error-message {
+  background-color: #f44336; /* Red for error */
+}
+
+.property-list__cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.property-list__card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.property-photo-container {
+  position: relative;
+}
+
+.sold-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  padding: 5px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.property-actions {
+  margin-top: 10px;
+}
+
+
+
     
   

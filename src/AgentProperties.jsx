@@ -174,7 +174,7 @@ function AgentProperty({ property, onRefresh }) {
           <div className="boosted-properties-grid">
             {boostedProperties.map(property => (
               <div className="boosted-property-item" key={property.id}>
-                <img src={property.imageUrl} alt={property.address} />
+               
                 <p className="legend">{property.address}</p>
                 <p>City: {property.city}</p>
                 <p>Price: ${property.price}</p>

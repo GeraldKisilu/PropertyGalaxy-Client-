@@ -140,6 +140,9 @@ const PaymentForm = () => {
         setErrorMessage('');
         setAmount('');
         setInstallmentAmount('');
+
+        // Clear the success message after 5 seconds
+        setTimeout(() => setResponseMessage(''), 5000);
       } else {
         setErrorMessage('Payment failed. Please try again.');
       }

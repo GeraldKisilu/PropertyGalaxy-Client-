@@ -8,6 +8,12 @@ const UserPurchaseRequest = () => {
     const [requests, setRequests] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(null);
+    const [confirmationDialog, setConfirmationDialog] = useState({
+        open: false,
+        requestId: null,
+        status: null
+    });
 
     useEffect(() => {
         const fetchRequests = async () => {
@@ -42,15 +48,31 @@ const UserPurchaseRequest = () => {
                 }
             });
             setRequests(response.data.purchase_requests || response.data);
+            setSuccess(`Request ${status.toLowerCase()}d successfully.`);
+            setConfirmationDialog({ open: false, requestId: null, status: null });
         } catch (err) {
             setError('Failed to update request status.');
+        } finally {
+            setTimeout(() => {
+                setSuccess(null);
+                setError(null);
+            }, 5000); // Clear message after 5 seconds
         }
     };
 
-    const confirmChange = (purchaseRequestId, status) => {
-        const action = status === 'Approve' ? 'approve' : 'reject';
-        if (window.confirm(`Are you sure you want to ${action} this request?`)) {
-            handleStatusChange(purchaseRequestId, status);
+    const openConfirmationDialog = (purchaseRequestId, status) => {
+        setConfirmationDialog({
+            open: true,
+            requestId: purchaseRequestId,
+            status: status
+        });
+    };
+
+    const handleConfirmation = (confirm) => {
+        if (confirm && confirmationDialog.requestId && confirmationDialog.status) {
+            handleStatusChange(confirmationDialog.requestId, confirmationDialog.status);
+        } else {
+            setConfirmationDialog({ open: false, requestId: null, status: null });
         }
     };
 
@@ -60,6 +82,14 @@ const UserPurchaseRequest = () => {
     return (
         <div className="purchase-request-container">
             <h1>Purchase Requests List</h1>
+            {success && <p className="success-message">{success}</p>}
+            {confirmationDialog.open && (
+                <div className="confirmation-dialog">
+                    <p>Are you sure you want to {confirmationDialog.status.toLowerCase()} this request?</p>
+                    <button onClick={() => handleConfirmation(true)}>Yes</button>
+                    <button onClick={() => handleConfirmation(false)}>No</button>
+                </div>
+            )}
             {requests.length === 0 ? (
                 <p>No requests found.</p>
             ) : (
@@ -85,12 +115,12 @@ const UserPurchaseRequest = () => {
                                         <>
                                             <button 
                                                 className="approve-button" 
-                                                onClick={() => confirmChange(request.id, 'Approve')}>
+                                                onClick={() => openConfirmationDialog(request.id, 'Approve')}>
                                                 Approve
                                             </button>
                                             <button 
                                                 className="reject-button" 
-                                                onClick={() => confirmChange(request.id, 'Reject')}>
+                                                onClick={() => openConfirmationDialog(request.id, 'Reject')}>
                                                 Reject
                                             </button>
                                         </>

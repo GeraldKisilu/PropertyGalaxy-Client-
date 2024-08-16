@@ -52,3 +52,39 @@
     color: #dc3545;
   }
   
+  /* UserPurchaseRequest.css */
+
+.purchase-request-container {
+    padding: 20px;
+}
+
+.success-message, .error-message {
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.success-message {
+    background-color: #4caf50; /* Green for success */
+}
+
+.error-message {
+    background-color: #f44336; /* Red for error */
+}
+
+.confirmation-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.confirmation-dialog button {
+    margin: 5px;
+}
