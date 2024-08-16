@@ -68,7 +68,9 @@ const AgentPaymentForm = ({ listingFeeId }) => {
           {loading ? 'Processing...' : 'Pay Now'}
         </button>
       </form>
+      
     </div>
+    
   );
 }
 export default AgentPaymentForm;

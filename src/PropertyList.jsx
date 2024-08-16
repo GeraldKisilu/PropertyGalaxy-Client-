@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import './Property.css';
 import PhotosComponent from './PhotosComponent';
 import { useRefresh } from './RefreshContext';
+import Navbar from './Navbar';
+
 
 const PropertyList = ({ userId }) => {
   const { refresh } = useRefresh();
@@ -10,6 +12,7 @@ const PropertyList = ({ userId }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -70,6 +73,7 @@ const PropertyList = ({ userId }) => {
 
   return (
     <div className="property-list">
+      <Navbar />
       <Link to='/favourites-page'>Saved </Link>
       <h1>Properties</h1>
       <div className="property-list__cards">

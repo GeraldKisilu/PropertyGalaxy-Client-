@@ -1,12 +1,12 @@
-import React from 'react'
-import HomePage from './HomePage'
+import React from 'react';
+import HomePage from './HomePage';
 
 function UserDashboard() {
   return (
     <div>
-        <HomePage/>
+      <HomePage />
     </div>
-  )
+  );
 }
 
-export default UserDashboard
+export default UserDashboard;

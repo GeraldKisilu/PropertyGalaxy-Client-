@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Navbar from './Navbar';
 
 const ReviewForm = () => {
     const [rating, setRating] = useState(0);
@@ -43,6 +44,7 @@ const ReviewForm = () => {
 
     return (
         <div>
+            <Navbar />
             <h2>Submit a Review</h2>
             <form onSubmit={handleSubmit}>
                 <div>

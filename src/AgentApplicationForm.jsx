@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './AgentApplicationForm.css'; 
+import Navbar from './Navbar';
 
 const AgentApplicationForm = () => {
     const [formData, setFormData] = useState({
@@ -55,6 +56,7 @@ const AgentApplicationForm = () => {
 
     return (
         <div className="agent-application-form">
+            <Navbar />
             <h1 className="form-heading">Apply to Become an Agent</h1>
             {success && <p className="form-success">{success}</p>}
             {error && <p className="form-error">{error}</p>}

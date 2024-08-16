@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Navbar from './Navbar';
 
 
 const AgentApplication = () => {
@@ -56,6 +57,7 @@ const AgentApplication = () => {
 
     return (
         <div>
+            <Navbar />
             <h1>Applications List</h1>
             {applications.length === 0 ? (
                 <p>No applications found.</p>

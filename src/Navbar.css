@@ -1,0 +1,82 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff; 
+    padding: 0 30px; 
+    height: 60px; 
+    color: rgb(0, 0, 0); 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    width: 100%; 
+    position: fixed; 
+    top: 0;
+    left: 0; 
+    z-index: 1000; 
+}
+
+.app-name {
+    font-size: 24px; 
+    font-weight: bold; 
+}
+
+.navbar-links a {
+    text-decoration: none;
+    color: #333;
+    padding: 10px;
+    transition: color 0.3s ease;
+}
+
+.navbar-links:hover{
+    box-shadow: 2px 3px 4px black;
+    color: #555;
+
+}
+
+.active-link {
+    font-weight: bold;
+    color: #007bff; 
+}
+
+.navbar-links a {
+    color: rgb(0, 0, 0);
+    text-decoration: none; 
+    font-size: 16px; 
+    transition: color 0.3s; 
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center; 
+}
+
+.navbar-logo {
+    height: 55px; 
+    width: auto; 
+    margin-right: 10px;
+}
+
+
+
+.navbar-links a.active {
+    font-weight: bold; 
+    border-bottom: 2px solid #ffffff;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column; 
+        align-items: flex-start;
+        height: auto; 
+    }
+
+    .navbar-links {
+        flex-direction: column; 
+        width: 100%; 
+    }
+
+    .navbar-links a {
+        padding: 10px 0; 
+        width: 100%; 
+        text-align: center; 
+    }
+}
