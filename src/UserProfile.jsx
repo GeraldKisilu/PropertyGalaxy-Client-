@@ -97,6 +97,9 @@ const UserProfile = () => {
 
     return (
         <div>
+            <button onClick={() => navigate(-1)} style={{ marginBottom: '20px' }}>
+                Back
+            </button>
             <h2>User Profile</h2>
             {profileExists ? (
                 <div>

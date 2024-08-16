@@ -1,4 +1,9 @@
 import React, { useState } from 'react';
+
+
+import Navbar from './Navbar';
+// import React, { useState, useEffect } from 'react';
+
 import ReviewList from './ReviewList';
 import './ReviewForm.css';
 
@@ -55,12 +60,22 @@ const ReviewForm = () => {
     };
 
     return (
+
         <div className="review-form-container">
             <h2 className="review-form-title">Submit a Review</h2>
             <form onSubmit={handleSubmit} className="review-form">
                 <div className="form-group">
                     <label className="form-label">Rating:</label>
                     <div className="rating-stars">
+
+        <div>
+            <Navbar />
+            <h2>Submit a Review</h2>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label>Rating:</label>
+                    <div style={{ display: 'inline-block' }}>
+
                         {[1, 2, 3, 4, 5].map((index) => (
                             <span
                                 key={index}

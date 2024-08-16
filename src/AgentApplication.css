@@ -1,0 +1,54 @@
+.application-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.application-heading {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.application-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.application-table th,
+.application-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.application-table th {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.application-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.application-button {
+    margin: 0 5px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background: #c78880;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    margin: 10px;
+}
+
+.application-button:hover {
+    background-color: #333;
+}

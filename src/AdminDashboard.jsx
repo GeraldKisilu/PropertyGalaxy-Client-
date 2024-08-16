@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import SingleUser from './SingleUser';
+import SingleUser from './SingleUser'; 
+import Navbar from './Navbar';
 import './AdminDashboard.css'; 
 
 const AdminDashboard = () => {
@@ -63,6 +64,7 @@ const AdminDashboard = () => {
   }
 
   return (
+
     <div className="dashboard-container">
       <button className="dashboard-button" onClick={handleApplications}>
         Agent Applications
@@ -87,21 +89,26 @@ const AdminDashboard = () => {
           </thead>
           <tbody>
             {users.length === 0 ? (
-              <tr>
-                <td colSpan="7">No users found</td>
-              </tr>
-            ) : (
-              users.map(user => (
-                <SingleUser
-                  key={user.id}
-                  user={user}
-                  onDeactivate={handleDeactivate}
-                  onReactivate={handleReactivate}
-                />
-              ))
-            )}
-          </tbody>
-        </table>
+
+    <div>
+      <Navbar />
+      
+                <tr>
+                  <td colSpan="7">No users found</td>
+                </tr>
+              ) : (
+                users.map(user => (
+                  <SingleUser
+                    key={user.id}
+                    user={user}
+                    onDeactivate={handleDeactivate}
+                    onReactivate={handleReactivate}
+                  />
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

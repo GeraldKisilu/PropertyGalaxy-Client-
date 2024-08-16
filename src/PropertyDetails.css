@@ -3,6 +3,7 @@
 
 /* General styling */
 .property-details {
+
   padding: 20px;
   max-width: 900px; /* Limit the width of the container */
   margin: 0 auto; /* Center the container horizontally */
@@ -189,4 +190,5 @@
   font-weight: bold;
   color: #333;
 }
+
 

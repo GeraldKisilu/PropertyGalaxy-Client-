@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './FavoritesPage.css';
+import Navbar from './Navbar';
 
 function FavoritesPage() {
   const [savedProperties, setSavedProperties] = useState([]);
@@ -46,6 +47,7 @@ function FavoritesPage() {
 
   return (
     <div className="favorites-page">
+      <Navbar />
       <h1 className="favorites-header">Your Favorite Properties</h1>
       {savedProperties.length === 0 ? (
         <p className="favorites-empty">You have no favorite properties yet.</p>

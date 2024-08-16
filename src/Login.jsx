@@ -20,8 +20,6 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-
     fetch('http://127.0.0.1:5050/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -36,20 +34,19 @@ function Login() {
       })
       .then(data => {
         if (data.token) {
-          console.log(data);
           setToastMessage('User Successfully logged in!');
           setShowToast(true);
           localStorage.setItem("token", data.token);
           localStorage.setItem("refresh_token", data.refresh_token);
           localStorage.setItem("userId", data.userId);
 
-          // Check user's role and navigate accordingly
+          // Navigate based on user role
           if (data.role_id === 1) {
-            navigate('/admin-dashboard'); // Admin route
+            navigate('/admin-dashboard');
           } else if (data.role_id === 2) {
             navigate('/agent-dashboard');
           } else {
-            navigate('/user-dashboard'); // Regular user route
+            navigate('/user-dashboard');
           }
         } else {
           setToastMessage(data.msg || 'Login failed');
@@ -61,13 +58,10 @@ function Login() {
         setToastMessage('Error: ' + error.message);
         setShowToast(true);
       });
-    
-    }
+  };
 
   return (
-    <div>
     <div style={{
-      // backgroundImage: 'url(src/assets/Images/technology-background-1632715.jpg)',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       display: 'flex',
@@ -158,15 +152,14 @@ function Login() {
         </form>
         <div style={{ marginTop: '1.5em', fontSize: '0.9em' }}>
           <Link to='/forgot-password' style={{
+            color: '#007bff',
             textDecoration: 'none',
             fontWeight: 'bold',
-            backgroundColor: '#fff',
           }}>Forgot Password?</Link>
           <br />
           <Link to='/register' style={{
             textDecoration: 'none',
             fontWeight: 'bold',
-            backgroundColor: '#fff'
           }}>DON'T HAVE AN ACCOUNT?</Link>
         </div>
 
@@ -184,7 +177,7 @@ function Login() {
               borderRadius: '5px',
               padding: '0.75em',
             }}>
-              <strong style={{ display: 'block', marginBottom: '0.5em' }}>Login Notification</strong>
+              <strong style={{ display: 'block', marginBottom: '0.5em' }}>Notification</strong>
               <small style={{ display: 'block', marginBottom: '0.5em' }}>Just now</small>
               <button type="button" onClick={() => setShowToast(false)} style={{
                 background: 'none',
@@ -200,7 +193,6 @@ function Login() {
           </div>
         )}
       </div>
-    </div>
     </div>
   );
 }
