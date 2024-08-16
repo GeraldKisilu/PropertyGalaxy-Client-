@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from './Navbar';
 
+import './AgentApplication.css'; 
 
 const AgentApplication = () => {
     const [applications, setApplications] = useState([]);
@@ -59,10 +60,12 @@ const AgentApplication = () => {
         <div>
             <Navbar />
             <h1>Applications List</h1>
+        <div className="application-container">
+            <h1 className="application-heading">Applications List</h1>
             {applications.length === 0 ? (
                 <p>No applications found.</p>
             ) : (
-                <table>
+                <table className="application-table">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -90,13 +93,18 @@ const AgentApplication = () => {
                                 <td>{application.agency_name}</td>
                                 <td>{application.status}</td>
                                 <td>
-                                    <button onClick={() => confirmChange(application.id, 'approved')}>
+                                    <button
+                                        className="application-button"
+                                        onClick={() => confirmChange(application.id, 'approved')}
+                                    >
                                         Approve
                                     </button>
-                                    <button onClick={() => confirmChange(application.id, 'rejected')}>
+                                    <button
+                                        className="application-button"
+                                        onClick={() => confirmChange(application.id, 'rejected')}
+                                    >
                                         Reject
                                     </button>
-                                    
                                 </td>
                             </tr>
                         ))}

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 import './HomePage.css';
 import BoostButton from './BoostButton';
 import Notification from './Notification';
@@ -47,12 +49,15 @@ const HomePage = () => {
         }
     };
 
+   
     const handleSearch = () => {
         if (location) {
             navigate(`/search/property/city/${encodeURIComponent(location)}`);
         } else {
             console.warn('No location provided');
         }
+        // Navigate to PropertySearched component with the city as a URL parameter
+        navigate(`/properties/search/${location}`);
     };
 
     const handleChange = (event) => {
@@ -212,6 +217,15 @@ const HomePage = () => {
                                 We offer professional consulting services to help you make informed decisions about your property investments.
                             </p>
                         </div>
+                            <div className="service-card">
+                                <div className="card-icon">
+                                    <img src={icon2} alt="Service Icon" />
+                                </div>
+                                
+                                 <Link to="/agents">Sell Property</Link>
+
+                                <p className="card-text">Our property management services ensure that your real estate assets are well-maintained and profitable.</p>
+                                <Link to="/agents" className="service-button">Read More</Link>
 
                         <div className="service-card">
                             <div className="card-icon">
@@ -228,6 +242,13 @@ const HomePage = () => {
                         <div className="service-card">
                             <div className="card-icon">
                                 <img src={icon3} alt="Service Icon" />
+                            <div className="service-card">
+                                <div className="card-icon">
+                                    <img src={icon3} alt="Service Icon" />
+                                </div>
+                                <Link to="/rentals">Rentals</Link>
+                                <p className="card-text">We provide in-depth market analysis to help you understand the real estate trends and make the right investment choices.</p>
+                                <Link to="/rental" className="service-button">Read More</Link>
                             </div>
                             <h3 className="card-title">
                                 <Link to="/properties">Sell Property</Link>

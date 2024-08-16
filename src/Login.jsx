@@ -167,6 +167,33 @@ function Login() {
               fontWeight: 'bold',
             }}>DON'T HAVE AN ACCOUNT?</Link>
           </div>
+          <button type="submit" style={{
+            width: '100%',
+            padding: '0.75em',
+            border: 'none',
+            borderRadius: '30px',
+            background: '#c78880',
+            color: '#fff',
+            fontWeight: '600',
+            fontSize: '1em',
+            cursor: 'pointer',
+            transition: 'background 0.3s ease',
+            marginTop: '1em',
+          }}>Login</button>
+        </form>
+        <div style={{ marginTop: '1.5em', fontSize: '0.9em' }}>
+          <Link to='/forgot-password' style={{
+            textDecoration: 'none',
+            fontWeight: 'bold',
+            backgroundColor: '#fff',
+          }}>Forgot Password?</Link>
+          <br />
+          <Link to='/register' style={{
+            textDecoration: 'none',
+            fontWeight: 'bold',
+            backgroundColor: '#fff'
+          }}>DON'T HAVE AN ACCOUNT?</Link>
+        </div>
 
           {/* Toast Notification */}
           {showToast && (

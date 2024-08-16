@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import './UserPurchaseRequest.css'; // Import the CSS file for styling
 
 const UserPurchaseRequest = () => {
-    const { propertyId } = useParams(); // Call useParams as a function
+    const { propertyId } = useParams();
     const [requests, setRequests] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -16,7 +17,7 @@ const UserPurchaseRequest = () => {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     }
                 });
-                setRequests(response.data.purchase_requests || response.data); // Adjust based on actual response structure
+                setRequests(response.data.purchase_requests || response.data);
             } catch (err) {
                 setError('Failed to fetch requests.');
             } finally {
@@ -25,7 +26,7 @@ const UserPurchaseRequest = () => {
         };
 
         fetchRequests();
-    }, [propertyId]); // Add propertyId as a dependency
+    }, [propertyId]);
 
     const handleStatusChange = async (purchaseRequestId, status) => {
         try {
@@ -40,28 +41,29 @@ const UserPurchaseRequest = () => {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             });
-            setRequests(response.data.purchase_requests || response.data); // Adjust based on actual response structure
+            setRequests(response.data.purchase_requests || response.data);
         } catch (err) {
             setError('Failed to update request status.');
         }
     };
 
     const confirmChange = (purchaseRequestId, status) => {
-        if (window.confirm(`Are you sure you want to ${status} this request?`)) {
+        const action = status === 'Approve' ? 'approve' : 'reject';
+        if (window.confirm(`Are you sure you want to ${action} this request?`)) {
             handleStatusChange(purchaseRequestId, status);
         }
     };
 
     if (loading) return <p>Loading...</p>;
-    if (error) return <p>{error}</p>;
+    if (error) return <p className="error-message">{error}</p>;
 
     return (
-        <div>
+        <div className="purchase-request-container">
             <h1>Purchase Requests List</h1>
             {requests.length === 0 ? (
                 <p>No requests found.</p>
             ) : (
-                <table>
+                <table className="requests-table">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -81,10 +83,14 @@ const UserPurchaseRequest = () => {
                                 <td>
                                     {request.status === 'Pending' && (
                                         <>
-                                            <button onClick={() => confirmChange(request.id, 'Approve')}>
+                                            <button 
+                                                className="approve-button" 
+                                                onClick={() => confirmChange(request.id, 'Approve')}>
                                                 Approve
                                             </button>
-                                            <button onClick={() => confirmChange(request.id, 'Reject')}>
+                                            <button 
+                                                className="reject-button" 
+                                                onClick={() => confirmChange(request.id, 'Reject')}>
                                                 Reject
                                             </button>
                                         </>
